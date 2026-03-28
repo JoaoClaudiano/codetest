@@ -1,514 +1,100 @@
 <!DOCTYPE html>
 <html lang="pt-BR" itemscope itemtype="https://schema.org/WebApplication">
 <head>
-    <!-- SEO Completo -->
+    <!-- Dark mode FOUC fix — antes do CSS ser aplicado -->
+    <script>
+        (function () {
+            var s = localStorage.getItem('theme');
+            var p = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (s === 'dark' || (!s && p)) document.documentElement.classList.add('dark');
+        }());
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
+
     <title>Testador de HTML Online | Validador de Código HTML Gratuito</title>
     <meta name="description" content="Ferramenta gratuita para testar e validar código HTML online. Visualize resultados, analise erros, acessibilidade e SEO em tempo real.">
     <meta name="keywords" content="testador html, validador html, html online, visualizador html, analisador html, html checker, seo html, acessibilidade html">
-    
-    <meta name="google-adsense-account" content="ca-pub-2518079690291956">
-    
-    <!-- Google Analytics 4 (GA4) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RYCB08HG48"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-RYCB08HG48');
-    </script>
-    
-    <!-- Google Search Console verification -->
-    <meta name="google-site-verification" content="google8df277a1c3c466cf" />
-    
-    <!-- Bing Webmaster Tools -->
-    <meta name="msvalidate.01" content="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" />
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2518079690291956"
-     crossorigin="anonymous"></script>
-  
+
     <!-- Open Graph -->
     <meta property="og:title" content="Testador de HTML Online Gratuito">
     <meta property="og:description" content="Valide código HTML online com análise de erros, acessibilidade e SEO.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://joaoclaudiano.github.io/html-teste/">
-    
-    <!-- Canonical -->
+    <meta property="og:image" content="https://joaoclaudiano.github.io/html-teste/favicon.png">
+
+    <!-- SEO -->
     <link rel="canonical" href="https://joaoclaudiano.github.io/html-teste/">
-    
-    <!-- Icons -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔍</text></svg>">
-    
-    <!-- CSS -->
-    <style>
-        /* Reset básico */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        :root {
-            --primary: #4361ee;
-            --primary-dark: #3a56d4;
-            --secondary: #6c757d;
-            --light: #f8f9fa;
-            --dark: #212529;
-            --border: #dee2e6;
-            --editor-bg: #ffffff;
-            --text: #333;
-        }
-        
-        body.dark {
-            --light: #121212;
-            --dark: #e9ecef;
-            --border: #444;
-            --editor-bg: #1e1e1e;
-            --text: #e0e0e0;
-        }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: var(--light);
-            color: var(--text);
-            line-height: 1.5;
-            min-height: 100vh;
-            transition: background 0.3s, color 0.3s;
-        }
-        
-        /* Container principal */
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
-        
-        /* Header minimalista */
-        .header {
-            background: var(--primary);
-            color: white;
-            padding: 0.8rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .header h1 {
-            font-size: 1.3rem;
-            font-weight: 600;
-        }
-        
-        /* Controles */
-        .controls {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        /* Layout switcher */
-        .layout-switcher {
-            display: flex;
-            background: rgba(255,255,255,0.1);
-            border-radius: 4px;
-            padding: 2px;
-        }
-        
-        .layout-btn {
-            padding: 5px 10px;
-            background: transparent;
-            border: none;
-            color: white;
-            cursor: pointer;
-            font-size: 0.8rem;
-            border-radius: 2px;
-            transition: background 0.3s;
-        }
-        
-        .layout-btn.active {
-            background: rgba(255,255,255,0.2);
-        }
-        
-        /* Dark mode toggle */
-        .dark-toggle {
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.3);
-            color: white;
-            width: 34px;
-            height: 34px;
-            border-radius: 4px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        /* Main content */
-        .main-content {
-            display: flex;
-            gap: 20px;
-            padding: 20px 0;
-            min-height: calc(100vh - 160px);
-        }
-        
-        /* Anúncios laterais (apenas desktop) */
-        .ad-sidebar {
-            width: 160px;
-            flex-shrink: 0;
-            display: none;
-        }
-        
-        @media (min-width: 992px) {
-            .ad-sidebar {
-                display: block;
-            }
-        }
-        
-        .ad-container {
-            background: var(--light);
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            overflow: hidden;
-            position: sticky;
-            top: 100px;
-            min-height: 600px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--secondary);
-            font-size: 0.9rem;
-        }
-        
-        .ad-label {
-            position: absolute;
-            top: 5px;
-            left: 5px;
-            font-size: 0.7rem;
-            color: var(--secondary);
-            background: rgba(0,0,0,0.05);
-            padding: 2px 6px;
-            border-radius: 3px;
-        }
-        
-        /* Área principal */
-        .main-area {
-            flex: 1;
-            min-width: 0;
-        }
-        
-        /* Layouts */
-        .split-layout {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            height: 600px;
-        }
-        
-        .stacked-layout {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-        
-        @media (max-width: 768px) {
-            .split-layout {
-                grid-template-columns: 1fr;
-                height: auto;
-            }
-        }
-        
-        /* Editor e Preview */
-        .editor, .preview {
-            background: var(--editor-bg);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .section-header {
-            padding: 10px 15px;
-            background: rgba(0,0,0,0.02);
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .section-header h3 {
-            font-size: 0.95rem;
-            font-weight: 500;
-            color: var(--text);
-        }
-        
-        /* Editor textarea */
-        textarea.code-editor {
-            flex: 1;
-            padding: 15px;
-            border: none;
-            background: transparent;
-            color: var(--text);
-            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-            font-size: 13px;
-            line-height: 1.5;
-            resize: none;
-            outline: none;
-            tab-size: 4;
-        }
-        
-        /* Preview iframe */
-        .preview iframe {
-            flex: 1;
-            border: none;
-            background: white;
-            width: 100%;
-        }
-        
-        /* Botões de ação */
-        .editor-actions {
-            padding: 10px 15px;
-            border-top: 1px solid var(--border);
-            display: flex;
-            gap: 10px;
-        }
-        
-        .btn {
-            padding: 8px 16px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 500;
-            font-size: 0.85rem;
-            transition: all 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-        }
-        
-        .btn-primary {
-            background: var(--primary);
-            color: white;
-        }
-        
-        .btn-primary:hover {
-            background: var(--primary-dark);
-            transform: translateY(-1px);
-        }
-        
-        .btn-secondary {
-            background: var(--secondary);
-            color: white;
-        }
-        
-        .btn-secondary:hover {
-            background: #5a6268;
-        }
-        
-        .btn-danger {
-            background: #dc3545;
-            color: white;
-        }
-        
-        .btn-danger:hover {
-            background: #c82333;
-        }
-        
-        /* Anúncio mobile bottom */
-        .ad-mobile-bottom {
-            margin: 20px 0;
-            display: none;
-        }
-        
-        @media (max-width: 991px) {
-            .ad-mobile-bottom {
-                display: block;
-            }
-        }
-        
-        .ad-horizontal {
-            background: var(--light);
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            padding: 20px;
-            min-height: 90px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--secondary);
-            text-align: center;
-        }
-        
-        /* Resultados */
-        .results-section {
-            margin: 30px 0;
-            padding: 20px;
-            background: var(--editor-bg);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-        }
-        
-        .results-section h2 {
-            margin-bottom: 15px;
-            font-size: 1.1rem;
-            color: var(--text);
-        }
-        
-        .results-container {
-            display: grid;
-            gap: 10px;
-        }
-        
-        .result-item {
-            padding: 12px 15px;
-            border-left: 4px solid var(--secondary);
-            background: var(--light);
-            border-radius: 4px;
-        }
-        
-        .result-item.error { border-color: #dc3545; }
-        .result-item.warning { border-color: #ffc107; }
-        .result-item.success { border-color: #28a745; }
-        
-        .result-item h3 {
-            font-size: 0.95rem;
-            margin-bottom: 5px;
-        }
-        
-        .result-item p {
-            font-size: 0.85rem;
-            color: var(--secondary);
-        }
-        
-        /* Footer */
-        .footer {
-            background: var(--dark);
-            color: white;
-            padding: 30px 0 20px;
-            margin-top: 40px;
-        }
-        
-        .footer-content {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            gap: 30px;
-            margin-bottom: 20px;
-        }
-        
-        .footer-section {
-            flex: 1;
-            min-width: 200px;
-        }
-        
-        .footer-section h3 {
-            font-size: 1rem;
-            margin-bottom: 15px;
-            color: white;
-        }
-        
-        .footer-links {
-            list-style: none;
-        }
-        
-        .footer-links li {
-            margin-bottom: 8px;
-        }
-        
-        .footer-links a {
-            color: #adb5bd;
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: color 0.2s;
-        }
-        
-        .footer-links a:hover {
-            color: white;
-            text-decoration: underline;
-        }
-        
-        .footer-bottom {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            color: #adb5bd;
-            font-size: 0.85rem;
-        }
-        
-        /* Botão subir */
-        #scrollToTop {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            cursor: pointer;
-            display: none;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-            transition: all 0.3s;
-        }
-        
-        #scrollToTop:hover {
-            background: var(--primary-dark);
-            transform: scale(1.1);
-        }
-        
-        /* Responsividade */
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                gap: 10px;
-                text-align: center;
-            }
-            
-            .controls {
-                justify-content: center;
-            }
-            
-            .main-content {
-                flex-direction: column;
-            }
-            
-            .footer-content {
-                flex-direction: column;
-                text-align: center;
-            }
-        }
-    </style>
-    
-    <!-- Google Adsense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+    <meta name="robots" content="index, follow">
+    <meta name="google-site-verification" content="google8df277a1c3c466cf">
+    <meta name="msvalidate.01" content="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX">
+
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="alternate icon" href="favicon.png">
+    <link rel="manifest" href="site.webmanifest">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- CodeMirror 5 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/monokai.min.css" crossorigin="anonymous">
+
+    <!-- App CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RYCB08HG48"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-RYCB08HG48', { transport_type: 'beacon' });
+    </script>
+
+    <!-- AdSense -->
+    <meta name="google-adsense-account" content="ca-pub-2518079690291956">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2518079690291956" crossorigin="anonymous"></script>
+
+    <!-- Schema.org -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Testador de HTML Online",
+        "url": "https://joaoclaudiano.github.io/html-teste/",
+        "description": "Ferramenta gratuita para testar e validar código HTML online",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Web",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "BRL" }
+    }
+    </script>
 </head>
 <body>
 
 <!-- Header -->
-<header class="header">
+<header class="header" role="banner">
     <div class="container">
         <div class="header-content">
-            <h1>🔍 Testador HTML Online</h1>
-            <div class="controls">
-                <div class="layout-switcher">
-                    <button class="layout-btn active" data-layout="split" title="Lado a lado">
-                        ⇄
-                    </button>
-                    <button class="layout-btn" data-layout="stacked" title="Empilhado">
-                        ⇅
-                    </button>
+            <a href="/html-teste/" class="header-brand" aria-label="Testador HTML Online — página inicial">
+                🔍 Testador HTML Online
+            </a>
+            <nav class="header-nav" aria-label="Navegação principal">
+                <a href="sobre.html">Sobre</a>
+            </nav>
+            <div class="header-controls">
+                <div class="layout-switcher" role="group" aria-label="Modo de visualização">
+                    <button class="layout-btn active" data-layout="split"
+                            aria-label="Layout lado a lado" title="Lado a lado">⇄</button>
+                    <button class="layout-btn" data-layout="stacked"
+                            aria-label="Layout empilhado" title="Empilhado">⇅</button>
                 </div>
-                <button class="dark-toggle" id="darkToggle" title="Alternar tema">
-                    🌙
-                </button>
+                <button class="icon-btn" id="darkToggle" aria-label="Ativar modo escuro" title="Alternar tema">🌙</button>
             </div>
         </div>
     </div>
@@ -517,150 +103,178 @@
 <!-- Conteúdo principal -->
 <div class="container">
     <div class="main-content">
-        
-        <!-- Anúncio lateral esquerdo (apenas desktop) -->
-        <aside class="ad-sidebar ad-left">
+
+        <!-- Anúncio lateral esquerdo (somente desktop) -->
+        <aside class="ad-sidebar" aria-label="Publicidade">
             <div class="ad-container">
                 <div class="ad-label">Anúncio</div>
-                <!-- Google AdSense (Desktop - 160x600) -->
                 <ins class="adsbygoogle"
                      style="display:inline-block;width:160px;height:600px"
-                     data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                     data-ad-client="ca-pub-2518079690291956"
                      data-ad-slot="1234567890"></ins>
             </div>
         </aside>
-        
+
         <!-- Área principal -->
-        <main class="main-area">
+        <main class="main-area" role="main" id="main">
+
+            <!-- Editor + Preview -->
             <div class="split-layout" id="editorPreviewArea">
-                
-                <!-- Editor -->
-                <section class="editor">
-                    <div class="section-header">
-                        <h3>Editor HTML</h3>
-                        <div style="display: flex; gap: 5px;">
-                            <button class="btn btn-secondary" onclick="formatCode()" title="Formatar código" style="padding: 4px 8px; font-size: 0.8rem;">
-                                ⎘
-                            </button>
-                            <button class="btn btn-secondary" onclick="insertTemplate()" title="Inserir template" style="padding: 4px 8px; font-size: 0.8rem;">
-                                📋
-                            </button>
+
+                <!-- Painel do editor -->
+                <section class="panel editor-panel" aria-label="Editor de código">
+                    <div class="panel-header">
+                        <div class="panel-tabs" role="tablist" aria-label="Linguagem do editor">
+                            <button class="tab-btn active" role="tab" aria-selected="true"
+                                    aria-controls="editor-html" id="tab-html" data-tab="html">HTML</button>
+                            <button class="tab-btn" role="tab" aria-selected="false"
+                                    aria-controls="editor-css" id="tab-css" data-tab="css">CSS</button>
+                            <button class="tab-btn" role="tab" aria-selected="false"
+                                    aria-controls="editor-js" id="tab-js" data-tab="js">JS</button>
+                        </div>
+                        <div class="panel-actions">
+                            <button class="icon-btn" id="btnAutoAnalyze"
+                                    aria-pressed="false" title="Ativar análise automática"
+                                    aria-label="Ativar análise automática" style="opacity:0.6">⚡</button>
+                            <button class="icon-btn" onclick="formatCode()"
+                                    title="Formatar código" aria-label="Formatar código">⎘</button>
+                            <button class="icon-btn" onclick="insertTemplate()"
+                                    title="Inserir template HTML" aria-label="Inserir template">📋</button>
                         </div>
                     </div>
-                    <textarea class="code-editor" id="htmlInput" 
-                              placeholder="<!DOCTYPE html>
-<html lang='pt-BR'>
-<head>
-    <meta charset='UTF-8'>
-    <title>Minha Página</title>
-</head>
-<body>
-    <!-- Cole seu HTML aqui -->
-</body>
-</html>" 
-                              spellcheck="false"></textarea>
+
+                    <div class="editor-container">
+                        <div id="editor-html" role="tabpanel" aria-labelledby="tab-html" class="editor-tab active">
+                            <div id="cmHtml"></div>
+                        </div>
+                        <div id="editor-css" role="tabpanel" aria-labelledby="tab-css" class="editor-tab" hidden>
+                            <div id="cmCss"></div>
+                        </div>
+                        <div id="editor-js" role="tabpanel" aria-labelledby="tab-js" class="editor-tab" hidden>
+                            <div id="cmJs"></div>
+                        </div>
+                    </div>
+
                     <div class="editor-actions">
-                        <button class="btn btn-primary" onclick="analyzeHTML()">
-                            🔍 Analisar
-                        </button>
-                        <button class="btn btn-secondary" onclick="loadExample()">
-                            📄 Exemplo
-                        </button>
-                        <button class="btn btn-danger" onclick="clearEditor()">
-                            🗑️ Limpar
-                        </button>
+                        <button class="btn btn-primary" onclick="analyzeHTML()">🔍 Analisar</button>
+                        <button class="btn btn-secondary" onclick="loadExample()">📄 Exemplo</button>
+                        <button class="btn btn-secondary" onclick="exportHTML()" title="Baixar como arquivo .html">💾 Exportar</button>
+                        <button class="btn btn-secondary" onclick="shareCode()" title="Copiar link compartilhável">🔗 Compartilhar</button>
+                        <button class="btn btn-danger" onclick="clearEditor()">🗑️ Limpar</button>
                     </div>
                 </section>
-                
-                <!-- Preview -->
-                <section class="preview">
-                    <div class="section-header">
-                        <h3>Visualização</h3>
-                        <button class="btn btn-secondary" onclick="openFullscreen()" style="padding: 6px 12px; font-size: 0.8rem;">
-                            📺 Tela Cheia
-                        </button>
+
+                <!-- Painel de preview -->
+                <section class="panel preview-panel" aria-label="Pré-visualização">
+                    <div class="panel-header">
+                        <h2 class="panel-title">Visualização</h2>
+                        <div class="viewport-controls" role="group" aria-label="Tamanho da tela simulada">
+                            <button class="viewport-btn" data-width="375"
+                                    title="Mobile (375px)" aria-label="Simular mobile (375px)">📱</button>
+                            <button class="viewport-btn" data-width="768"
+                                    title="Tablet (768px)" aria-label="Simular tablet (768px)">💻</button>
+                            <button class="viewport-btn active" data-width="100%"
+                                    title="Desktop (100%)" aria-label="Tela cheia">🖥️</button>
+                            <button class="icon-btn panel-actions" onclick="openFullscreen()"
+                                    title="Abrir em nova aba" aria-label="Abrir em nova aba"
+                                    style="background:transparent;border-color:var(--border-color);color:var(--text-muted)">↗️</button>
+                        </div>
                     </div>
-                    <iframe id="previewFrame" sandbox="allow-scripts allow-same-origin"></iframe>
+                    <div class="preview-container" id="previewContainer">
+                        <!-- sandbox sem allow-same-origin — mais seguro -->
+                        <iframe id="previewFrame"
+                                sandbox="allow-scripts"
+                                title="Pré-visualização do HTML inserido"
+                                aria-label="Pré-visualização"></iframe>
+                    </div>
                 </section>
-                
+
             </div>
-            
-            <!-- Anúncio mobile (apenas mobile) -->
-            <div class="ad-mobile-bottom">
-                <div class="ad-horizontal">
-                    <div class="ad-label">Anúncio</div>
-                    <!-- Google AdSense (Mobile - 320x100) -->
-                    <ins class="adsbygoogle"
-                         style="display:inline-block;width:320px;height:100px"
-                         data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
-                         data-ad-slot="0987654321"></ins>
+
+            <!-- Anúncio mobile (somente mobile) -->
+            <div class="ad-mobile" aria-label="Publicidade">
+                <div class="ad-label">Anúncio</div>
+                <ins class="adsbygoogle"
+                     style="display:inline-block;width:320px;height:100px"
+                     data-ad-client="ca-pub-2518079690291956"
+                     data-ad-slot="0987654321"></ins>
+            </div>
+
+            <!-- Resultados da análise -->
+            <section class="results-section" aria-labelledby="results-heading">
+                <h2 id="results-heading">📊 Resultados da Análise</h2>
+                <div class="results-container" id="resultsContainer"
+                     role="status" aria-live="polite" aria-atomic="false">
+                    <div class="result-placeholder">
+                        <p>Cole seu código HTML e clique em <strong>Analisar</strong> para ver os resultados.</p>
+                    </div>
                 </div>
-            </div>
-            
-            <!-- Resultados -->
-            <section class="results-section">
-                <h2>📊 Resultados da Análise</h2>
-                <div class="results-container" id="resultsContainer">
-                    <div class="result-item">
-                        <h3>Pronto para analisar</h3>
-                        <p>Cole seu código HTML e clique em "Analisar" para ver os resultados</p>
-                    </div>
+                <div class="results-actions" id="resultsActions" style="display:none">
+                    <button class="btn btn-secondary btn-sm" onclick="validateW3C()">
+                        🌐 Validar no W3C
+                    </button>
                 </div>
             </section>
-            
+
+            <!-- Histórico de análises -->
+            <section class="history-section" aria-labelledby="history-heading">
+                <div class="history-header">
+                    <h2 id="history-heading">🕒 Histórico de Análises</h2>
+                    <button class="btn btn-secondary btn-sm" onclick="clearHistory()">Limpar</button>
+                </div>
+                <div id="historyContainer" class="history-container">
+                    <p class="history-empty">Nenhuma análise realizada ainda.</p>
+                </div>
+            </section>
+
         </main>
-        
-        <!-- Anúncio lateral direito (apenas desktop) -->
-        <aside class="ad-sidebar ad-right">
+
+        <!-- Anúncio lateral direito (somente desktop) -->
+        <aside class="ad-sidebar" aria-label="Publicidade">
             <div class="ad-container">
                 <div class="ad-label">Anúncio</div>
-                <!-- Google AdSense (Desktop - 160x600) -->
                 <ins class="adsbygoogle"
                      style="display:inline-block;width:160px;height:600px"
-                     data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                     data-ad-client="ca-pub-2518079690291956"
                      data-ad-slot="1122334455"></ins>
             </div>
         </aside>
-        
+
     </div>
 </div>
 
 <!-- Footer -->
-<footer class="footer">
+<footer class="footer" role="contentinfo">
     <div class="container">
         <div class="footer-content">
             <div class="footer-section">
                 <h3>Testador HTML</h3>
                 <p>Ferramenta gratuita para desenvolvedores web</p>
             </div>
-            
-            <div class="footer-section">
+            <nav class="footer-section" aria-label="Links do site">
                 <h3>Links</h3>
                 <ul class="footer-links">
                     <li><a href="sobre.html">Sobre</a></li>
                     <li><a href="termos.html">Termos de Uso</a></li>
                     <li><a href="privacidade.html">Privacidade</a></li>
                 </ul>
-            </div>
-            
-            <div class="footer-section">
+            </nav>
+            <nav class="footer-section" aria-label="Recursos educacionais">
                 <h3>Recursos</h3>
                 <ul class="footer-links">
                     <li><a href="erros/img-sem-alt.html">Imagens sem ALT</a></li>
                     <li><a href="erros/title-ausente.html">Título Ausente</a></li>
                     <li><a href="erros/meta-description.html">Meta Description</a></li>
                 </ul>
-            </div>
-            
-            <div class="footer-section">
+            </nav>
+            <nav class="footer-section" aria-label="Ajuda e contato">
                 <h3>Ajuda</h3>
                 <ul class="footer-links">
                     <li><a href="mailto:exemplo@email.com">Contato</a></li>
-                    <li><a href="https://validator.w3.org/" target="_blank" rel="nofollow">Validador W3C</a></li>
+                    <li><a href="https://validator.w3.org/" target="_blank" rel="noopener noreferrer">Validador W3C</a></li>
                 </ul>
-            </div>
+            </nav>
         </div>
-        
         <div class="footer-bottom">
             <p>© 2026 Testador de HTML Online. Ferramenta educacional gratuita.</p>
             <p>Este site utiliza cookies e pode exibir anúncios.</p>
@@ -668,331 +282,24 @@
     </div>
 </footer>
 
-<!-- Botão subir -->
-<button id="scrollToTop" onclick="scrollToTop()" title="Voltar ao topo">
-    ↑
-</button>
+<!-- Botão voltar ao topo -->
+<button id="scrollToTop" aria-label="Voltar ao topo" title="Voltar ao topo">↑</button>
 
-<!-- Schema.org -->
-<script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "Testador de HTML Online",
-    "url": "https://joaoclaudiano.github.io/html-teste/",
-    "description": "Ferramenta para testar e validar código HTML online",
-    "applicationCategory": "DeveloperApplication",
-    "offers": {
-        "@type": "Offer",
-        "price": "0"
-    }
-}
-</script>
+<!-- LZ-String: compressão para compartilhamento via URL -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.4.4/lz-string.min.js" crossorigin="anonymous"></script>
 
-<!-- Scripts -->
-<script>
-    // Layout switcher
-    const layoutButtons = document.querySelectorAll('.layout-btn');
-    const editorPreviewArea = document.getElementById('editorPreviewArea');
-    
-    layoutButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            layoutButtons.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            
-            const layout = btn.dataset.layout;
-            editorPreviewArea.className = layout + '-layout';
-            localStorage.setItem('layoutPreference', layout);
-        });
-    });
-    
-    // Carregar preferência de layout
-    const savedLayout = localStorage.getItem('layoutPreference') || 'split';
-    document.querySelector(`[data-layout="${savedLayout}"]`).click();
-    
-    // Dark mode
-    const darkToggle = document.getElementById('darkToggle');
-    if (localStorage.getItem('theme') === 'dark') {
-        document.body.classList.add('dark');
-        darkToggle.textContent = '☀️';
-    }
-    
-    darkToggle.addEventListener('click', () => {
-        document.body.classList.toggle('dark');
-        const isDark = document.body.classList.contains('dark');
-        localStorage.setItem('theme', isDark ? 'dark' : 'light');
-        darkToggle.textContent = isDark ? '☀️' : '🌙';
-    });
-    
-    // Botão subir
-    const scrollToTopBtn = document.getElementById('scrollToTop');
-    
-    window.addEventListener('scroll', () => {
-        if (window.pageYOffset > 300) {
-            scrollToTopBtn.style.display = 'block';
-        } else {
-            scrollToTopBtn.style.display = 'none';
-        }
-    });
-    
-    function scrollToTop() {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    }
-    
-    // Funções principais
-    function analyzeHTML() {
-        const html = document.getElementById('htmlInput').value;
-        const preview = document.getElementById('previewFrame');
-        const resultsContainer = document.getElementById('resultsContainer');
-        
-        // Atualizar preview
-        preview.srcdoc = html || '<div style="padding:20px;color:#666;">Nenhum código para visualizar</div>';
-        
-        // Análise básica
-        let score = 100;
-        const issues = [];
-        
-        if (html.trim()) {
-            // DOCTYPE
-            if (!html.includes('<!DOCTYPE')) {
-                score -= 15;
-                issues.push({
-                    type: 'error',
-                    title: 'Falta DOCTYPE',
-                    message: 'Adicione <!DOCTYPE html> no início do documento'
-                });
-            }
-            
-            // Charset
-            if (!html.includes('charset="UTF-8"') && !html.includes("charset='UTF-8'")) {
-                score -= 10;
-                issues.push({
-                    type: 'error',
-                    title: 'Charset não definido',
-                    message: 'Adicione <meta charset="UTF-8">'
-                });
-            }
-            
-            // Title
-            if (!html.includes('<title>')) {
-                score -= 12;
-                issues.push({
-                    type: 'error',
-                    title: 'Sem título',
-                    message: 'Adicione <title>Sua Página</title>'
-                });
-            }
-            
-            // Imagens sem ALT
-            const imgTags = html.match(/<img[^>]*>/g) || [];
-            imgTags.forEach(tag => {
-                if (!tag.includes('alt=')) {
-                    score -= 8;
-                    issues.push({
-                        type: 'error',
-                        title: 'Imagem sem ALT',
-                        message: 'Adicione atributo alt às imagens'
-                    });
-                }
-            });
-            
-            // Viewport
-            if (!html.includes('viewport')) {
-                score -= 8;
-                issues.push({
-                    type: 'warning',
-                    title: 'Viewport ausente',
-                    message: 'Adicione meta viewport para mobile'
-                });
-            }
-            
-            score = Math.max(0, score);
-        }
-        
-        // Mostrar resultados
-        if (issues.length === 0 && html.trim()) {
-            resultsContainer.innerHTML = `
-                <div class="result-item success">
-                    <h3>✅ HTML válido! Pontuação: ${score}/100</h3>
-                    <p>Nenhum problema encontrado. Seu código está bem estruturado.</p>
-                </div>
-            `;
-        } else if (!html.trim()) {
-            resultsContainer.innerHTML = `
-                <div class="result-item warning">
-                    <h3>Editor vazio</h3>
-                    <p>Cole algum código HTML para análise</p>
-                </div>
-            `;
-        } else {
-            let resultsHTML = `
-                <div class="result-item ${score >= 70 ? 'warning' : 'error'}">
-                    <h3>Pontuação: ${score}/100</h3>
-                    <p>${issues.length} ${issues.length === 1 ? 'problema encontrado' : 'problemas encontrados'}</p>
-                </div>
-            `;
-            
-            issues.forEach(issue => {
-                resultsHTML += `
-                    <div class="result-item ${issue.type}">
-                        <h3>${issue.title}</h3>
-                        <p>${issue.message}</p>
-                    </div>
-                `;
-            });
-            
-            resultsContainer.innerHTML = resultsHTML;
-        }
-        
-        // Salvar código
-        localStorage.setItem('savedHTML', html);
-    }
-    
-    function loadExample() {
-        const example = `<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exemplo de Página HTML</title>
-    <meta name="description" content="Página de exemplo para teste">
-    <style>
-        body {
-            font-family: -apple-system, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-        .card {
-            background: rgba(255,255,255,0.9);
-            color: #333;
-            padding: 25px;
-            border-radius: 10px;
-            margin-top: 20px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-        }
-    </style>
-</head>
-<body>
-    <h1>✨ Testador HTML Online</h1>
-    <p>Exemplo de código HTML válido com todas as tags essenciais</p>
-    
-    <div class="card">
-        <h2>Recursos incluídos:</h2>
-        <ul>
-            <li>DOCTYPE HTML5</li>
-            <li>Meta tags (charset, viewport, description)</li>
-            <li>CSS interno</li>
-            <li>Estrutura semântica</li>
-            <li>Imagem com atributo ALT</li>
-        </ul>
-        
-        <img src="https://via.placeholder.com/400x200/667eea/ffffff?text=Exemplo+com+ALT" 
-             alt="Imagem de exemplo com placeholder colorido">
-        
-        <p>Este exemplo contém todos os elementos básicos de uma página HTML válida.</p>
-    </div>
-</body>
-</html>`;
-        
-        document.getElementById('htmlInput').value = example;
-        setTimeout(() => analyzeHTML(), 300);
-    }
-    
-    function clearEditor() {
-        document.getElementById('htmlInput').value = '';
-        document.getElementById('previewFrame').srcdoc = '';
-        document.getElementById('resultsContainer').innerHTML = `
-            <div class="result-item">
-                <h3>Editor limpo</h3>
-                <p>Cole novo código HTML para análise</p>
-            </div>
-        `;
-        localStorage.removeItem('savedHTML');
-    }
-    
-    function openFullscreen() {
-        const html = document.getElementById('htmlInput').value;
-        if (!html.trim()) {
-            alert('Cole algum código HTML primeiro');
-            return;
-        }
-        
-        const newWindow = window.open('', '_blank');
-        newWindow.document.write(html);
-        newWindow.document.close();
-    }
-    
-    function formatCode() {
-        const textarea = document.getElementById('htmlInput');
-        let code = textarea.value;
-        
-        // Formatação básica
-        code = code
-            .replace(/(>)(<)(\/*)/g, '$1\n$2$3')
-            .replace(/^\s+/gm, '')
-            .trim();
-        
-        textarea.value = code;
-    }
-    
-    function insertTemplate() {
-        const template = `<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Título da Página</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f5f5f5;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Olá, Mundo!</h1>
-        <p>Este é um template HTML básico.</p>
-    </div>
-</body>
-</html>`;
-        
-        document.getElementById('htmlInput').value = template;
-    }
-    
-    // Carregar código salvo ao iniciar
-    window.addEventListener('load', () => {
-        // Inicializar AdSense
-        (adsbygoogle = window.adsbygoogle || []).push({});
-        
-        // Carregar código salvo
-        const savedHTML = localStorage.getItem('savedHTML');
-        if (savedHTML) {
-            document.getElementById('htmlInput').value = savedHTML;
-            setTimeout(() => analyzeHTML(), 500);
-        }
-    });
-    
-    // Auto-save
-    document.getElementById('htmlInput').addEventListener('input', function() {
-        localStorage.setItem('savedHTML', this.value);
-    });
-</script>
+<!-- CodeMirror 5: editor com syntax highlighting -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/xml/xml.min.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/css/css.min.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/htmlmixed/htmlmixed.min.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closetag.min.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/matchbrackets.min.js" crossorigin="anonymous"></script>
+
+<!-- App scripts -->
+<script src="js/analyze.js"></script>
+<script src="js/app.js"></script>
 
 </body>
 </html>

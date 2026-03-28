@@ -5,7 +5,7 @@
     <!-- Página principal -->
     <url>
         <loc>https://joaoclaudiano.github.io/html-teste/</loc>
-        <lastmod>2026-01-14</lastmod>
+        <lastmod>2026-03-28</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
         <xhtml:link rel="alternate" hreflang="pt-BR" href="https://joaoclaudiano.github.io/html-teste/" />
@@ -14,21 +14,21 @@
     <!-- Páginas institucionais -->
     <url>
         <loc>https://joaoclaudiano.github.io/html-teste/sobre.html</loc>
-        <lastmod>2026-01-14</lastmod>
+        <lastmod>2026-03-28</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     
     <url>
         <loc>https://joaoclaudiano.github.io/html-teste/termos.html</loc>
-        <lastmod>2026-01-14</lastmod>
+        <lastmod>2026-03-28</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.7</priority>
     </url>
     
     <url>
         <loc>https://joaoclaudiano.github.io/html-teste/privacidade.html</loc>
-        <lastmod>2026-01-14</lastmod>
+        <lastmod>2026-03-28</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.7</priority>
     </url>
@@ -36,21 +36,21 @@
     <!-- Páginas de erros -->
     <url>
         <loc>https://joaoclaudiano.github.io/html-teste/erros/img-sem-alt.html</loc>
-        <lastmod>2026-01-14</lastmod>
+        <lastmod>2026-03-28</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
     
     <url>
         <loc>https://joaoclaudiano.github.io/html-teste/erros/title-ausente.html</loc>
-        <lastmod>2026-01-14</lastmod>
+        <lastmod>2026-03-28</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
     
     <url>
         <loc>https://joaoclaudiano.github.io/html-teste/erros/meta-description.html</loc>
-        <lastmod>2026-01-14</lastmod>
+        <lastmod>2026-03-28</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
