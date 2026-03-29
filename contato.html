@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <!-- Dark mode FOUC fix -->
+    <script>
+        (function () {
+            var s = localStorage.getItem('theme');
+            var p = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (s === 'dark' || (!s && p)) document.documentElement.classList.add('dark');
+        }());
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
+
+    <title>Contato | CodeTest</title>
+    <meta name="description" content="Entre em contato com a equipe do CodeTest. Reporte bugs, envie sugestões ou tire dúvidas sobre o editor e validador de HTML online.">
+    <meta name="robots" content="index, follow">
+
+    <link rel="canonical" href="https://joaoclaudiano.github.io/html-teste/contato.html">
+    <meta property="og:title" content="Contato — CodeTest">
+    <meta property="og:description" content="Entre em contato com o CodeTest. Sugestões, bugs e dúvidas são sempre bem-vindos.">
+    <meta property="og:url" content="https://joaoclaudiano.github.io/html-teste/contato.html">
+    <meta property="og:image" content="https://joaoclaudiano.github.io/html-teste/favicon.png">
+    <meta property="og:type" content="website">
+
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="alternate icon" href="favicon.png">
+
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RYCB08HG48"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-RYCB08HG48', { transport_type: 'beacon' });
+    </script>
+    <meta name="google-site-verification" content="google8df277a1c3c466cf">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Shared CSS -->
+    <link rel="stylesheet" href="css/pages.css">
+</head>
+<body>
+
+<header class="site-header">
+    <a href="/html-teste/" class="site-header-brand" aria-label="CodeTest — página inicial">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        CodeTest
+    </a>
+    <div class="site-header-right">
+        <a href="/html-teste/" class="btn-back" aria-label="Voltar à página inicial">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><polyline points="12 19 5 12 12 5"/></svg>
+            Início
+        </a>
+        <button id="darkToggle" class="btn-icon" aria-label="Ativar modo escuro" title="Alternar tema"></button>
+    </div>
+</header>
+
+<div class="page-hero">
+    <span class="page-badge">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Projeto independente · Resposta em até 3 dias úteis
+    </span>
+    <h1>Fale conosco</h1>
+    <p>Sugestões, reportes de bugs e dúvidas são sempre muito bem-vindos</p>
+</div>
+
+<div class="container">
+    <div class="page-content" id="main">
+
+        <!-- Response time note -->
+        <div class="contact-time-note" role="note">
+            <span aria-hidden="true">⏱️</span>
+            <span><strong>Tempo de resposta estimado:</strong> até 3 dias úteis. O CodeTest é um projeto independente mantido por uma única pessoa, então a resposta pode demorar um pouco mais em períodos de maior volume.</span>
+        </div>
+
+        <!-- Contact cards -->
+        <div class="contact-cards">
+            <div class="contact-card">
+                <span class="contact-card-icon" aria-hidden="true">✉️</span>
+                <h2 class="contact-card-title">E-mail</h2>
+                <p class="contact-card-desc">Canal principal para sugestões, bugs, dúvidas ou qualquer outra mensagem. Respondo pessoalmente a todos.</p>
+                <span class="contact-card-action">
+                    <a href="mailto:jooclaudiano@gmail.com">jooclaudiano@gmail.com</a>
+                </span>
+                <button class="btn-copy" id="copyEmailBtn" aria-label="Copiar endereço de e-mail" data-value="jooclaudiano@gmail.com">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                    Copiar e-mail
+                </button>
+            </div>
+            <div class="contact-card">
+                <span class="contact-card-icon" aria-hidden="true">🐙</span>
+                <h2 class="contact-card-title">GitHub</h2>
+                <p class="contact-card-desc">Para relatar bugs tecnicamente, sugerir funcionalidades ou contribuir com código, abra uma <em>issue</em> ou <em>pull request</em> no repositório.</p>
+                <span class="contact-card-action">
+                    <a href="https://github.com/JoaoClaudiano/codetest" target="_blank" rel="noopener noreferrer">github.com/JoaoClaudiano/codetest</a>
+                </span>
+                <a href="https://github.com/JoaoClaudiano/codetest/issues/new" target="_blank" rel="noopener noreferrer" class="btn-copy btn-copy--link">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                    Abrir uma issue
+                </a>
+            </div>
+        </div>
+
+        <!-- FAQ section -->
+        <section>
+            <div class="section-icon-heading">
+                <span class="icon" aria-hidden="true">❓</span>
+                <h2>Perguntas frequentes</h2>
+            </div>
+            <ul class="faq-list" role="list">
+                <li class="faq-item" role="listitem">
+                    <button class="faq-question" aria-expanded="false">
+                        O CodeTest é gratuito?
+                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        Sim, o CodeTest é completamente gratuito e não tem planos pagos. Não há cadastro, anúncios personalizados ou qualquer cobrança. O objetivo é ser uma ferramenta acessível para estudantes e desenvolvedores.
+                    </div>
+                </li>
+                <li class="faq-item" role="listitem">
+                    <button class="faq-question" aria-expanded="false">
+                        Meu código é salvo em algum servidor?
+                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        Não. Todo o processamento acontece localmente no seu navegador. O código que você escreve nunca sai do seu dispositivo — isso é uma garantia técnica. O histórico é salvo apenas no <code>localStorage</code> do seu próprio navegador.
+                    </div>
+                </li>
+                <li class="faq-item" role="listitem">
+                    <button class="faq-question" aria-expanded="false">
+                        A análise substitui o validador do W3C?
+                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        Não. O CodeTest faz uma análise educacional de 17 pontos de boas práticas (acessibilidade, SEO, estrutura), mas não é um validador formal de conformidade HTML. Para validação oficial, use o botão "Validar no W3C" disponível na ferramenta, que acessa o <a href="https://validator.w3.org/" target="_blank" rel="noopener noreferrer">validador oficial do W3C</a>.
+                    </div>
+                </li>
+                <li class="faq-item" role="listitem">
+                    <button class="faq-question" aria-expanded="false">
+                        Posso contribuir com o projeto?
+                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        Com certeza! Contribuições são bem-vindas. Você pode abrir <em>issues</em> com sugestões ou bugs, enviar um <em>pull request</em> no repositório do GitHub, ou simplesmente compartilhar a ferramenta com amigos e colegas que aprendem HTML.
+                    </div>
+                </li>
+                <li class="faq-item" role="listitem">
+                    <button class="faq-question" aria-expanded="false">
+                        Como posso limpar meu histórico de análises?
+                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        O histórico fica salvo no <code>localStorage</code> do seu navegador. Para apagá-lo, acesse as configurações do navegador → Privacidade e segurança → Dados do site → encontre <em>joaoclaudiano.github.io</em> → Limpar. Na ferramenta também há um botão para limpar o histórico diretamente.
+                    </div>
+                </li>
+                <li class="faq-item" role="listitem">
+                    <button class="faq-question" aria-expanded="false">
+                        O site funciona offline?
+                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        Parcialmente. Se os recursos externos (CDNs para CodeMirror, LZ-String e Google Fonts) já foram carregados e estão no cache do navegador, a ferramenta de edição e análise funciona sem conexão. O compartilhamento via URL e a validação no W3C requerem internet.
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <section>
+            <div class="section-icon-heading">
+                <span class="icon" aria-hidden="true">🔒</span>
+                <h2>Sua privacidade em primeiro lugar</h2>
+            </div>
+            <p>Quando você entra em contato por e-mail, suas mensagens são tratadas com total confidencialidade e usadas apenas para responder à sua solicitação. Não compartilhamos dados com terceiros.</p>
+            <p>Leia nossa <a href="privacidade.html">Política de Privacidade completa</a> para entender como tratamos informações no CodeTest.</p>
+        </section>
+
+    </div>
+</div>
+
+<footer class="page-footer">
+    <div class="page-footer-inner">
+        <span class="page-footer-copy">© 2026 CodeTest</span>
+        <ul class="page-footer-links">
+            <li><a href="sobre.html">Sobre</a></li>
+            <li><a href="termos.html">Termos</a></li>
+            <li><a href="privacidade.html">Privacidade</a></li>
+            <li><a href="como-usar.html">Como usar</a></li>
+            <li><a href="contato.html">Contato</a></li>
+        </ul>
+    </div>
+</footer>
+
+<button id="topBtn" aria-label="Voltar ao topo" title="Voltar ao topo">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+</button>
+
+<script src="js/common.js"></script>
+<script>
+    // FAQ accordion
+    document.querySelectorAll('.faq-question').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var item = this.closest('.faq-item');
+            var isOpen = item.classList.contains('open');
+            // Close all
+            document.querySelectorAll('.faq-item.open').forEach(function(el) {
+                el.classList.remove('open');
+                el.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+            });
+            // Open clicked if it was closed
+            if (!isOpen) {
+                item.classList.add('open');
+                this.setAttribute('aria-expanded', 'true');
+            }
+        });
+    });
+
+    // Copy email to clipboard
+    var copyBtn = document.getElementById('copyEmailBtn');
+    if (copyBtn) {
+        copyBtn.addEventListener('click', function() {
+            var email = this.getAttribute('data-value');
+            navigator.clipboard.writeText(email).then(function() {
+                copyBtn.textContent = '✓ Copiado!';
+                setTimeout(function() {
+                    copyBtn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copiar e-mail';
+                }, 2000);
+            }).catch(function() {
+                copyBtn.textContent = 'Erro — copie manualmente';
+                setTimeout(function() {
+                    copyBtn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copiar e-mail';
+                }, 3000);
+            });
+        });
+    }
+</script>
+</body>
+</html>

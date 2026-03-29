@@ -15,14 +15,15 @@
     <meta name="color-scheme" content="light dark">
 
     <title>Política de Privacidade | CodeTest</title>
-    <meta name="description" content="Política de Privacidade do CodeTest. Todo processamento é local — nenhum código enviado a servidores.">
+    <meta name="description" content="Política de Privacidade do CodeTest. Conformidade com a LGPD. Todo processamento é local — nenhum código enviado a servidores.">
     <meta name="robots" content="index, follow">
 
     <link rel="canonical" href="https://joaoclaudiano.github.io/html-teste/privacidade.html">
     <meta property="og:title" content="Política de Privacidade — CodeTest">
-    <meta property="og:description" content="Como suas informações são tratadas no CodeTest.">
+    <meta property="og:description" content="Como suas informações são tratadas no CodeTest. Conformidade LGPD.">
     <meta property="og:url" content="https://joaoclaudiano.github.io/html-teste/privacidade.html">
     <meta property="og:image" content="https://joaoclaudiano.github.io/html-teste/favicon.png">
+    <meta property="og:type" content="website">
 
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <link rel="alternate icon" href="favicon.png">
@@ -62,6 +63,10 @@
 </header>
 
 <div class="page-hero">
+    <span class="page-badge">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Conforme LGPD · Atualizado em março de 2026
+    </span>
     <h1>Política de Privacidade</h1>
     <p>Transparência sobre como suas informações são tratadas no CodeTest</p>
 </div>
@@ -69,56 +74,188 @@
 <div class="container">
     <div class="page-content" id="main">
 
-        <section>
-            <h2>Escopo desta política</h2>
-            <p>Esta Política de Privacidade descreve como o <strong>CodeTest</strong> coleta, utiliza e protege as informações dos usuários. Ao acessar e utilizar o site, você concorda com os termos aqui descritos. Última atualização: <strong>março de 2026</strong>.</p>
+        <!-- Privacy guarantees summary -->
+        <div class="privacy-summary" role="list" aria-label="Garantias de privacidade">
+            <div class="privacy-summary-item" role="listitem">
+                <span class="privacy-summary-icon" aria-hidden="true">🚫</span>
+                <div class="privacy-summary-text">
+                    <strong>Código nunca sai do browser</strong>
+                    <span>Nenhum dado do editor é enviado a servidores</span>
+                </div>
+            </div>
+            <div class="privacy-summary-item" role="listitem">
+                <span class="privacy-summary-icon" aria-hidden="true">👤</span>
+                <div class="privacy-summary-text">
+                    <strong>Zero dados pessoais</strong>
+                    <span>Não coletamos nome, e-mail ou qualquer informação identificável</span>
+                </div>
+            </div>
+            <div class="privacy-summary-item" role="listitem">
+                <span class="privacy-summary-icon" aria-hidden="true">💾</span>
+                <div class="privacy-summary-text">
+                    <strong>Apenas localStorage local</strong>
+                    <span>Preferências e histórico ficam só no seu dispositivo</span>
+                </div>
+            </div>
+            <div class="privacy-summary-item" role="listitem">
+                <span class="privacy-summary-icon" aria-hidden="true">🛡️</span>
+                <div class="privacy-summary-text">
+                    <strong>Conforme a LGPD</strong>
+                    <span>Seguimos a Lei nº 13.709/2018 (LGPD)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Table of contents -->
+        <nav class="toc-nav" aria-label="Índice da política de privacidade">
+            <span class="toc-nav-label">Seções</span>
+            <a href="#escopo">Escopo</a>
+            <a href="#nao-coletamos">O que não coletamos</a>
+            <a href="#localstorage">LocalStorage</a>
+            <a href="#terceiros">Serviços de terceiros</a>
+            <a href="#ga4">Google Analytics</a>
+            <a href="#cookies">Cookies</a>
+            <a href="#lgpd">LGPD</a>
+            <a href="#direitos">Seus direitos</a>
+            <a href="#encarregado">Encarregado</a>
+            <a href="#contato-priv">Contato</a>
+        </nav>
+
+        <section id="escopo">
+            <div class="section-icon-heading">
+                <span class="icon" aria-hidden="true">📄</span>
+                <h2>Escopo desta Política</h2>
+            </div>
+            <p>Esta Política de Privacidade descreve como o <strong>CodeTest</strong> coleta, utiliza e protege as informações dos usuários que acessam <em>https://joaoclaudiano.github.io/html-teste/</em> e suas páginas vinculadas. Ao utilizar o site, você concorda com os termos aqui descritos.</p>
+            <p>Última atualização: <strong>março de 2026</strong>.</p>
         </section>
 
-        <section>
-            <h2>O que não coletamos</h2>
-            <p>O CodeTest <strong>não coleta</strong> nenhuma informação pessoal identificável, como nome, endereço, e-mail ou IP vinculado a identidade. Mais importante: <strong>o código HTML, CSS ou JavaScript que você escreve no editor nunca é enviado a nenhum servidor</strong> — todo o processamento e análise ocorre exclusivamente no seu navegador (client-side).</p>
+        <section id="nao-coletamos">
+            <div class="section-icon-heading">
+                <span class="icon" aria-hidden="true">🚫</span>
+                <h2>O que não coletamos</h2>
+            </div>
+            <p>O CodeTest <strong>não coleta</strong> nenhuma informação pessoal identificável, como:</p>
+            <ul>
+                <li>Nome, sobrenome ou apelido</li>
+                <li>Endereço de e-mail ou telefone</li>
+                <li>Endereço IP vinculado a identidade</li>
+                <li>Localização precisa</li>
+                <li>Dados de cartão de crédito ou informações financeiras</li>
+            </ul>
+            <p>Mais importante: <strong>o código HTML, CSS ou JavaScript que você escreve no editor nunca é enviado a nenhum servidor</strong>. Todo o processamento e análise ocorre exclusivamente no seu navegador (<em>client-side</em>). Isso é uma garantia técnica, não apenas uma promessa.</p>
         </section>
 
-        <section>
-            <h2>Armazenamento local (localStorage)</h2>
-            <p>O site utiliza o <code>localStorage</code> do seu navegador para salvar:</p>
+        <section id="localstorage">
+            <div class="section-icon-heading">
+                <span class="icon" aria-hidden="true">💾</span>
+                <h2>Armazenamento Local (localStorage)</h2>
+            </div>
+            <p>O site utiliza o <code>localStorage</code> do seu navegador exclusivamente para salvar:</p>
             <ul>
                 <li>Preferência de tema (claro ou escuro)</li>
                 <li>Preferência de layout (lado a lado ou empilhado)</li>
-                <li>Histórico de análises recentes (apenas localmente)</li>
-                <li>Último código editado (para restauração automática)</li>
+                <li>Histórico de análises recentes (apenas localmente, nunca sincronizado)</li>
+                <li>Último código editado (para restauração automática na próxima visita)</li>
             </ul>
-            <p>Esses dados ficam <strong>apenas no seu dispositivo</strong> e podem ser removidos a qualquer momento em <em>Configurações do navegador → Dados do site → Limpar</em>.</p>
+            <p>Esses dados ficam <strong>apenas no seu dispositivo</strong> e não são acessíveis por nenhum servidor. Você pode removê-los a qualquer momento em <em>Configurações do navegador → Privacidade e segurança → Dados do site → Limpar</em>.</p>
         </section>
 
-        <section>
-            <h2>Serviços de terceiros</h2>
-            <p>O CodeTest utiliza os seguintes serviços externos para seu funcionamento:</p>
+        <section id="terceiros">
+            <div class="section-icon-heading">
+                <span class="icon" aria-hidden="true">🌐</span>
+                <h2>Serviços de Terceiros</h2>
+            </div>
+            <p>O CodeTest utiliza os seguintes serviços externos para seu funcionamento. Cada um possui sua própria política de privacidade:</p>
             <ul>
-                <li><strong>Google Analytics 4</strong> — análise estatística anônima (páginas visitadas, tempo de sessão, país). Configurado com <code>anonymize_ip</code>. Nenhum dado pessoal é coletado. Você pode optar por sair instalando o <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer">complemento oficial do Google</a>.</li>
-                <li><strong>Google Fonts</strong> — fonte Inter carregada via CDN do Google. O Google pode registrar o IP para fins de entrega da fonte.</li>
-                <li><strong>cdnjs (Cloudflare)</strong> — bibliotecas CodeMirror e LZ-String carregadas via CDN. Cloudflare pode registrar dados de acesso anônimos.</li>
+                <li>
+                    <strong>Google Analytics 4</strong> — análise estatística anônima de uso.
+                    <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Política do Google</a>
+                </li>
+                <li>
+                    <strong>Google Fonts</strong> — fonte Inter carregada via CDN.
+                    O Google pode registrar o IP para fins de entrega da fonte.
+                </li>
+                <li>
+                    <strong>cdnjs (Cloudflare)</strong> — bibliotecas CodeMirror e LZ-String.
+                    Cloudflare pode registrar dados de acesso anônimos.
+                    <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener noreferrer">Política da Cloudflare</a>
+                </li>
+                <li>
+                    <strong>GitHub Pages</strong> — hospedagem estática do site.
+                    <a href="https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement" target="_blank" rel="noopener noreferrer">Política do GitHub</a>
+                </li>
             </ul>
         </section>
 
-        <section>
-            <h2>Cookies</h2>
-            <p>O CodeTest não utiliza cookies próprios. Os serviços de terceiros listados acima podem definir cookies de acordo com suas próprias políticas de privacidade. O site não exibe banners de cookie pois não coleta dados pessoais diretamente.</p>
+        <section id="ga4">
+            <div class="section-icon-heading">
+                <span class="icon" aria-hidden="true">📊</span>
+                <h2>Google Analytics 4 — Detalhes</h2>
+            </div>
+            <p>O Google Analytics 4 (GA4) é utilizado para entender como os usuários interagem com o site. Os dados coletados são <strong>anonimizados</strong> e incluem:</p>
+            <ul>
+                <li>Páginas visitadas e tempo de permanência</li>
+                <li>País/região aproximada (sem cidade ou endereço preciso)</li>
+                <li>Tipo de dispositivo e navegador (sem identificação do dispositivo)</li>
+                <li>Fonte de tráfego (ex.: busca orgânica, acesso direto)</li>
+            </ul>
+            <p>O CodeTest utiliza o parâmetro <code>transport_type: 'beacon'</code> e não envia eventos com dados pessoais. O Google <strong>não recebe</strong> o código que você digita no editor.</p>
+            <p>Para optar por sair do rastreamento do Google Analytics, instale o <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer">complemento de desativação do Google Analytics</a> para seu navegador.</p>
         </section>
 
-        <section>
-            <h2>Seus direitos</h2>
-            <p>Como nenhum dado pessoal é coletado pelo CodeTest, não há dados a solicitar, corrigir ou excluir junto ao site. Para remover dados do armazenamento local, basta limpar os dados do site no seu navegador. Para questões relacionadas ao Google Analytics, consulte a <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Política de Privacidade do Google</a>.</p>
+        <section id="cookies">
+            <div class="section-icon-heading">
+                <span class="icon" aria-hidden="true">🍪</span>
+                <h2>Cookies</h2>
+            </div>
+            <p>O CodeTest <strong>não utiliza cookies próprios</strong>. Os serviços de terceiros listados acima (especialmente Google Analytics e Google Fonts) podem definir cookies de acordo com suas próprias políticas.</p>
+            <p>O site não exibe banners de consentimento de cookie pois não coleta dados pessoais diretamente. Você pode gerenciar ou bloquear cookies de terceiros nas configurações do seu navegador.</p>
         </section>
 
-        <section>
-            <h2>Contato</h2>
-            <p>Dúvidas sobre esta política? Entre em contato pelo e-mail <a href="mailto:jooclaudiano@gmail.com">jooclaudiano@gmail.com</a> ou pela <a href="contato.html">página de contato</a>.</p>
+        <section id="lgpd">
+            <div class="section-icon-heading">
+                <span class="icon" aria-hidden="true">🇧🇷</span>
+                <h2>Conformidade com a LGPD</h2>
+            </div>
+            <p>Esta política está em conformidade com a <strong>Lei Geral de Proteção de Dados (LGPD) — Lei nº 13.709/2018</strong>. O CodeTest adota os princípios de:</p>
+            <ul>
+                <li><strong>Finalidade:</strong> dados coletados somente para fins legítimos e específicos (análise de uso anônima).</li>
+                <li><strong>Necessidade:</strong> coleta limitada ao mínimo necessário para o funcionamento do serviço.</li>
+                <li><strong>Transparência:</strong> informações claras sobre o tratamento de dados (esta política).</li>
+                <li><strong>Segurança:</strong> nenhum dado pessoal é armazenado em servidores sob controle do autor.</li>
+                <li><strong>Prevenção:</strong> adoção de medidas para prevenir danos aos titulares dos dados.</li>
+                <li><strong>Não discriminação:</strong> os dados não são utilizados para fins discriminatórios.</li>
+            </ul>
+            <p>Dado que o CodeTest não coleta dados pessoais diretamente, a maior parte das obrigações do controlador de dados não se aplica. Os dados anonimizados do Google Analytics estão fora do escopo da LGPD conforme seu Art. 12.</p>
         </section>
 
-        <section>
-            <h2>Alterações nesta política</h2>
-            <p>Esta Política de Privacidade pode ser atualizada periodicamente para refletir mudanças no site ou na legislação aplicável. A data de última atualização está indicada no topo desta página.</p>
+        <section id="direitos">
+            <div class="section-icon-heading">
+                <span class="icon" aria-hidden="true">✋</span>
+                <h2>Seus Direitos</h2>
+            </div>
+            <p>Como o CodeTest não coleta dados pessoais identificáveis diretamente, não há dados pessoais a solicitar, corrigir, portar ou excluir junto ao site.</p>
+            <p>Para exercer seus direitos em relação aos dados coletados pelo Google Analytics (acesso, eliminação, portabilidade), consulte diretamente a <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Política de Privacidade do Google</a> e o <a href="https://myaccount.google.com/" target="_blank" rel="noopener noreferrer">Painel da Conta Google</a>.</p>
+            <p>Para remover os dados do <code>localStorage</code>, acesse as configurações do seu navegador e limpe os dados de navegação do site <em>joaoclaudiano.github.io</em>.</p>
+        </section>
+
+        <section id="encarregado">
+            <div class="section-icon-heading">
+                <span class="icon" aria-hidden="true">👤</span>
+                <h2>Encarregado de Dados (DPO)</h2>
+            </div>
+            <p>Por se tratar de um projeto independente de pequeno porte que não processa dados pessoais sensíveis em larga escala, o CodeTest está dispensado da obrigatoriedade formal de indicação de Encarregado conforme as diretrizes da ANPD para agentes de pequeno porte.</p>
+            <p>Para qualquer questão relacionada à privacidade, o canal de contato direto com o mantenedor é o e-mail <a href="mailto:jooclaudiano@gmail.com">jooclaudiano@gmail.com</a> ou a <a href="contato.html">página de contato</a>.</p>
+        </section>
+
+        <section id="contato-priv">
+            <div class="section-icon-heading">
+                <span class="icon" aria-hidden="true">📬</span>
+                <h2>Contato e Atualizações</h2>
+            </div>
+            <p>Dúvidas, solicitações ou preocupações sobre esta Política de Privacidade? Entre em contato pelo e-mail <a href="mailto:jooclaudiano@gmail.com">jooclaudiano@gmail.com</a> ou pela <a href="contato.html">página de contato</a>.</p>
+            <p>Esta Política de Privacidade pode ser atualizada periodicamente para refletir mudanças no site, nos serviços de terceiros ou na legislação aplicável. A data de última atualização é sempre indicada no topo desta página. Recomendamos revisão periódica.</p>
         </section>
 
     </div>

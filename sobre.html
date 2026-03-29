@@ -23,6 +23,7 @@
     <meta property="og:description" content="Conheça o CodeTest, editor e validador de HTML gratuito que roda inteiramente no navegador.">
     <meta property="og:url" content="https://joaoclaudiano.github.io/html-teste/sobre.html">
     <meta property="og:image" content="https://joaoclaudiano.github.io/html-teste/favicon.png">
+    <meta property="og:type" content="website">
 
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <link rel="alternate icon" href="favicon.png">
@@ -44,6 +45,34 @@
 
     <!-- Shared CSS -->
     <link rel="stylesheet" href="css/pages.css">
+
+    <!-- Structured data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "CodeTest",
+      "url": "https://joaoclaudiano.github.io/html-teste/",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Web browser",
+      "description": "Editor e validador de HTML, CSS e JavaScript gratuito que roda inteiramente no navegador. Sem cadastro, sem instalação.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "BRL"
+      },
+      "featureList": [
+        "Editor com syntax highlighting (CodeMirror)",
+        "Pré-visualização em tempo real",
+        "Análise automática de acessibilidade e SEO",
+        "Pontuação de qualidade 0–100",
+        "Compartilhamento via URL (LZ-String)",
+        "Modo escuro",
+        "100% client-side"
+      ],
+      "inLanguage": "pt-BR"
+    }
+    </script>
 </head>
 <body>
 
@@ -62,6 +91,10 @@
 </header>
 
 <div class="page-hero">
+    <span class="page-badge">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        Código aberto · Gratuito · Sem cadastro
+    </span>
     <h1>Sobre o CodeTest</h1>
     <p>Editor e validador de HTML gratuito que roda inteiramente no seu navegador</p>
 </div>
@@ -69,76 +102,181 @@
 <div class="container">
     <div class="page-content" id="main">
 
+        <!-- Stats bar -->
+        <div class="stats-bar" role="list" aria-label="Destaques da ferramenta">
+            <div class="stat-item" role="listitem">
+                <span class="stat-item-icon" aria-hidden="true">🌐</span>
+                <span class="stat-item-value">100%</span>
+                <span class="stat-item-label">No navegador</span>
+            </div>
+            <div class="stat-item" role="listitem">
+                <span class="stat-item-icon" aria-hidden="true">🔓</span>
+                <span class="stat-item-value">Gratuito</span>
+                <span class="stat-item-label">Para sempre</span>
+            </div>
+            <div class="stat-item" role="listitem">
+                <span class="stat-item-icon" aria-hidden="true">🚫</span>
+                <span class="stat-item-value">Zero</span>
+                <span class="stat-item-label">Cadastros</span>
+            </div>
+            <div class="stat-item" role="listitem">
+                <span class="stat-item-icon" aria-hidden="true">🔍</span>
+                <span class="stat-item-value">17</span>
+                <span class="stat-item-label">Pontos analisados</span>
+            </div>
+            <div class="stat-item" role="listitem">
+                <span class="stat-item-icon" aria-hidden="true">🔒</span>
+                <span class="stat-item-value">Privado</span>
+                <span class="stat-item-label">Código não sai do browser</span>
+            </div>
+        </div>
+
         <section>
-            <h2>O que é o CodeTest?</h2>
+            <div class="section-icon-heading">
+                <span class="icon" aria-hidden="true">💡</span>
+                <h2>O que é o CodeTest?</h2>
+            </div>
             <p>
                 O <strong>CodeTest</strong> é uma ferramenta gratuita para escrever, visualizar e validar código HTML, CSS e JavaScript diretamente no navegador — sem instalar nada, sem criar conta, sem enviar dados a servidores.
             </p>
             <p>
-                Todo o processamento acontece localmente no seu dispositivo. O código que você digita nunca sai do seu navegador.
+                Todo o processamento acontece localmente no seu dispositivo. O código que você digita nunca sai do seu navegador, garantindo total privacidade e funcionamento offline parcial.
             </p>
         </section>
 
         <section>
-            <h2>Funcionalidades principais</h2>
-            <ul>
-                <li>Editor com abas separadas para <strong>HTML</strong>, <strong>CSS</strong> e <strong>JS</strong> com syntax highlighting</li>
-                <li>Pré-visualização em tempo real com simulação de dispositivos (mobile, tablet, desktop)</li>
-                <li>Análise automática verificando acessibilidade, SEO e boas práticas</li>
-                <li>Pontuação de qualidade de 0 a 100 com sugestões de correção</li>
-                <li>Compartilhamento de código via URL (compressão com LZ-String)</li>
-                <li>Exportação do HTML como arquivo <code>.html</code></li>
-                <li>Histórico local das últimas 10 análises</li>
-                <li>Modo escuro com persistência via <code>localStorage</code></li>
-                <li>Colar código diretamente da área de transferência</li>
-            </ul>
+            <div class="section-icon-heading">
+                <span class="icon" aria-hidden="true">⚡</span>
+                <h2>Funcionalidades principais</h2>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="feature-card-icon" aria-hidden="true">✏️</span>
+                    <span class="feature-card-title">Editor avançado</span>
+                    <p class="feature-card-desc">Abas separadas para HTML, CSS e JS com syntax highlighting via CodeMirror.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-card-icon" aria-hidden="true">📱</span>
+                    <span class="feature-card-title">Pré-visualização responsiva</span>
+                    <p class="feature-card-desc">Simule mobile, tablet e desktop em tempo real sem sair do editor.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-card-icon" aria-hidden="true">🔎</span>
+                    <span class="feature-card-title">Análise automática</span>
+                    <p class="feature-card-desc">Verificação de acessibilidade, SEO e boas práticas com pontuação de 0 a 100.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-card-icon" aria-hidden="true">🔗</span>
+                    <span class="feature-card-title">Compartilhamento por URL</span>
+                    <p class="feature-card-desc">Comprima e compartilhe seu código inteiro em um único link via LZ-String.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-card-icon" aria-hidden="true">💾</span>
+                    <span class="feature-card-title">Exportação e histórico</span>
+                    <p class="feature-card-desc">Exporte como <code>.html</code> e acesse o histórico das últimas 10 análises.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-card-icon" aria-hidden="true">🌙</span>
+                    <span class="feature-card-title">Modo escuro</span>
+                    <p class="feature-card-desc">Tema persistente via <code>localStorage</code>, com detecção automática da preferência do sistema.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-card-icon" aria-hidden="true">📋</span>
+                    <span class="feature-card-title">Colar da área de transferência</span>
+                    <p class="feature-card-desc">Cole código existente diretamente no editor com um clique.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-card-icon" aria-hidden="true">🏅</span>
+                    <span class="feature-card-title">Validação no W3C</span>
+                    <p class="feature-card-desc">Botão para enviar o código ao validador oficial do W3C com um clique.</p>
+                </div>
+            </div>
         </section>
 
         <section>
-            <h2>Para quem é esta ferramenta?</h2>
+            <div class="section-icon-heading">
+                <span class="icon" aria-hidden="true">👥</span>
+                <h2>Para quem é esta ferramenta?</h2>
+            </div>
             <ul>
-                <li><strong>Estudantes</strong> aprendendo HTML, CSS e JavaScript</li>
-                <li><strong>Professores e educadores</strong> que precisam demonstrar conceitos rapidamente</li>
+                <li><strong>Estudantes</strong> aprendendo HTML, CSS e JavaScript do zero</li>
+                <li><strong>Professores e educadores</strong> que precisam demonstrar conceitos rapidamente em aula</li>
                 <li><strong>Desenvolvedores</strong> que querem testar trechos de código sem abrir o editor local</li>
                 <li><strong>Freelancers</strong> que precisam validar rapidamente um template antes de enviar ao cliente</li>
+                <li><strong>Iniciantes</strong> que querem explorar e aprender sem barreiras de instalação</li>
             </ul>
         </section>
 
         <section>
-            <h2>O motor de análise</h2>
-            <p>A análise usa <code>DOMParser</code> para processar o HTML como um documento real (sem expressões regulares frágeis). São verificados 17 pontos, incluindo:</p>
+            <div class="section-icon-heading">
+                <span class="icon" aria-hidden="true">🔬</span>
+                <h2>O motor de análise</h2>
+            </div>
+            <p>A análise usa <code>DOMParser</code> nativo do navegador para processar o HTML como um documento real — sem expressões regulares frágeis. São verificados <strong>17 pontos</strong>, incluindo:</p>
             <ul>
-                <li>DOCTYPE, charset e viewport</li>
-                <li>Título (presença, comprimento ideal: 30–60 caracteres)</li>
-                <li>Meta description (presença, comprimento ideal: até 160 caracteres)</li>
-                <li>Imagens sem atributo <code>alt</code></li>
-                <li>Links externos sem <code>rel="noopener"</code></li>
-                <li>Hierarquia de headings e múltiplos H1</li>
+                <li>DOCTYPE, charset e viewport presentes</li>
+                <li>Título (presença e comprimento ideal de 30–60 caracteres)</li>
+                <li>Meta description (presença e comprimento ideal até 160 caracteres)</li>
+                <li>Imagens sem atributo <code>alt</code> (acessibilidade)</li>
+                <li>Links externos sem <code>rel="noopener"</code> (segurança)</li>
+                <li>Hierarquia de headings e múltiplos <code>&lt;h1&gt;</code></li>
                 <li>Campos de formulário sem <code>&lt;label&gt;</code></li>
                 <li>Tags obsoletas (<code>font</code>, <code>center</code>, <code>marquee</code>…)</li>
                 <li>Atributo <code>lang</code> na tag <code>&lt;html&gt;</code></li>
-                <li>Open Graph e favicon</li>
+                <li>Open Graph e favicon detectados</li>
             </ul>
         </section>
 
         <section>
-            <h2>Privacidade e dados</h2>
+            <div class="section-icon-heading">
+                <span class="icon" aria-hidden="true">🛠️</span>
+                <h2>Tecnologias utilizadas</h2>
+            </div>
+            <p>O CodeTest é construído inteiramente com tecnologias abertas e sem dependências de servidor:</p>
+            <ul class="tech-list" aria-label="Tecnologias">
+                <li>HTML5 DOMParser</li>
+                <li>CodeMirror 5</li>
+                <li>LZ-String</li>
+                <li>CSS3 custom properties</li>
+                <li>Vanilla JavaScript</li>
+                <li>Google Fonts (Inter)</li>
+                <li>Google Analytics 4</li>
+                <li>LocalStorage API</li>
+                <li>Clipboard API</li>
+            </ul>
+        </section>
+
+        <section>
+            <div class="section-icon-heading">
+                <span class="icon" aria-hidden="true">🔒</span>
+                <h2>Privacidade e dados</h2>
+            </div>
             <p>
                 Nenhum dado pessoal é coletado. O código inserido no editor <strong>nunca é enviado a servidores</strong>. O único armazenamento utilizado é o <code>localStorage</code> do seu próprio navegador, para salvar o tema preferido e o histórico de análises recentes.
             </p>
             <p>
-                Você pode apagar esses dados a qualquer momento limpando os dados do site nas configurações do navegador.
+                Você pode apagar esses dados a qualquer momento limpando os dados do site nas configurações do navegador. Consulte a <a href="privacidade.html">Política de Privacidade</a> completa para mais detalhes.
             </p>
         </section>
 
         <section>
-            <h2>Projeto independente</h2>
+            <div class="section-icon-heading">
+                <span class="icon" aria-hidden="true">🚀</span>
+                <h2>Projeto independente</h2>
+            </div>
             <p>
-                O CodeTest é um projeto independente de código aberto, mantido por um desenvolvedor indie. Não está vinculado a nenhuma empresa. Sugestões, relatos de bugs e feedbacks são muito bem-vindos pelo e-mail <a href="mailto:jooclaudiano@gmail.com">jooclaudiano@gmail.com</a> ou pela <a href="contato.html">página de contato</a>.
+                O CodeTest é um projeto independente de código aberto, mantido por um desenvolvedor indie. Não está vinculado a nenhuma empresa ou organização. Sugestões, relatos de bugs e feedbacks são muito bem-vindos!
             </p>
             <p>
                 Para validações formais, recomenda-se o <a href="https://validator.w3.org/" target="_blank" rel="noopener noreferrer">Validador Oficial do W3C</a>. O botão "Validar no W3C" na ferramenta facilita esse processo.
             </p>
+            <div class="cta-block">
+                <a href="/html-teste/" class="btn-primary">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                    Abrir o CodeTest
+                </a>
+                <a href="contato.html">Enviar feedback →</a>
+            </div>
         </section>
 
     </div>

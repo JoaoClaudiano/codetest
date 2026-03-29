@@ -20,9 +20,10 @@
 
     <link rel="canonical" href="https://joaoclaudiano.github.io/html-teste/termos.html">
     <meta property="og:title" content="Termos de Uso — CodeTest">
-    <meta property="og:description" content="Condições para utilização do CodeTest.">
+    <meta property="og:description" content="Condições para utilização do CodeTest, editor e validador de HTML gratuito.">
     <meta property="og:url" content="https://joaoclaudiano.github.io/html-teste/termos.html">
     <meta property="og:image" content="https://joaoclaudiano.github.io/html-teste/favicon.png">
+    <meta property="og:type" content="website">
 
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <link rel="alternate icon" href="favicon.png">
@@ -62,51 +63,125 @@
 </header>
 
 <div class="page-hero">
+    <span class="page-badge">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 12l2 2 4-4"/></svg>
+        Atualizado em março de 2026
+    </span>
     <h1>Termos de Uso</h1>
-    <p>Condições para utilização do CodeTest</p>
+    <p>Condições para utilização do CodeTest — editor e validador de HTML online</p>
 </div>
 
 <div class="container">
     <div class="page-content" id="main">
 
-        <section>
-            <h2>1. Aceitação</h2>
-            <p>Ao acessar e utilizar o CodeTest, você concorda com estes Termos de Uso. Caso não concorde com alguma condição, recomenda-se não utilizar a ferramenta.</p>
+        <!-- Table of contents -->
+        <nav class="toc-nav" aria-label="Índice dos termos">
+            <span class="toc-nav-label">Seções</span>
+            <a href="#aceitacao">1. Aceitação</a>
+            <a href="#servico">2. Serviço</a>
+            <a href="#responsabilidades">3. Responsabilidades</a>
+            <a href="#propriedade">4. Propriedade intelectual</a>
+            <a href="#limitacao">5. Limitação de responsabilidade</a>
+            <a href="#dados">6. Processamento de dados</a>
+            <a href="#legislacao">7. Legislação aplicável</a>
+            <a href="#alteracoes">8. Alterações</a>
+        </nav>
+
+        <section id="aceitacao">
+            <div class="section-icon-heading">
+                <span class="icon" aria-hidden="true">✅</span>
+                <h2>1. Aceitação dos Termos</h2>
+            </div>
+            <p>Ao acessar e utilizar o <strong>CodeTest</strong> (<em>https://joaoclaudiano.github.io/html-teste/</em>), você declara ter lido, compreendido e concordado com estes Termos de Uso em sua totalidade. Se você não concordar com qualquer condição aqui estabelecida, recomendamos que não utilize a ferramenta.</p>
+            <p>Estes Termos constituem um acordo legal entre você ("usuário") e o mantenedor do CodeTest ("autor"). O uso continuado da ferramenta após qualquer atualização dos Termos implica aceitação das novas condições.</p>
         </section>
 
-        <section>
-            <h2>2. Descrição do serviço</h2>
-            <p>O <strong>CodeTest</strong> é uma ferramenta de caráter <strong>educativo e informativo</strong> para escrita, visualização e análise preliminar de código HTML, CSS e JavaScript, executada inteiramente no navegador do usuário. Não há cadastro, planos pagos ou processamento em servidor.</p>
-        </section>
-
-        <section>
-            <h2>3. Responsabilidades do usuário</h2>
+        <section id="servico">
+            <div class="section-icon-heading">
+                <span class="icon" aria-hidden="true">🛠️</span>
+                <h2>2. Descrição do Serviço</h2>
+            </div>
+            <p>O <strong>CodeTest</strong> é uma ferramenta de caráter <strong>educativo e informativo</strong> para escrita, visualização e análise preliminar de código HTML, CSS e JavaScript. A ferramenta é executada inteiramente no navegador do usuário (<em>client-side</em>), sem cadastro, sem planos pagos e sem processamento em servidor próprio.</p>
+            <p>O serviço inclui:</p>
             <ul>
-                <li>Não utilizar a ferramenta para executar, testar ou distribuir código malicioso, destrutivo ou ilegal.</li>
-                <li>Não tentar sobrecarregar, explorar ou comprometer a disponibilidade do serviço.</li>
-                <li>Reconhecer que o código inserido é de sua exclusiva responsabilidade.</li>
-                <li>Não utilizar o serviço para fins que violem legislação aplicável.</li>
+                <li>Editor de código com syntax highlighting (HTML, CSS e JavaScript)</li>
+                <li>Pré-visualização em tempo real com simulação de dispositivos</li>
+                <li>Análise automatizada de qualidade, acessibilidade e SEO (17 pontos)</li>
+                <li>Compartilhamento de código via URL comprimida</li>
+                <li>Exportação do código como arquivo <code>.html</code></li>
+                <li>Histórico local das últimas análises realizadas</li>
             </ul>
+            <p>O autor reserva-se o direito de modificar, suspender ou encerrar qualquer funcionalidade a qualquer momento, sem aviso prévio ou obrigação de compensação.</p>
         </section>
 
-        <section>
-            <h2>4. Propriedade intelectual</h2>
-            <p>O código-fonte, design e conteúdo do CodeTest são de propriedade do autor. O código inserido pelo usuário no editor permanece de responsabilidade e propriedade exclusiva do próprio usuário.</p>
+        <section id="responsabilidades">
+            <div class="section-icon-heading">
+                <span class="icon" aria-hidden="true">⚖️</span>
+                <h2>3. Responsabilidades do Usuário</h2>
+            </div>
+            <p>Ao utilizar o CodeTest, o usuário compromete-se a:</p>
+            <ul>
+                <li>Não utilizar a ferramenta para executar, testar ou distribuir código malicioso, destrutivo, fraudulento ou ilegal.</li>
+                <li>Não tentar sobrecarregar, explorar vulnerabilidades ou comprometer a disponibilidade do serviço ou de terceiros.</li>
+                <li>Reconhecer que o código inserido é de sua exclusiva responsabilidade, incluindo qualquer conteúdo que possa violar direitos de propriedade intelectual de terceiros.</li>
+                <li>Não utilizar o serviço para fins que violem legislação aplicável, incluindo a Lei nº 12.965/2014 (Marco Civil da Internet) e demais normas pertinentes.</li>
+                <li>Não realizar scraping automatizado ou acesso em massa ao serviço de forma que prejudique outros usuários.</li>
+            </ul>
+            <p>O usuário é o único responsável pelo conteúdo que cria, testa ou compartilha através da ferramenta.</p>
         </section>
 
-        <section>
-            <h2>5. Isenção de responsabilidade</h2>
-            <p>O CodeTest é uma ferramenta <strong>educacional</strong> e <strong>não substitui</strong> validadores oficiais, auditorias de segurança ou testes profissionais. Os resultados apresentados não garantem conformidade total com padrões W3C ou requisitos legais. Para validação oficial, utilize o <a href="https://validator.w3.org/" target="_blank" rel="noopener noreferrer">W3C Validator</a>.</p>
+        <section id="propriedade">
+            <div class="section-icon-heading">
+                <span class="icon" aria-hidden="true">©️</span>
+                <h2>4. Propriedade Intelectual</h2>
+            </div>
+            <p>O código-fonte, design, textos e demais conteúdos do CodeTest são de propriedade do autor, protegidos pelas leis de direitos autorais brasileiras (Lei nº 9.610/1998) e tratados internacionais aplicáveis.</p>
+            <p>O <strong>código inserido pelo usuário</strong> no editor permanece de responsabilidade e propriedade exclusiva do próprio usuário. O CodeTest não reivindica qualquer direito sobre o conteúdo criado pelos usuários.</p>
+            <p>É permitido o uso educativo e pessoal da ferramenta. A reprodução total ou parcial do site, sem autorização expressa do autor, é vedada.</p>
         </section>
 
-        <section>
-            <h2>6. Processamento de dados</h2>
-            <p>Todo o processamento ocorre exclusivamente no navegador do usuário. Nenhum dado digitado no editor é enviado a servidores externos. Consulte a <a href="privacidade.html">Política de Privacidade</a> para informações sobre coleta anônima de dados de acesso.</p>
+        <section id="limitacao">
+            <div class="section-icon-heading">
+                <span class="icon" aria-hidden="true">⚠️</span>
+                <h2>5. Limitação de Responsabilidade</h2>
+            </div>
+            <p>O CodeTest é uma ferramenta <strong>educacional</strong> disponibilizada "como está" (<em>as is</em>), sem garantias expressas ou implícitas de qualquer natureza, incluindo, sem limitação, garantias de adequação a um fim específico, disponibilidade ininterrupta ou ausência de erros.</p>
+            <p>O serviço <strong>não substitui</strong> validadores oficiais, auditorias de segurança, testes de acessibilidade profissionais ou conformidade legal. Os resultados apresentados são indicativos e não garantem conformidade total com padrões W3C, WCAG, LGPD ou outros requisitos técnicos ou legais.</p>
+            <p>O autor não se responsabiliza por:</p>
+            <ul>
+                <li>Danos diretos, indiretos, incidentais ou consequenciais decorrentes do uso ou incapacidade de uso da ferramenta;</li>
+                <li>Perda de dados causada por falhas do navegador, limpeza de <code>localStorage</code> ou outros eventos fora do controle do autor;</li>
+                <li>Decisões técnicas ou comerciais tomadas com base nos resultados da análise;</li>
+                <li>Interrupções no serviço decorrentes de manutenção, falhas de infraestrutura ou encerramento da plataforma.</li>
+            </ul>
+            <p>Para validação oficial e definitiva de código HTML, recomenda-se o <a href="https://validator.w3.org/" target="_blank" rel="noopener noreferrer">Validador do W3C</a>.</p>
         </section>
 
-        <section>
-            <h2>7. Alterações</h2>
-            <p>Estes Termos de Uso podem ser atualizados a qualquer momento, sem aviso prévio. Recomenda-se a revisão periódica desta página.</p>
+        <section id="dados">
+            <div class="section-icon-heading">
+                <span class="icon" aria-hidden="true">🔒</span>
+                <h2>6. Processamento de Dados</h2>
+            </div>
+            <p>Todo o processamento ocorre exclusivamente no navegador do usuário. Nenhum dado digitado no editor é transmitido ou armazenado em servidores externos. O armazenamento local (<code>localStorage</code>) é utilizado exclusivamente para salvar preferências e histórico local.</p>
+            <p>Dados anônimos de acesso são coletados pelo Google Analytics 4 para fins estatísticos. Consulte a <a href="privacidade.html">Política de Privacidade</a> para informações detalhadas sobre coleta, uso e seus direitos.</p>
+        </section>
+
+        <section id="legislacao">
+            <div class="section-icon-heading">
+                <span class="icon" aria-hidden="true">🇧🇷</span>
+                <h2>7. Legislação Aplicável e Foro</h2>
+            </div>
+            <p>Estes Termos de Uso são regidos pelas leis da República Federativa do Brasil. Para a resolução de qualquer controvérsia decorrente destes Termos, fica eleito o foro da comarca de domicílio do autor, com renúncia expressa a qualquer outro, por mais privilegiado que seja.</p>
+            <p>A eventual invalidade ou inaplicabilidade de qualquer disposição destes Termos não afetará a validade das demais cláusulas, que permanecerão em pleno vigor.</p>
+        </section>
+
+        <section id="alteracoes">
+            <div class="section-icon-heading">
+                <span class="icon" aria-hidden="true">📅</span>
+                <h2>8. Alterações dos Termos</h2>
+            </div>
+            <p>Estes Termos de Uso podem ser atualizados a qualquer momento pelo autor, sem aviso prévio. A data de última atualização será revisada a cada modificação relevante. Recomenda-se a revisão periódica desta página.</p>
+            <p>Dúvidas sobre estes Termos? Entre em contato pela <a href="contato.html">página de contato</a>.</p>
         </section>
 
     </div>
