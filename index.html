@@ -57,10 +57,6 @@
         gtag('config', 'G-RYCB08HG48', { transport_type: 'beacon' });
     </script>
 
-    <!-- AdSense -->
-    <meta name="google-adsense-account" content="ca-pub-2518079690291956">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2518079690291956" crossorigin="anonymous"></script>
-
     <!-- Schema.org -->
     <script type="application/ld+json">
     {
@@ -82,19 +78,28 @@
     <div class="container">
         <div class="header-content">
             <a href="/html-teste/" class="header-brand" aria-label="Testador HTML Online — página inicial">
-                🔍 Testador HTML Online
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                Testador HTML
             </a>
             <nav class="header-nav" aria-label="Navegação principal">
                 <a href="sobre.html">Sobre</a>
+                <a href="como-usar.html">Como usar</a>
             </nav>
             <div class="header-controls">
                 <div class="layout-switcher" role="group" aria-label="Modo de visualização">
                     <button class="layout-btn active" data-layout="split"
-                            aria-label="Layout lado a lado" title="Lado a lado">⇄</button>
+                            aria-label="Layout lado a lado" title="Lado a lado">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="7" height="18" rx="1"/><rect x="14" y="3" width="7" height="18" rx="1"/></svg>
+                    </button>
                     <button class="layout-btn" data-layout="stacked"
-                            aria-label="Layout empilhado" title="Empilhado">⇅</button>
+                            aria-label="Layout empilhado" title="Empilhado">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="7" rx="1"/><rect x="3" y="14" width="18" height="7" rx="1"/></svg>
+                    </button>
                 </div>
-                <button class="icon-btn" id="darkToggle" aria-label="Ativar modo escuro" title="Alternar tema">🌙</button>
+                <button class="icon-btn" id="darkToggle" aria-label="Ativar modo escuro" title="Alternar tema">
+                    <svg id="iconMoon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                    <svg id="iconSun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+                </button>
             </div>
         </div>
     </div>
@@ -103,17 +108,6 @@
 <!-- Conteúdo principal -->
 <div class="container">
     <div class="main-content">
-
-        <!-- Anúncio lateral esquerdo (somente desktop) -->
-        <aside class="ad-sidebar" aria-label="Publicidade">
-            <div class="ad-container">
-                <div class="ad-label">Anúncio</div>
-                <ins class="adsbygoogle"
-                     style="display:inline-block;width:160px;height:600px"
-                     data-ad-client="ca-pub-2518079690291956"
-                     data-ad-slot="1234567890"></ins>
-            </div>
-        </aside>
 
         <!-- Área principal -->
         <main class="main-area" role="main" id="main">
@@ -135,11 +129,17 @@
                         <div class="panel-actions">
                             <button class="icon-btn" id="btnAutoAnalyze"
                                     aria-pressed="false" title="Ativar análise automática"
-                                    aria-label="Ativar análise automática" style="opacity:0.6">⚡</button>
+                                    aria-label="Ativar análise automática" style="opacity:0.5">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                            </button>
                             <button class="icon-btn" onclick="formatCode()"
-                                    title="Formatar código" aria-label="Formatar código">⎘</button>
+                                    title="Formatar código" aria-label="Formatar código">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                            </button>
                             <button class="icon-btn" onclick="insertTemplate()"
-                                    title="Inserir template HTML" aria-label="Inserir template">📋</button>
+                                    title="Inserir template HTML" aria-label="Inserir template">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="2" width="6" height="4" rx="1"/><path d="M8 4H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-2"/></svg>
+                            </button>
                         </div>
                     </div>
 
@@ -156,11 +156,26 @@
                     </div>
 
                     <div class="editor-actions">
-                        <button class="btn btn-primary" onclick="analyzeHTML()">🔍 Analisar</button>
-                        <button class="btn btn-secondary" onclick="loadExample()">📄 Exemplo</button>
-                        <button class="btn btn-secondary" onclick="exportHTML()" title="Baixar como arquivo .html">💾 Exportar</button>
-                        <button class="btn btn-secondary" onclick="shareCode()" title="Copiar link compartilhável">🔗 Compartilhar</button>
-                        <button class="btn btn-danger" onclick="clearEditor()">🗑️ Limpar</button>
+                        <button class="btn btn-primary" onclick="analyzeHTML()">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                            Analisar
+                        </button>
+                        <button class="btn btn-secondary" onclick="loadExample()">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                            Exemplo
+                        </button>
+                        <button class="btn btn-secondary" onclick="exportHTML()" title="Baixar como arquivo .html">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                            Salvar HTML
+                        </button>
+                        <button class="btn btn-secondary" onclick="shareCode()" title="Copiar link compartilhável">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+                            Compartilhar
+                        </button>
+                        <button class="btn btn-danger" onclick="clearEditor()">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+                            Limpar
+                        </button>
                     </div>
                 </section>
 
@@ -170,18 +185,24 @@
                         <h2 class="panel-title">Visualização</h2>
                         <div class="viewport-controls" role="group" aria-label="Tamanho da tela simulada">
                             <button class="viewport-btn" data-width="375"
-                                    title="Mobile (375px)" aria-label="Simular mobile (375px)">📱</button>
+                                    title="Mobile (375px)" aria-label="Simular mobile (375px)">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>
+                            </button>
                             <button class="viewport-btn" data-width="768"
-                                    title="Tablet (768px)" aria-label="Simular tablet (768px)">💻</button>
+                                    title="Tablet (768px)" aria-label="Simular tablet (768px)">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M12 18h.01"/></svg>
+                            </button>
                             <button class="viewport-btn active" data-width="100%"
-                                    title="Desktop (100%)" aria-label="Tela cheia">🖥️</button>
-                            <button class="icon-btn panel-actions" onclick="openFullscreen()"
-                                    title="Abrir em nova aba" aria-label="Abrir em nova aba"
-                                    style="background:transparent;border-color:var(--border-color);color:var(--text-muted)">↗️</button>
+                                    title="Desktop (100%)" aria-label="Tela cheia">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+                            </button>
+                            <button class="icon-btn" onclick="openFullscreen()"
+                                    title="Abrir em nova aba" aria-label="Abrir em nova aba">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                            </button>
                         </div>
                     </div>
                     <div class="preview-container" id="previewContainer">
-                        <!-- sandbox sem allow-same-origin — mais seguro -->
                         <iframe id="previewFrame"
                                 sandbox="allow-scripts"
                                 title="Pré-visualização do HTML inserido"
@@ -191,18 +212,12 @@
 
             </div>
 
-            <!-- Anúncio mobile (somente mobile) -->
-            <div class="ad-mobile" aria-label="Publicidade">
-                <div class="ad-label">Anúncio</div>
-                <ins class="adsbygoogle"
-                     style="display:inline-block;width:320px;height:100px"
-                     data-ad-client="ca-pub-2518079690291956"
-                     data-ad-slot="0987654321"></ins>
-            </div>
-
             <!-- Resultados da análise -->
             <section class="results-section" aria-labelledby="results-heading">
-                <h2 id="results-heading">📊 Resultados da Análise</h2>
+                <h2 id="results-heading">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                    Resultados da Análise
+                </h2>
                 <div class="results-container" id="resultsContainer"
                      role="status" aria-live="polite" aria-atomic="false">
                     <div class="result-placeholder">
@@ -211,7 +226,8 @@
                 </div>
                 <div class="results-actions" id="resultsActions" style="display:none">
                     <button class="btn btn-secondary btn-sm" onclick="validateW3C()">
-                        🌐 Validar no W3C
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                        Validar no W3C
                     </button>
                 </div>
             </section>
@@ -219,7 +235,10 @@
             <!-- Histórico de análises -->
             <section class="history-section" aria-labelledby="history-heading">
                 <div class="history-header">
-                    <h2 id="history-heading">🕒 Histórico de Análises</h2>
+                    <h2 id="history-heading">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        Histórico de Análises
+                    </h2>
                     <button class="btn btn-secondary btn-sm" onclick="clearHistory()">Limpar</button>
                 </div>
                 <div id="historyContainer" class="history-container">
@@ -228,17 +247,6 @@
             </section>
 
         </main>
-
-        <!-- Anúncio lateral direito (somente desktop) -->
-        <aside class="ad-sidebar" aria-label="Publicidade">
-            <div class="ad-container">
-                <div class="ad-label">Anúncio</div>
-                <ins class="adsbygoogle"
-                     style="display:inline-block;width:160px;height:600px"
-                     data-ad-client="ca-pub-2518079690291956"
-                     data-ad-slot="1122334455"></ins>
-            </div>
-        </aside>
 
     </div>
 </div>
@@ -251,39 +259,42 @@
                 <h3>Testador HTML</h3>
                 <p>Ferramenta gratuita para desenvolvedores web</p>
             </div>
-            <nav class="footer-section" aria-label="Links do site">
-                <h3>Links</h3>
+            <nav class="footer-section" aria-label="Sobre o site">
+                <h3>Institucional</h3>
                 <ul class="footer-links">
                     <li><a href="sobre.html">Sobre</a></li>
                     <li><a href="termos.html">Termos de Uso</a></li>
                     <li><a href="privacidade.html">Privacidade</a></li>
                 </ul>
             </nav>
-            <nav class="footer-section" aria-label="Recursos educacionais">
-                <h3>Recursos</h3>
+            <nav class="footer-section" aria-label="Aprender">
+                <h3>Aprender</h3>
                 <ul class="footer-links">
+                    <li><a href="como-usar.html">Como usar?</a></li>
                     <li><a href="erros/img-sem-alt.html">Imagens sem ALT</a></li>
                     <li><a href="erros/title-ausente.html">Título Ausente</a></li>
                     <li><a href="erros/meta-description.html">Meta Description</a></li>
                 </ul>
             </nav>
-            <nav class="footer-section" aria-label="Ajuda e contato">
-                <h3>Ajuda</h3>
+            <nav class="footer-section" aria-label="Links externos">
+                <h3>Recursos</h3>
                 <ul class="footer-links">
                     <li><a href="mailto:exemplo@email.com">Contato</a></li>
                     <li><a href="https://validator.w3.org/" target="_blank" rel="noopener noreferrer">Validador W3C</a></li>
+                    <li><a href="https://developer.mozilla.org/pt-BR/docs/Web/HTML" target="_blank" rel="noopener noreferrer">MDN Web Docs</a></li>
                 </ul>
             </nav>
         </div>
         <div class="footer-bottom">
             <p>© 2026 Testador de HTML Online. Ferramenta educacional gratuita.</p>
-            <p>Este site utiliza cookies e pode exibir anúncios.</p>
         </div>
     </div>
 </footer>
 
 <!-- Botão voltar ao topo -->
-<button id="scrollToTop" aria-label="Voltar ao topo" title="Voltar ao topo">↑</button>
+<button id="scrollToTop" aria-label="Voltar ao topo" title="Voltar ao topo">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+</button>
 
 <!-- LZ-String: compressão para compartilhamento via URL -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.4.4/lz-string.min.js" crossorigin="anonymous"></script>

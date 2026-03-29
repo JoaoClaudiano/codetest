@@ -104,7 +104,10 @@
     function updateDarkUI() {
         syncBodyDark();
         const dark = isDarkMode();
-        darkToggle.textContent = dark ? '☀️' : '🌙';
+        const moonIcon = document.getElementById('iconMoon');
+        const sunIcon  = document.getElementById('iconSun');
+        if (moonIcon) moonIcon.style.display = dark ? 'none' : '';
+        if (sunIcon)  sunIcon.style.display  = dark ? '' : 'none';
         darkToggle.setAttribute('aria-label', dark ? 'Ativar modo claro' : 'Ativar modo escuro');
         const t = dark ? 'monokai' : 'default';
         cmHtml.setOption('theme', t);
