@@ -76,14 +76,14 @@
 
         <!-- Response time note -->
         <div class="contact-time-note" role="note">
-            <span aria-hidden="true">⏱️</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
             <span><strong>Tempo de resposta estimado:</strong> até 3 dias úteis. O CodeTest é um projeto independente mantido por uma única pessoa, então a resposta pode demorar um pouco mais em períodos de maior volume.</span>
         </div>
 
         <!-- Contact cards -->
         <div class="contact-cards">
             <div class="contact-card">
-                <span class="contact-card-icon" aria-hidden="true">✉️</span>
+                <svg class="contact-card-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
                 <h2 class="contact-card-title">E-mail</h2>
                 <p class="contact-card-desc">Canal principal para sugestões, bugs, dúvidas ou qualquer outra mensagem. Respondo pessoalmente a todos.</p>
                 <span class="contact-card-action">
@@ -95,7 +95,7 @@
                 </button>
             </div>
             <div class="contact-card">
-                <span class="contact-card-icon" aria-hidden="true">🐙</span>
+                <svg class="contact-card-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
                 <h2 class="contact-card-title">GitHub</h2>
                 <p class="contact-card-desc">Para relatar bugs tecnicamente, sugerir funcionalidades ou contribuir com código, abra uma <em>issue</em> ou <em>pull request</em> no repositório.</p>
                 <span class="contact-card-action">
@@ -111,7 +111,7 @@
         <!-- FAQ section -->
         <section>
             <div class="section-icon-heading">
-                <span class="icon" aria-hidden="true">❓</span>
+                <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
                 <h2>Perguntas frequentes</h2>
             </div>
             <ul class="faq-list" role="list">
@@ -174,7 +174,7 @@
 
         <section>
             <div class="section-icon-heading">
-                <span class="icon" aria-hidden="true">🔒</span>
+                <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
                 <h2>Sua privacidade em primeiro lugar</h2>
             </div>
             <p>Quando você entra em contato por e-mail, suas mensagens são tratadas com total confidencialidade e usadas apenas para responder à sua solicitação. Não compartilhamos dados com terceiros.</p>
@@ -186,14 +186,29 @@
 
 <footer class="page-footer">
     <div class="page-footer-inner">
-        <span class="page-footer-copy">© 2026 CodeTest</span>
-        <ul class="page-footer-links">
-            <li><a href="sobre.html">Sobre</a></li>
-            <li><a href="termos.html">Termos</a></li>
-            <li><a href="privacidade.html">Privacidade</a></li>
-            <li><a href="como-usar.html">Como usar</a></li>
-            <li><a href="contato.html">Contato</a></li>
-        </ul>
+        <div class="page-footer-brand">
+            <a href="/html-teste/" class="page-footer-logo">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                CodeTest
+            </a>
+            <p class="page-footer-tagline">Editor e validador de HTML gratuito.<br>100% no navegador, sem cadastro.</p>
+        </div>
+        <nav aria-label="Links do rodapé">
+            <ul class="page-footer-links">
+                <li><a href="sobre.html">Sobre</a></li>
+                <li><a href="como-usar.html">Como usar</a></li>
+                <li><a href="termos.html">Termos</a></li>
+                <li><a href="privacidade.html">Privacidade</a></li>
+                <li><a href="contato.html">Contato</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="page-footer-bottom">
+        <span class="page-footer-copy">© <span id="footer-year">2026</span> CodeTest — Código aberto</span>
+        <a href="https://github.com/JoaoClaudiano/codetest" target="_blank" rel="noopener noreferrer" class="page-footer-github" aria-label="Repositório no GitHub">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+            GitHub
+        </a>
     </div>
 </footer>
 
