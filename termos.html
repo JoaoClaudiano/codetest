@@ -36,66 +36,87 @@
         gtag('config', 'G-RYCB08HG48', { transport_type: 'beacon' });
     </script>
     <meta name="google-site-verification" content="google8df277a1c3c466cf">
-    <meta name="msvalidate.01" content="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Shared CSS -->
     <link rel="stylesheet" href="css/pages.css">
 </head>
 <body>
 
-<header class="top">
-    <div class="top-buttons">
-        <a href="/html-teste/">← Página Inicial</a>
-        <button id="darkToggle" aria-label="Alternar modo escuro" title="Alternar tema">🌙</button>
+<header class="site-header">
+    <a href="/html-teste/" class="site-header-brand" aria-label="Testador HTML Online — página inicial">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        Testador HTML
+    </a>
+    <div class="site-header-right">
+        <a href="/html-teste/" class="btn-back" aria-label="Voltar à página inicial">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><polyline points="12 19 5 12 12 5"/></svg>
+            Início
+        </a>
+        <button id="darkToggle" class="btn-icon" aria-label="Ativar modo escuro" title="Alternar tema"></button>
     </div>
-    <h1>Termos de Uso</h1>
-    <p>Condições para utilização do Testador de HTML Online</p>
 </header>
 
-<main class="container" id="main">
+<div class="page-hero">
+    <h1>Termos de Uso</h1>
+    <p>Condições para utilização do Testador de HTML Online</p>
+</div>
 
-    <section>
-        <h2>Aceitação dos termos</h2>
-        <p>Ao acessar e utilizar este site, você concorda com os presentes Termos de Uso. Caso não concorde, recomenda-se não utilizar a ferramenta.</p>
-    </section>
+<div class="container">
+    <div class="page-content" id="main">
 
-    <section>
-        <h2>Finalidade da ferramenta</h2>
-        <p>O Testador de HTML Online é uma ferramenta de caráter <strong>educativo e informativo</strong>, destinada à análise preliminar de código HTML.</p>
-    </section>
+        <section>
+            <h2>Aceitação dos termos</h2>
+            <p>Ao acessar e utilizar este site, você concorda com os presentes Termos de Uso. Caso não concorde, recomenda-se não utilizar a ferramenta.</p>
+        </section>
 
-    <section>
-        <h2>Limitações de responsabilidade</h2>
-        <p>A ferramenta não substitui validadores oficiais nem auditorias técnicas profissionais. Os resultados apresentados não garantem conformidade total com padrões ou normas específicas.</p>
-    </section>
+        <section>
+            <h2>Finalidade da ferramenta</h2>
+            <p>O Testador de HTML Online é uma ferramenta de caráter <strong>educativo e informativo</strong>, destinada à análise preliminar de código HTML diretamente no navegador do usuário.</p>
+        </section>
 
-    <section>
-        <h2>Uso indevido</h2>
-        <p>É proibido utilizar o site para envio de códigos maliciosos, tentativa de sobrecarga do sistema ou qualquer atividade ilegal.</p>
-    </section>
+        <section>
+            <h2>Limitações de responsabilidade</h2>
+            <p>A ferramenta não substitui validadores oficiais nem auditorias técnicas profissionais. Os resultados apresentados não garantem conformidade total com padrões ou normas específicas.</p>
+        </section>
 
-    <section>
-        <h2>Alterações</h2>
-        <p>Os Termos de Uso podem ser atualizados a qualquer momento, sem aviso prévio. Recomenda-se a revisão periódica desta página.</p>
-    </section>
+        <section>
+            <h2>Uso indevido</h2>
+            <p>É proibido utilizar o site para envio de códigos maliciosos, tentativa de sobrecarga do sistema ou qualquer atividade ilegal.</p>
+        </section>
 
-    <nav class="breadcrumb" aria-label="Navegação de retorno">
-        <a href="/html-teste/">← Voltar para o Testador de HTML</a>
-    </nav>
+        <section>
+            <h2>Propriedade intelectual</h2>
+            <p>O código e o design deste site são de propriedade do autor. O uso do código inserido pelo usuário na ferramenta permanece de responsabilidade exclusiva do próprio usuário.</p>
+        </section>
 
-</main>
+        <section>
+            <h2>Alterações</h2>
+            <p>Os Termos de Uso podem ser atualizados a qualquer momento, sem aviso prévio. Recomenda-se a revisão periódica desta página.</p>
+        </section>
 
-<footer class="footer">
-    <p>Testador de HTML Online • Projeto educacional • © 2026</p>
-    <p>Desenvolvido com ❤️ para a comunidade de desenvolvimento web</p>
+    </div>
+</div>
+
+<footer class="page-footer">
+    <div class="page-footer-inner">
+        <span class="page-footer-copy">© 2026 Testador de HTML Online</span>
+        <ul class="page-footer-links">
+            <li><a href="sobre.html">Sobre</a></li>
+            <li><a href="termos.html">Termos</a></li>
+            <li><a href="privacidade.html">Privacidade</a></li>
+            <li><a href="como-usar.html">Como usar</a></li>
+        </ul>
+    </div>
 </footer>
 
-<button id="topBtn" aria-label="Voltar ao topo" title="Subir ao topo">↑</button>
+<button id="topBtn" aria-label="Voltar ao topo" title="Voltar ao topo">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+</button>
 
 <script src="js/common.js"></script>
 </body>

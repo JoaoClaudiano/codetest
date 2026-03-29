@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <!-- Dark mode FOUC fix -->
+    <script>
+        (function () {
+            var s = localStorage.getItem('theme');
+            var p = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (s === 'dark' || (!s && p)) document.documentElement.classList.add('dark');
+        }());
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
+
+    <title>Como usar o Testador de HTML | Mini-curso HTML, CSS e JS</title>
+    <meta name="description" content="Aprenda HTML, CSS e JavaScript do zero com este guia passo a passo. Descubra como usar o Testador de HTML Online para praticar e validar seu código.">
+    <meta name="robots" content="index, follow">
+
+    <link rel="canonical" href="https://joaoclaudiano.github.io/html-teste/como-usar.html">
+    <meta property="og:title" content="Como usar — Testador de HTML Online">
+    <meta property="og:description" content="Guia passo a passo e mini-curso de HTML, CSS e JS para iniciantes.">
+    <meta property="og:url" content="https://joaoclaudiano.github.io/html-teste/como-usar.html">
+    <meta property="og:image" content="https://joaoclaudiano.github.io/html-teste/favicon.png">
+
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="alternate icon" href="favicon.png">
+
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RYCB08HG48"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-RYCB08HG48', { transport_type: 'beacon' });
+    </script>
+    <meta name="google-site-verification" content="google8df277a1c3c466cf">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Shared CSS -->
+    <link rel="stylesheet" href="css/pages.css">
+
+    <style>
+        /* ── Extras para esta página ─────────────────────────────── */
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            font-size: 0.78rem;
+            font-weight: 700;
+            flex-shrink: 0;
+            margin-bottom: 0.75rem;
+        }
+
+        .code-block {
+            background: #0f172a;
+            color: #e2e8f0;
+            border-radius: 6px;
+            padding: 1rem 1.25rem;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.82rem;
+            line-height: 1.7;
+            overflow-x: auto;
+            margin: 0.75rem 0 0;
+            border: 1px solid #1e293b;
+        }
+        html.dark .code-block,
+        body.dark .code-block {
+            background: #020617;
+            border-color: #1e293b;
+        }
+
+        .code-block .tag  { color: #7dd3fc; }
+        .code-block .attr { color: #86efac; }
+        .code-block .val  { color: #fca5a5; }
+        .code-block .com  { color: #64748b; font-style: italic; }
+        .code-block .prop { color: #c4b5fd; }
+        .code-block .kw   { color: #fb923c; }
+        .code-block .str  { color: #fca5a5; }
+
+        .tip-box {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 6px;
+            padding: 0.9rem 1rem;
+            margin-top: 0.75rem;
+            font-size: 0.85rem;
+            color: #1e40af;
+            display: flex;
+            gap: 8px;
+            align-items: flex-start;
+        }
+        html.dark .tip-box,
+        body.dark .tip-box {
+            background: rgba(37,99,235,0.08);
+            border-color: rgba(37,99,235,0.25);
+            color: #93c5fd;
+        }
+
+        .tip-box svg { flex-shrink: 0; margin-top: 2px; }
+
+        .lesson-nav {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+        .lesson-nav a {
+            font-size: 0.8rem;
+            font-weight: 500;
+            padding: 5px 12px;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: all 0.15s;
+        }
+        .lesson-nav a:hover {
+            color: var(--primary);
+            border-color: var(--primary);
+            text-decoration: none;
+        }
+
+        .try-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 0.85rem;
+            padding: 7px 14px;
+            background: var(--primary);
+            color: white;
+            border-radius: 6px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.15s;
+        }
+        .try-btn:hover { background: var(--primary-dark); color: white; text-decoration: none; }
+
+        .container { max-width: 800px; }
+    </style>
+</head>
+<body>
+
+<header class="site-header">
+    <a href="/html-teste/" class="site-header-brand" aria-label="Testador HTML Online — página inicial">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        Testador HTML
+    </a>
+    <div class="site-header-right">
+        <a href="/html-teste/" class="btn-back" aria-label="Voltar à página inicial">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><polyline points="12 19 5 12 12 5"/></svg>
+            Início
+        </a>
+        <button id="darkToggle" class="btn-icon" aria-label="Ativar modo escuro" title="Alternar tema"></button>
+    </div>
+</header>
+
+<div class="page-hero">
+    <h1>Como usar?</h1>
+    <p>Guia passo a passo + mini-curso de HTML, CSS e JS para iniciantes</p>
+</div>
+
+<div class="container">
+    <div class="page-content" id="main">
+
+        <!-- Navegação rápida -->
+        <nav class="lesson-nav" aria-label="Navegação por lição">
+            <a href="#usando-ferramenta">Usando a ferramenta</a>
+            <a href="#html-basico">HTML básico</a>
+            <a href="#css-basico">CSS básico</a>
+            <a href="#js-basico">JavaScript básico</a>
+            <a href="#boas-praticas">Boas práticas</a>
+            <a href="#exercicios">Exercícios</a>
+        </nav>
+
+        <!-- ── SEÇÃO 1: Usando a ferramenta ─────────────────────── -->
+        <section id="usando-ferramenta">
+            <span class="step-number" aria-hidden="true">1</span>
+            <h2>Usando o Testador de HTML</h2>
+            <p>O Testador de HTML Online é um ambiente completo para escrever e visualizar código web no navegador, sem instalar nada. Veja como funciona:</p>
+
+            <h3 style="font-size:0.95rem;font-weight:600;margin:1rem 0 0.5rem;color:var(--text)">Passo 1 — Escreva seu código</h3>
+            <p>Na aba <strong>HTML</strong> do editor, cole ou digite seu código. Você também tem abas separadas para <strong>CSS</strong> e <strong>JS</strong>, o que mantém o código organizado.</p>
+
+            <h3 style="font-size:0.95rem;font-weight:600;margin:1rem 0 0.5rem;color:var(--text)">Passo 2 — Clique em "Analisar"</h3>
+            <p>O botão <strong>Analisar</strong> renderiza o código no painel de pré-visualização à direita e executa uma análise automática verificando erros, acessibilidade e boas práticas de SEO.</p>
+
+            <h3 style="font-size:0.95rem;font-weight:600;margin:1rem 0 0.5rem;color:var(--text)">Passo 3 — Leia os resultados</h3>
+            <p>Uma pontuação de <strong>0 a 100</strong> indica a qualidade do código. Cada problema encontrado vem acompanhado de uma explicação e, quando possível, do código correto sugerido.</p>
+
+            <div class="tip-box">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                <span>Ative a <strong>Análise Automática</strong> (ícone de raio) para ver os resultados enquanto você digita, sem precisar clicar em Analisar a cada alteração.</span>
+            </div>
+
+            <h3 style="font-size:0.95rem;font-weight:600;margin:1rem 0 0.5rem;color:var(--text)">Outras funcionalidades</h3>
+            <ul>
+                <li><strong>Exemplo</strong> — carrega um HTML de exemplo com boas práticas para estudar</li>
+                <li><strong>Salvar HTML</strong> — baixa o código como arquivo <code>.html</code> para usar no computador</li>
+                <li><strong>Compartilhar</strong> — gera um link com o código comprimido para enviar a outra pessoa</li>
+                <li><strong>Template</strong> — insere uma estrutura HTML5 básica para você completar</li>
+                <li><strong>Simular dispositivos</strong> — os botões de celular, tablet e desktop ajustam a largura da pré-visualização</li>
+            </ul>
+        </section>
+
+        <!-- ── SEÇÃO 2: HTML básico ──────────────────────────────── -->
+        <section id="html-basico">
+            <span class="step-number" aria-hidden="true">2</span>
+            <h2>HTML básico</h2>
+            <p>HTML (<em>HyperText Markup Language</em>) é a linguagem que define a <strong>estrutura</strong> de uma página web. Ela funciona com <em>tags</em> — palavras-chave entre <code>&lt;</code> e <code>&gt;</code>.</p>
+
+            <h3 style="font-size:0.95rem;font-weight:600;margin:1rem 0 0.5rem;color:var(--text)">Estrutura mínima obrigatória</h3>
+            <p>Todo documento HTML deve começar com esta estrutura:</p>
+            <pre class="code-block"><code><span class="tag">&lt;!DOCTYPE html&gt;</span>               <span class="com">&lt;!-- declara HTML5 --&gt;</span>
+<span class="tag">&lt;html</span> <span class="attr">lang</span>=<span class="val">"pt-BR"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;head&gt;</span>
+    <span class="tag">&lt;meta</span> <span class="attr">charset</span>=<span class="val">"UTF-8"</span><span class="tag">&gt;</span>            <span class="com">&lt;!-- suporte a acentos --&gt;</span>
+    <span class="tag">&lt;meta</span> <span class="attr">name</span>=<span class="val">"viewport"</span> <span class="attr">content</span>=<span class="val">"width=device-width, initial-scale=1.0"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;title&gt;</span>Título da Página<span class="tag">&lt;/title&gt;</span>
+  <span class="tag">&lt;/head&gt;</span>
+  <span class="tag">&lt;body&gt;</span>
+    <span class="com">&lt;!-- conteúdo visível vai aqui --&gt;</span>
+  <span class="tag">&lt;/body&gt;</span>
+<span class="tag">&lt;/html&gt;</span></code></pre>
+
+            <h3 style="font-size:0.95rem;font-weight:600;margin:1rem 0 0.5rem;color:var(--text)">Tags mais usadas</h3>
+            <pre class="code-block"><code><span class="com">&lt;!-- Títulos: h1 é o principal, h6 é o menor --&gt;</span>
+<span class="tag">&lt;h1&gt;</span>Título principal<span class="tag">&lt;/h1&gt;</span>
+<span class="tag">&lt;h2&gt;</span>Subtítulo<span class="tag">&lt;/h2&gt;</span>
+
+<span class="com">&lt;!-- Parágrafo e formatação --&gt;</span>
+<span class="tag">&lt;p&gt;</span>Texto normal. <span class="tag">&lt;strong&gt;</span>Negrito.<span class="tag">&lt;/strong&gt;</span> <span class="tag">&lt;em&gt;</span>Itálico.<span class="tag">&lt;/em&gt;</span><span class="tag">&lt;/p&gt;</span>
+
+<span class="com">&lt;!-- Link --&gt;</span>
+<span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="val">"https://exemplo.com"</span><span class="tag">&gt;</span>Clique aqui<span class="tag">&lt;/a&gt;</span>
+
+<span class="com">&lt;!-- Imagem (alt é obrigatório para acessibilidade) --&gt;</span>
+<span class="tag">&lt;img</span> <span class="attr">src</span>=<span class="val">"foto.jpg"</span> <span class="attr">alt</span>=<span class="val">"Descrição da imagem"</span><span class="tag">&gt;</span>
+
+<span class="com">&lt;!-- Listas --&gt;</span>
+<span class="tag">&lt;ul&gt;</span>                     <span class="com">&lt;!-- lista sem ordem (bolinhas) --&gt;</span>
+  <span class="tag">&lt;li&gt;</span>Item 1<span class="tag">&lt;/li&gt;</span>
+  <span class="tag">&lt;li&gt;</span>Item 2<span class="tag">&lt;/li&gt;</span>
+<span class="tag">&lt;/ul&gt;</span>
+
+<span class="tag">&lt;ol&gt;</span>                     <span class="com">&lt;!-- lista ordenada (números) --&gt;</span>
+  <span class="tag">&lt;li&gt;</span>Primeiro<span class="tag">&lt;/li&gt;</span>
+  <span class="tag">&lt;li&gt;</span>Segundo<span class="tag">&lt;/li&gt;</span>
+<span class="tag">&lt;/ol&gt;</span></code></pre>
+
+            <h3 style="font-size:0.95rem;font-weight:600;margin:1rem 0 0.5rem;color:var(--text)">Tags semânticas (HTML5)</h3>
+            <p>Tags semânticas descrevem o significado do conteúdo, melhorando SEO e acessibilidade:</p>
+            <pre class="code-block"><code><span class="tag">&lt;header&gt;</span>  topo da página ou seção   <span class="tag">&lt;/header&gt;</span>
+<span class="tag">&lt;nav&gt;</span>     menu de navegação          <span class="tag">&lt;/nav&gt;</span>
+<span class="tag">&lt;main&gt;</span>    conteúdo principal         <span class="tag">&lt;/main&gt;</span>
+<span class="tag">&lt;article&gt;</span> artigo / post              <span class="tag">&lt;/article&gt;</span>
+<span class="tag">&lt;section&gt;</span> seção temática             <span class="tag">&lt;/section&gt;</span>
+<span class="tag">&lt;aside&gt;</span>   conteúdo lateral           <span class="tag">&lt;/aside&gt;</span>
+<span class="tag">&lt;footer&gt;</span>  rodapé da página           <span class="tag">&lt;/footer&gt;</span></code></pre>
+
+            <a href="/html-teste/" class="try-btn" target="_blank" rel="noopener">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                Praticar no editor
+            </a>
+        </section>
+
+        <!-- ── SEÇÃO 3: CSS básico ───────────────────────────────── -->
+        <section id="css-basico">
+            <span class="step-number" aria-hidden="true">3</span>
+            <h2>CSS básico</h2>
+            <p>CSS (<em>Cascading Style Sheets</em>) controla a <strong>aparência visual</strong> da página: cores, fontes, espaçamentos e layout. Use a aba <strong>CSS</strong> no editor para escrever estilos separados do HTML.</p>
+
+            <h3 style="font-size:0.95rem;font-weight:600;margin:1rem 0 0.5rem;color:var(--text)">Sintaxe básica</h3>
+            <pre class="code-block"><code><span class="com">/* seletor { propriedade: valor; } */</span>
+
+<span class="tag">h1</span> {
+  <span class="prop">color</span>: <span class="val">#2563eb</span>;          <span class="com">/* cor azul */</span>
+  <span class="prop">font-size</span>: <span class="val">2rem</span>;         <span class="com">/* tamanho da fonte */</span>
+  <span class="prop">font-weight</span>: <span class="val">bold</span>;
+}
+
+<span class="tag">p</span> {
+  <span class="prop">color</span>: <span class="val">#475569</span>;
+  <span class="prop">line-height</span>: <span class="val">1.6</span>;         <span class="com">/* espaço entre linhas */</span>
+  <span class="prop">margin-bottom</span>: <span class="val">1rem</span>;
+}
+
+<span class="com">/* Seletor por classe (.nome) */</span>
+<span class="tag">.destaque</span> {
+  <span class="prop">background</span>: <span class="val">#fef9c3</span>;
+  <span class="prop">padding</span>: <span class="val">0.5rem 1rem</span>;
+  <span class="prop">border-radius</span>: <span class="val">6px</span>;
+}
+
+<span class="com">/* Seletor por id (#nome) */</span>
+<span class="tag">#cabecalho</span> {
+  <span class="prop">background</span>: <span class="val">#0f172a</span>;
+  <span class="prop">color</span>: <span class="val">white</span>;
+  <span class="prop">padding</span>: <span class="val">1rem 2rem</span>;
+}</code></pre>
+
+            <h3 style="font-size:0.95rem;font-weight:600;margin:1rem 0 0.5rem;color:var(--text)">Box model — como os elementos ocupam espaço</h3>
+            <pre class="code-block"><code><span class="tag">.caixa</span> {
+  <span class="prop">width</span>: <span class="val">300px</span>;          <span class="com">/* largura do conteúdo */</span>
+  <span class="prop">padding</span>: <span class="val">20px</span>;         <span class="com">/* espaço interno */</span>
+  <span class="prop">border</span>: <span class="val">2px solid #ccc</span>; <span class="com">/* borda */</span>
+  <span class="prop">margin</span>: <span class="val">16px auto</span>;    <span class="com">/* espaço externo; auto = centralizar */</span>
+}</code></pre>
+
+            <h3 style="font-size:0.95rem;font-weight:600;margin:1rem 0 0.5rem;color:var(--text)">Flexbox — layouts flexíveis</h3>
+            <pre class="code-block"><code><span class="tag">.container</span> {
+  <span class="prop">display</span>: <span class="val">flex</span>;
+  <span class="prop">gap</span>: <span class="val">16px</span>;
+  <span class="prop">justify-content</span>: <span class="val">space-between</span>; <span class="com">/* distribui horizontalmente */</span>
+  <span class="prop">align-items</span>: <span class="val">center</span>;            <span class="com">/* alinha verticalmente */</span>
+}</code></pre>
+
+            <div class="tip-box">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                <span>Use <code>box-sizing: border-box</code> em todos os elementos para que padding e border sejam incluídos na largura total: <code>* { box-sizing: border-box; }</code></span>
+            </div>
+        </section>
+
+        <!-- ── SEÇÃO 4: JavaScript básico ───────────────────────── -->
+        <section id="js-basico">
+            <span class="step-number" aria-hidden="true">4</span>
+            <h2>JavaScript básico</h2>
+            <p>JavaScript (JS) adiciona <strong>interatividade</strong> à página: cliques, animações, formulários dinâmicos, chamadas a APIs e muito mais. Use a aba <strong>JS</strong> no editor para escrever seu script.</p>
+
+            <h3 style="font-size:0.95rem;font-weight:600;margin:1rem 0 0.5rem;color:var(--text)">Variáveis e tipos</h3>
+            <pre class="code-block"><code><span class="kw">const</span> nome = <span class="str">"Ana"</span>;         <span class="com">// constante — não muda</span>
+<span class="kw">let</span>   idade = <span class="val">25</span>;            <span class="com">// variável — pode mudar</span>
+<span class="kw">let</span>   ativo = <span class="val">true</span>;          <span class="com">// booleano</span>
+<span class="kw">let</span>   nota  = <span class="val">9.5</span>;           <span class="com">// número</span></code></pre>
+
+            <h3 style="font-size:0.95rem;font-weight:600;margin:1rem 0 0.5rem;color:var(--text)">Selecionar elementos do HTML</h3>
+            <pre class="code-block"><code><span class="com">// Seleciona pelo id</span>
+<span class="kw">const</span> titulo = document.<span class="prop">getElementById</span>(<span class="str">"meu-titulo"</span>);
+
+<span class="com">// Seleciona pelo seletor CSS (como querySelector do CSS)</span>
+<span class="kw">const</span> botao  = document.<span class="prop">querySelector</span>(<span class="str">".btn-enviar"</span>);
+<span class="kw">const</span> todos  = document.<span class="prop">querySelectorAll</span>(<span class="str">"li"</span>); <span class="com">// retorna lista</span></code></pre>
+
+            <h3 style="font-size:0.95rem;font-weight:600;margin:1rem 0 0.5rem;color:var(--text)">Reagir a eventos</h3>
+            <pre class="code-block"><code><span class="kw">const</span> botao = document.<span class="prop">querySelector</span>(<span class="str">"#btn"</span>);
+
+botao.<span class="prop">addEventListener</span>(<span class="str">"click"</span>, <span class="kw">function</span> () {
+  <span class="prop">alert</span>(<span class="str">"Você clicou!"</span>);
+});</code></pre>
+
+            <h3 style="font-size:0.95rem;font-weight:600;margin:1rem 0 0.5rem;color:var(--text)">Alterar HTML e CSS dinamicamente</h3>
+            <pre class="code-block"><code><span class="kw">const</span> caixa = document.<span class="prop">getElementById</span>(<span class="str">"caixa"</span>);
+
+<span class="com">// Alterar texto</span>
+caixa.<span class="prop">textContent</span> = <span class="str">"Novo texto"</span>;
+
+<span class="com">// Alterar HTML interno</span>
+caixa.<span class="prop">innerHTML</span> = <span class="str">"&lt;strong&gt;Negrito&lt;/strong&gt;"</span>;
+
+<span class="com">// Alterar estilo CSS</span>
+caixa.<span class="prop">style</span>.backgroundColor = <span class="str">"#dbeafe"</span>;
+
+<span class="com">// Adicionar/remover classes</span>
+caixa.<span class="prop">classList</span>.<span class="prop">add</span>(<span class="str">"ativo"</span>);
+caixa.<span class="prop">classList</span>.<span class="prop">remove</span>(<span class="str">"oculto"</span>);
+caixa.<span class="prop">classList</span>.<span class="prop">toggle</span>(<span class="str">"expandido"</span>);</code></pre>
+
+            <div class="tip-box">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                <span>Para depurar erros em JS, abra o <strong>Console do navegador</strong> com <kbd>F12</kbd> → aba Console. Use <code>console.log(valor)</code> no código para imprimir valores e entender o que está acontecendo.</span>
+            </div>
+        </section>
+
+        <!-- ── SEÇÃO 5: Boas práticas ────────────────────────────── -->
+        <section id="boas-praticas">
+            <span class="step-number" aria-hidden="true">5</span>
+            <h2>Boas práticas</h2>
+            <p>O Testador de HTML verifica automaticamente vários desses pontos. Entendê-los ajuda você a escrever código de qualidade desde o início:</p>
+
+            <h3 style="font-size:0.95rem;font-weight:600;margin:1rem 0 0.5rem;color:var(--text)">Acessibilidade</h3>
+            <ul>
+                <li>Sempre use <code>alt</code> em imagens: <code>&lt;img alt="descrição"&gt;</code></li>
+                <li>Associe campos de formulário a labels: <code>&lt;label for="email"&gt;</code></li>
+                <li>Use os atributos <code>aria-label</code> em botões que só têm ícone (sem texto)</li>
+                <li>Mantenha a hierarquia de títulos: h1 → h2 → h3, sem pular níveis</li>
+            </ul>
+
+            <h3 style="font-size:0.95rem;font-weight:600;margin:1rem 0 0.5rem;color:var(--text)">SEO (Otimização para buscadores)</h3>
+            <ul>
+                <li>Toda página precisa de <code>&lt;title&gt;</code> com 30–60 caracteres</li>
+                <li>Adicione <code>&lt;meta name="description"&gt;</code> com até 160 caracteres</li>
+                <li>Use apenas um <code>&lt;h1&gt;</code> por página</li>
+                <li>Defina o idioma: <code>&lt;html lang="pt-BR"&gt;</code></li>
+            </ul>
+
+            <h3 style="font-size:0.95rem;font-weight:600;margin:1rem 0 0.5rem;color:var(--text)">Segurança</h3>
+            <ul>
+                <li>Links externos devem ter <code>rel="noopener noreferrer"</code> para evitar ataques de <em>tabnabbing</em></li>
+                <li>Nunca insira código de terceiros sem entender o que ele faz</li>
+            </ul>
+
+            <h3 style="font-size:0.95rem;font-weight:600;margin:1rem 0 0.5rem;color:var(--text)">Performance</h3>
+            <ul>
+                <li>Adicione <code>loading="lazy"</code> em imagens que não estão visíveis na tela inicial</li>
+                <li>Use <code>width</code> e <code>height</code> nas imagens para evitar layout shift</li>
+                <li>Prefira CSS externo a estilos <code>inline</code> para facilitar manutenção</li>
+            </ul>
+        </section>
+
+        <!-- ── SEÇÃO 6: Exercícios ───────────────────────────────── -->
+        <section id="exercicios">
+            <span class="step-number" aria-hidden="true">6</span>
+            <h2>Exercícios práticos</h2>
+            <p>A melhor forma de aprender é praticando. Experimente os desafios abaixo no editor — tente atingir a pontuação máxima (100/100) na análise!</p>
+
+            <h3 style="font-size:0.95rem;font-weight:600;margin:1rem 0 0.5rem;color:var(--text)">Nível 1 — Estrutura mínima perfeita</h3>
+            <p>Crie um documento HTML5 completo com <code>DOCTYPE</code>, charset, viewport, título, meta description e idioma definido. Analise e veja se atingiu 100/100.</p>
+
+            <h3 style="font-size:0.95rem;font-weight:600;margin:1rem 0 0.5rem;color:var(--text)">Nível 2 — Página pessoal</h3>
+            <p>Construa uma mini página "Sobre mim" com:</p>
+            <ul>
+                <li>Header com <code>&lt;nav&gt;</code> e links</li>
+                <li>Uma foto com <code>alt</code> descritivo</li>
+                <li>Uma seção <code>&lt;main&gt;</code> com parágrafo de apresentação</li>
+                <li>Um <code>&lt;footer&gt;</code> com copyright</li>
+            </ul>
+
+            <h3 style="font-size:0.95rem;font-weight:600;margin:1rem 0 0.5rem;color:var(--text)">Nível 3 — Interação com JS</h3>
+            <p>Adicione um botão que, ao ser clicado, altera o texto de um parágrafo e muda a cor de fundo da página. Use as abas HTML, CSS e JS do editor para organizar o código.</p>
+
+            <h3 style="font-size:0.95rem;font-weight:600;margin:1rem 0 0.5rem;color:var(--text)">Nível 4 — Formulário acessível</h3>
+            <p>Crie um formulário de contato com campos de nome, e-mail e mensagem. Certifique-se de que cada campo tem um <code>&lt;label&gt;</code> associado e que o formulário tem um <code>&lt;button type="submit"&gt;</code> com texto claro.</p>
+
+            <div class="tip-box">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                <span>Após cada exercício, clique em <strong>Analisar</strong> e leia os alertas. Cada alerta tem uma explicação e uma correção sugerida — é a forma mais rápida de aprender com os próprios erros.</span>
+            </div>
+
+            <a href="/html-teste/" class="try-btn">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                Abrir o editor e praticar agora
+            </a>
+        </section>
+
+    </div>
+</div>
+
+<footer class="page-footer">
+    <div class="page-footer-inner">
+        <span class="page-footer-copy">© 2026 Testador de HTML Online</span>
+        <ul class="page-footer-links">
+            <li><a href="sobre.html">Sobre</a></li>
+            <li><a href="termos.html">Termos</a></li>
+            <li><a href="privacidade.html">Privacidade</a></li>
+            <li><a href="como-usar.html">Como usar</a></li>
+        </ul>
+    </div>
+</footer>
+
+<button id="topBtn" aria-label="Voltar ao topo" title="Voltar ao topo">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+</button>
+
+<script src="js/common.js"></script>
+</body>
+</html>
