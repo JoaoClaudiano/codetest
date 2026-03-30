@@ -24,9 +24,13 @@
         lineNumbers: true,
         lineWrapping: false,
         matchBrackets: true,
+        closeBrackets: true,
         tabSize: 4,
         indentWithTabs: false,
-        extraKeys: { Tab: cm => cm.execCommand('indentMore') }
+        extraKeys: {
+            Tab: cm => cm.execCommand('indentMore'),
+            'Ctrl-Space': 'autocomplete'
+        }
     }, { mode }, extra);
 
     /* exported cmHtml, cmCss, cmJs */
@@ -154,6 +158,34 @@
         if (autoEnabled) {
             clearTimeout(debounceT);
             debounceT = setTimeout(() => analyzeHTML(), 700);
+        }
+    });
+
+    // Live preview para CSS e JS (apenas atualiza o iframe, sem análise completa)
+    let debounceCSS = null;
+    let debounceJS  = null;
+
+    cmCss.on('change', () => {
+        clearTimeout(debounceCSS);
+        debounceCSS = setTimeout(() => updatePreview(), 500);
+    });
+
+    cmJs.on('change', () => {
+        clearTimeout(debounceJS);
+        debounceJS = setTimeout(() => updatePreview(), 500);
+    });
+
+    // ─── Atalhos de teclado ───────────────────────────────────────────────────
+
+    document.addEventListener('keydown', e => {
+        const mod = e.ctrlKey || e.metaKey;
+        if (!mod) return;
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            analyzeHTML();
+        } else if (e.key === 's') {
+            e.preventDefault();
+            exportHTML();
         }
     });
 

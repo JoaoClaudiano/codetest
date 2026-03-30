@@ -44,6 +44,7 @@
     <!-- CodeMirror 5 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/monokai.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.css" crossorigin="anonymous">
 
     <!-- App CSS -->
     <link rel="stylesheet" href="css/styles.css">
@@ -147,11 +148,12 @@
                     </div>
 
                     <div class="editor-actions">
-                        <button class="btn btn-primary" onclick="analyzeHTML()">
+                        <button class="btn btn-primary" onclick="analyzeHTML()"
+                                title="Analisar código (Ctrl+Enter)">
                             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
                             Analisar
                         </button>
-                        <button class="btn btn-secondary" onclick="exportHTML()" title="Baixar como arquivo .html">
+                        <button class="btn btn-secondary" onclick="exportHTML()" title="Baixar como arquivo .html (Ctrl+S)">
                             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                             Salvar HTML
                         </button>
@@ -194,6 +196,23 @@
                                 sandbox="allow-scripts"
                                 title="Pré-visualização do HTML inserido"
                                 aria-label="Pré-visualização"></iframe>
+                    </div>
+
+                    <!-- Console JS embutido -->
+                    <div class="js-console-panel" id="jsConsolePanel" aria-label="Console JavaScript">
+                        <div class="js-console-header">
+                            <div class="js-console-title">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+                                Console
+                                <span class="js-console-badge" id="jsConsoleBadge" hidden></span>
+                            </div>
+                            <button class="icon-btn" onclick="clearJsConsole()" title="Limpar console" aria-label="Limpar console">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+                            </button>
+                        </div>
+                        <div class="js-console-output" id="jsConsoleOutput" aria-live="polite">
+                            <p class="js-console-empty">Sem saída. Execute JavaScript para ver os resultados.</p>
+                        </div>
                     </div>
                 </section>
 
@@ -283,6 +302,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/htmlmixed/htmlmixed.min.js" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closetag.min.js" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/matchbrackets.min.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/xml-hint.min.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/html-hint.min.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/javascript-hint.min.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/css-hint.min.js" crossorigin="anonymous"></script>
 
 <!-- App scripts -->
 <script src="js/analyze.js"></script>

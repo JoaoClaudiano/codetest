@@ -3,6 +3,91 @@
  * Utiliza DOMParser para análise real do HTML (sem regex frágeis).
  */
 
+// ─── Console JS embutido ─────────────────────────────────────────────────────
+
+/**
+ * Retorna o código do interceptor de console a ser injetado no iframe.
+ * Captura console.log/warn/error/info/debug, erros de script e
+ * promises não tratadas, enviando via postMessage para o pai.
+ */
+function _getConsoleInterceptorCode() {
+    return '(function(){'
+        + 'var _p=function(l,a){'
+        +   'var m=Array.prototype.slice.call(a).map(function(x){'
+        +     'if(x===null)return"null";'
+        +     'if(x===undefined)return"undefined";'
+        +     'try{return typeof x==="object"?JSON.stringify(x,null,2):String(x);}'
+        +     'catch(e){return"[objeto não serializável]";}'
+        +   '});'
+        +   'window.parent.postMessage({__codetest:true,level:l,message:m.join(" ")},\"*\");'
+        + '};'
+        + '["log","warn","error","info","debug"].forEach(function(m){'
+        +   'var o=console[m].bind(console);'
+        +   'console[m]=function(){o.apply(console,arguments);_p(m,arguments);};'
+        + '});'
+        + 'window.addEventListener("error",function(e){'
+        +   'var loc=e.lineno?"(linha "+e.lineno+(e.colno?", col "+e.colno:"")+")":"";'
+        +   'window.parent.postMessage({__codetest:true,level:"error",'
+        +     'message:(e.message||"Erro desconhecido")+" "+loc},\"*\");'
+        + '});'
+        + 'window.addEventListener("unhandledrejection",function(e){'
+        +   'var r=e.reason;'
+        +   'var msg=r?(r.message||String(r)):"Promise rejeitada sem motivo";'
+        +   'window.parent.postMessage({__codetest:true,level:"error",'
+        +     'message:"Promise não tratada: "+msg},\"*\");'
+        + '});'
+        + '}());';
+}
+
+/** Limpa o painel do console JS. */
+function clearJsConsole() {
+    var output = document.getElementById('jsConsoleOutput');
+    var badge  = document.getElementById('jsConsoleBadge');
+    if (output) output.innerHTML = '<p class="js-console-empty">Sem saída. Execute JavaScript para ver os resultados.</p>';
+    if (badge)  { badge.textContent = ''; badge.hidden = true; }
+}
+
+/** Adiciona uma linha ao console JS embutido. */
+function _appendConsoleMessage(level, message) {
+    var output = document.getElementById('jsConsoleOutput');
+    var badge  = document.getElementById('jsConsoleBadge');
+    if (!output) return;
+
+    var empty = output.querySelector('.js-console-empty');
+    if (empty) empty.remove();
+
+    var line = document.createElement('div');
+    line.className = 'js-console-line js-console-' + level;
+
+    var icon = document.createElement('span');
+    icon.className = 'js-console-icon';
+    icon.setAttribute('aria-hidden', 'true');
+    icon.textContent = level === 'error' ? '✖' : level === 'warn' ? '⚠' : level === 'info' ? 'ℹ' : '›';
+
+    var text = document.createElement('span');
+    text.className = 'js-console-text';
+    text.textContent = message;
+
+    line.appendChild(icon);
+    line.appendChild(text);
+    output.appendChild(line);
+    output.scrollTop = output.scrollHeight;
+
+    if (badge) {
+        var count = output.querySelectorAll('.js-console-line').length;
+        badge.textContent = count;
+        badge.hidden = false;
+    }
+}
+
+// Escutar mensagens vindas do iframe de preview
+window.addEventListener('message', function (e) {
+    if (!e.data || e.data.__codetest !== true) return;
+    var frame = document.getElementById('previewFrame');
+    if (frame && e.source !== frame.contentWindow) return;
+    _appendConsoleMessage(e.data.level || 'log', e.data.message || '');
+});
+
 // ─── Acesso ao editor (CodeMirror ou textarea fallback) ─────────────────────
 
 function getEditorHTML() {
@@ -29,6 +114,7 @@ function getEditorJS() {
 
 /**
  * Combina as três abas (HTML + CSS + JS) em um documento completo.
+ * Usado para exportação e validação W3C (sem injeção de console).
  */
 function buildFullHTML() {
     const html = getEditorHTML().trim();
@@ -68,17 +154,48 @@ ${html}${scriptPart}
 </html>`;
 }
 
+/**
+ * Constrói o HTML para o preview injetando o interceptor de console.
+ * Use apenas para srcdoc do iframe — NÃO para exportação ou W3C.
+ */
+function buildPreviewHTML() {
+    const full = buildFullHTML();
+    if (!full) return '';
+    const interceptorTag = '<script>' + _getConsoleInterceptorCode() + '<\/script>';
+    if (full.includes('<head>')) {
+        return full.replace('<head>', '<head>\n' + interceptorTag);
+    }
+    const headMatch = full.match(/<head[^>]*>/i);
+    if (headMatch) {
+        return full.replace(headMatch[0], headMatch[0] + '\n' + interceptorTag);
+    }
+    return interceptorTag + '\n' + full;
+}
+
+/**
+ * Atualiza apenas o iframe de preview (sem rodar análise completa).
+ * Chamado nos debounces de CSS e JS.
+ */
+function updatePreview() {
+    const preview = document.getElementById('previewFrame');
+    if (!preview) return;
+    clearJsConsole();
+    const html = buildPreviewHTML();
+    preview.srcdoc = html || '<div style="padding:20px;color:#666;font-family:sans-serif">Nenhum código para visualizar</div>';
+}
+
 // ─── Análise principal ───────────────────────────────────────────────────────
 
 function analyzeHTML() {
     const rawHTML = getEditorHTML();
-    const fullHTML = buildFullHTML();
     const preview  = document.getElementById('previewFrame');
     const resultsContainer = document.getElementById('resultsContainer');
     const resultsActions   = document.getElementById('resultsActions');
 
-    // Atualizar preview usando srcdoc (seguro contra XSS)
-    preview.srcdoc = fullHTML || '<div style="padding:20px;color:#666;font-family:sans-serif">Nenhum código para visualizar</div>';
+    // Atualizar preview com interceptor de console embutido
+    clearJsConsole();
+    const previewHTML = buildPreviewHTML();
+    preview.srcdoc = previewHTML || '<div style="padding:20px;color:#666;font-family:sans-serif">Nenhum código para visualizar</div>';
 
     if (!rawHTML.trim()) {
         resultsContainer.innerHTML = `
