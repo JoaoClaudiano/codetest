@@ -113,6 +113,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var params = new URLSearchParams(window.location.search);
     var tplId  = params.get('template');
     if (tplId) {
+        /* Wait for the CodeMirror editors to finish initialising before applying */
         setTimeout(function () { applyTemplate(tplId); }, 400);
     }
 });
