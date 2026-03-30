@@ -636,6 +636,27 @@ function clearEditor() {
     localStorage.removeItem('savedHTML');
 }
 
+function pasteCode() {
+    if (!navigator.clipboard || !navigator.clipboard.readText) {
+        alert('Seu navegador não suporta leitura da área de transferência.');
+        return;
+    }
+    navigator.clipboard.readText().then(function (text) {
+        if (!text) return;
+        const activeTab = document.querySelector('.tab-btn.active');
+        const tab = activeTab ? activeTab.dataset.tab : 'html';
+        if (tab === 'css' && typeof cmCss !== 'undefined') {
+            cmCss.setValue(text);
+        } else if (tab === 'js' && typeof cmJs !== 'undefined') {
+            cmJs.setValue(text);
+        } else {
+            setEditorHTML(text);
+        }
+    }).catch(function () {
+        alert('Não foi possível acessar a área de transferência. Verifique as permissões do navegador.');
+    });
+}
+
 function formatCode() {
     const val = getEditorHTML().trim();
     if (!val) return;
