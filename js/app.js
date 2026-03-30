@@ -146,17 +146,8 @@
 
     // ─── Auto-analyze (debounce) ──────────────────────────────────────────────
 
-    let autoEnabled  = false;
+    let autoEnabled  = true;
     let debounceT    = null;
-    const btnAuto    = document.getElementById('btnAutoAnalyze');
-
-    btnAuto.addEventListener('click', () => {
-        autoEnabled = !autoEnabled;
-        btnAuto.setAttribute('aria-pressed', String(autoEnabled));
-        btnAuto.title = autoEnabled ? 'Auto-análise ativa (clique para desativar)' : 'Ativar análise automática';
-        btnAuto.style.opacity = autoEnabled ? '1' : '0.6';
-        if (autoEnabled) showToast('⚡ Análise automática ativada');
-    });
 
     cmHtml.on('change', () => {
         localStorage.setItem('savedHTML', cmHtml.getValue());
@@ -180,4 +171,59 @@
 
     // ─── Sincronizar dark mode inicial no body ────────────────────────────────
     syncBodyDark();
+
+    // ─── Footer year ──────────────────────────────────────────────────────────
+    const yearEl = document.getElementById('footer-year');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+    // ─── Pagination dots ──────────────────────────────────────────────────────
+
+    (function initPageDots() {
+        const sections = [
+            { el: document.getElementById('editorPreviewArea'), label: 'Editor e Preview' },
+            { el: document.querySelector('.results-section'),    label: 'Resultados'       },
+            { el: document.querySelector('.history-section'),    label: 'Histórico'        },
+        ].filter(function (s) { return s.el; });
+
+        if (sections.length < 2) return;
+
+        const nav = document.createElement('nav');
+        nav.setAttribute('aria-label', 'Navegação por seções');
+        const ul = document.createElement('ul');
+        ul.className = 'page-dots';
+
+        sections.forEach(function (item) {
+            const li  = document.createElement('li');
+            const btn = document.createElement('button');
+            btn.className = 'page-dot';
+            btn.title = item.label;
+            btn.setAttribute('aria-label', item.label);
+            btn.addEventListener('click', function () {
+                item.el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+            li.appendChild(btn);
+            ul.appendChild(li);
+        });
+
+        nav.appendChild(ul);
+        document.body.appendChild(nav);
+
+        const dots = ul.querySelectorAll('.page-dot');
+        if (dots[0]) dots[0].classList.add('active');
+
+        if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        const idx = sections.findIndex(function (s) { return s.el === entry.target; });
+                        if (idx !== -1) {
+                            dots.forEach(function (d, i) { d.classList.toggle('active', i === idx); });
+                        }
+                    }
+                });
+            }, { threshold: 0.25 });
+
+            sections.forEach(function (s) { observer.observe(s.el); });
+        }
+    }());
 }());

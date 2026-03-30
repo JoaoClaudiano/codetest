@@ -259,12 +259,14 @@ body.dark footer.page-footer { background: #020617; }
 
 .page-footer-links {
     display: flex;
-    flex-direction: column;
-    gap: 8px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 6px 18px;
     list-style: none;
     padding: 0;
     margin: 0;
-    align-items: flex-end;
+    align-items: center;
+    justify-content: flex-end;
 }
 .page-footer-links a {
     font-size: 0.8rem;
@@ -759,7 +761,70 @@ html.dark .contact-time-note {
     .container { padding: 0 0.875rem; }
     .privacy-summary { grid-template-columns: 1fr; }
     .page-footer-inner { flex-direction: column; gap: 1.25rem; }
-    .page-footer-links { flex-direction: row; flex-wrap: wrap; gap: 6px 14px; align-items: flex-start; }
+    .page-footer-links { justify-content: flex-start; }
     .page-footer-bottom { flex-direction: column; align-items: flex-start; gap: 6px; }
     .page-footer-tagline { max-width: 100%; }
+}
+
+/* ─── Pagination dots ──────────────────────────────────────────────────────── */
+.page-dots {
+    position: fixed;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 500;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.page-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(100, 116, 139, 0.35);
+    cursor: pointer;
+    border: none;
+    padding: 0;
+    transition: all 0.2s;
+    display: block;
+    position: relative;
+}
+
+.page-dot:hover {
+    background: rgba(37, 99, 235, 0.65);
+    transform: scale(1.25);
+}
+
+.page-dot.active {
+    background: var(--primary);
+    transform: scale(1.35);
+}
+
+.page-dot[title]:hover::after {
+    content: attr(title);
+    position: absolute;
+    right: calc(100% + 10px);
+    top: 50%;
+    transform: translateY(-50%);
+    background: #1e293b;
+    color: #f1f5f9;
+    font-size: 0.7rem;
+    font-family: 'Inter', sans-serif;
+    white-space: nowrap;
+    padding: 3px 8px;
+    border-radius: 4px;
+    pointer-events: none;
+}
+
+html.dark .page-dot[title]:hover::after,
+body.dark .page-dot[title]:hover::after {
+    background: #334155;
+}
+
+@media (max-width: 640px) {
+    .page-dots { display: none; }
 }

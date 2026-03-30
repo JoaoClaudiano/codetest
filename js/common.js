@@ -46,4 +46,53 @@ document.addEventListener('DOMContentLoaded', function () {
     // Auto-update copyright year
     const yearEl = document.getElementById('footer-year');
     if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+    // ─── Pagination dots ──────────────────────────────────────────────────────
+    (function initPageDots() {
+        const sections = document.querySelectorAll('.page-content > section');
+        if (sections.length < 2) return;
+
+        const nav = document.createElement('nav');
+        nav.setAttribute('aria-label', 'Navegação por seções');
+        const ul = document.createElement('ul');
+        ul.className = 'page-dots';
+
+        sections.forEach(function (section, i) {
+            const h2 = section.querySelector('h2');
+            const label = (h2 && h2.textContent.trim()) || ('Seção ' + (i + 1));
+            if (!section.id) section.id = 'section-' + i;
+
+            const li  = document.createElement('li');
+            const btn = document.createElement('button');
+            btn.className = 'page-dot';
+            btn.title = label;
+            btn.setAttribute('aria-label', label);
+            btn.addEventListener('click', function () {
+                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+            li.appendChild(btn);
+            ul.appendChild(li);
+        });
+
+        nav.appendChild(ul);
+        document.body.appendChild(nav);
+
+        const dots = ul.querySelectorAll('.page-dot');
+        if (dots[0]) dots[0].classList.add('active');
+
+        if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        const idx = Array.from(sections).indexOf(entry.target);
+                        if (idx !== -1) {
+                            dots.forEach(function (d, i) { d.classList.toggle('active', i === idx); });
+                        }
+                    }
+                });
+            }, { threshold: 0.3 });
+
+            sections.forEach(function (s) { observer.observe(s); });
+        }
+    }());
 });
