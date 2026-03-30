@@ -148,6 +148,11 @@
                     </div>
 
                     <div class="editor-actions">
+                        <button class="btn btn-secondary" id="btnTemplates" onclick="openTemplatesModal()"
+                                title="Biblioteca de templates e boilerplates" aria-label="Abrir biblioteca de templates">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+                            Templates
+                        </button>
                         <button class="btn btn-primary" onclick="analyzeHTML()"
                                 title="Analisar código (Ctrl+Enter)">
                             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
@@ -286,6 +291,32 @@
     </div>
 </footer>
 
+<!-- Modal de Templates -->
+<div id="templatesModal" class="templates-modal-overlay" hidden
+     role="dialog" aria-modal="true" aria-labelledby="templatesModalTitle">
+    <div id="templatesOverlay" style="position:absolute;inset:0;" aria-hidden="true"></div>
+    <div class="templates-modal-box" role="document">
+        <div class="templates-modal-header">
+            <h2 id="templatesModalTitle">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+                Templates &amp; Boilerplates
+            </h2>
+            <button class="icon-btn" id="closeTemplatesModal" aria-label="Fechar modal de templates">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+        </div>
+        <div class="templates-modal-body">
+            <div class="templates-filters" role="group" aria-label="Filtrar por categoria">
+                <button class="template-filter-btn active" data-category="all">Todos</button>
+                <button class="template-filter-btn" data-category="Estrutura">Estrutura</button>
+                <button class="template-filter-btn" data-category="Componentes">Componentes</button>
+                <button class="template-filter-btn" data-category="Layouts">Layouts</button>
+            </div>
+            <div class="templates-grid" id="templatesGrid" aria-label="Grade de templates"></div>
+        </div>
+    </div>
+</div>
+
 <!-- Botão voltar ao topo -->
 <button id="scrollToTop" aria-label="Voltar ao topo" title="Voltar ao topo">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
@@ -310,6 +341,7 @@
 <script src="vendor/codemirror/addon/hint/css-hint.js"></script>
 
 <!-- App scripts -->
+<script src="js/templates.js"></script>
 <script src="js/analyze.js"></script>
 <script src="js/app.js"></script>
 
