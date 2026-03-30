@@ -147,6 +147,43 @@
         }
         .try-btn:hover { background: var(--primary-dark); color: white; text-decoration: none; }
 
+        .boilerplate-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 10px;
+            margin: 0.75rem 0;
+        }
+
+        .boilerplate-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 12px 14px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text);
+            transition: border-color 0.15s, box-shadow 0.15s;
+        }
+
+        .boilerplate-item:hover {
+            border-color: var(--primary);
+            box-shadow: 0 2px 8px rgba(37,99,235,0.1);
+            text-decoration: none;
+            color: var(--text);
+        }
+
+        .boilerplate-emoji {
+            font-size: 1.3rem;
+            flex-shrink: 0;
+            line-height: 1;
+            margin-top: 2px;
+        }
+
+        .boilerplate-item div { display: flex; flex-direction: column; gap: 2px; }
+        .boilerplate-item strong { font-size: 0.85rem; font-weight: 600; }
+        .boilerplate-item span { font-size: 0.78rem; color: var(--text-muted); line-height: 1.4; }
+
         .container { max-width: 800px; }
     </style>
 </head>
@@ -209,7 +246,6 @@
                 <li><strong>Exemplo</strong> — carrega um HTML de exemplo com boas práticas para estudar</li>
                 <li><strong>Salvar HTML</strong> — baixa o código como arquivo <code>.html</code> para usar no computador</li>
                 <li><strong>Compartilhar</strong> — gera um link com o código comprimido para enviar a outra pessoa</li>
-                <li><strong>Template</strong> — insere uma estrutura HTML5 básica para você completar</li>
                 <li><strong>Simular dispositivos</strong> — os botões de celular, tablet e desktop ajustam a largura da pré-visualização</li>
             </ul>
         </section>
@@ -445,6 +481,68 @@ caixa.<span class="prop">classList</span>.<span class="prop">toggle</span>(<span
             <div class="tip-box">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
                 <span>Após cada exercício, clique em <strong>Analisar</strong> e leia os alertas. Cada alerta tem uma explicação e uma correção sugerida — é a forma mais rápida de aprender com os próprios erros.</span>
+            </div>
+
+            <h3 style="font-size:0.95rem;font-weight:600;margin:1.5rem 0 0.5rem;color:var(--text)">Exemplos prontos para explorar</h3>
+            <p>Abra qualquer exemplo abaixo no editor para estudar o código, modificar e ver o resultado em tempo real.</p>
+
+            <div class="boilerplate-list">
+                <a href="/codetest/?template=html5-minimal" class="boilerplate-item">
+                    <span class="boilerplate-emoji" aria-hidden="true">📄</span>
+                    <div>
+                        <strong>HTML5 Mínimo</strong>
+                        <span>Esqueleto básico para começar qualquer projeto HTML5.</span>
+                    </div>
+                </a>
+                <a href="/codetest/?template=html5-best-practices" class="boilerplate-item">
+                    <span class="boilerplate-emoji" aria-hidden="true">✅</span>
+                    <div>
+                        <strong>Boas Práticas HTML5</strong>
+                        <span>Exemplo completo com meta tags, OG, semântica e acessibilidade.</span>
+                    </div>
+                </a>
+                <a href="/codetest/?template=contact-form" class="boilerplate-item">
+                    <span class="boilerplate-emoji" aria-hidden="true">📬</span>
+                    <div>
+                        <strong>Formulário de Contato</strong>
+                        <span>Formulário acessível com validação em tempo real.</span>
+                    </div>
+                </a>
+                <a href="/codetest/?template=calculator" class="boilerplate-item">
+                    <span class="boilerplate-emoji" aria-hidden="true">🧮</span>
+                    <div>
+                        <strong>Calculadora</strong>
+                        <span>Calculadora funcional com operações básicas e teclado.</span>
+                    </div>
+                </a>
+                <a href="/codetest/?template=report-table" class="boilerplate-item">
+                    <span class="boilerplate-emoji" aria-hidden="true">📊</span>
+                    <div>
+                        <strong>Tabela de Relatório</strong>
+                        <span>Tabela de dados estilizada com ordenação e linhas alternadas.</span>
+                    </div>
+                </a>
+                <a href="/codetest/?template=product-card" class="boilerplate-item">
+                    <span class="boilerplate-emoji" aria-hidden="true">🛒</span>
+                    <div>
+                        <strong>Card de Produto</strong>
+                        <span>Card com galeria de imagens, avaliação e botão de compra.</span>
+                    </div>
+                </a>
+                <a href="/codetest/?template=bento-grid" class="boilerplate-item">
+                    <span class="boilerplate-emoji" aria-hidden="true">🍱</span>
+                    <div>
+                        <strong>Bento Grid</strong>
+                        <span>Layout moderno em grade com blocos de conteúdo de diferentes tamanhos.</span>
+                    </div>
+                </a>
+                <a href="/codetest/?template=landing-page" class="boilerplate-item">
+                    <span class="boilerplate-emoji" aria-hidden="true">🌐</span>
+                    <div>
+                        <strong>Landing Page</strong>
+                        <span>Página de destino com hero, funcionalidades, depoimentos e CTA.</span>
+                    </div>
+                </a>
             </div>
 
             <a href="/codetest/" class="try-btn">

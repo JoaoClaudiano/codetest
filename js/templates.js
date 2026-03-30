@@ -107,26 +107,13 @@ function applyTemplate(id) {
     }
 }
 
-/* ─── Renderiza a barra de boilerplates na página ───────────────────────────── */
+/* ─── Carrega template via parâmetro de URL (?template=<id>) ─────────────────── */
 
 document.addEventListener('DOMContentLoaded', function () {
-    var bar = document.getElementById('boilerplateBar');
-    if (!bar) return;
-
-    var activeBtn = null;
-
-    TEMPLATES.forEach(function (tpl) {
-        var btn = document.createElement('button');
-        btn.className = 'boilerplate-btn';
-        btn.setAttribute('title', tpl.description);
-        btn.setAttribute('aria-label', 'Carregar boilerplate: ' + tpl.name);
-        btn.innerHTML = '<span aria-hidden="true">' + tpl.emoji + '</span> ' + tpl.name;
-        btn.addEventListener('click', function () {
-            applyTemplate(tpl.id);
-            if (activeBtn) activeBtn.classList.remove('active');
-            btn.classList.add('active');
-            activeBtn = btn;
-        });
-        bar.appendChild(btn);
-    });
+    var params = new URLSearchParams(window.location.search);
+    var tplId  = params.get('template');
+    if (tplId) {
+        /* Wait for the CodeMirror editors to finish initialising before applying */
+        setTimeout(function () { applyTemplate(tplId); }, 400);
+    }
 });
