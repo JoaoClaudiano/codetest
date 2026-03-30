@@ -220,20 +220,21 @@ html.dark footer.page-footer,
 body.dark footer.page-footer { background: #020617; }
 
 .page-footer-inner {
-    max-width: 760px;
+    max-width: 1200px;
     margin: 0 auto;
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 1.5rem;
-    padding: 2rem 1.5rem 1.25rem;
+    padding: 2rem 2rem 1.25rem;
 }
 
 .page-footer-brand {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    flex-shrink: 0;
 }
 
 .page-footer-logo {
@@ -253,7 +254,7 @@ body.dark footer.page-footer { background: #020617; }
     font-size: 0.75rem;
     color: #475569;
     line-height: 1.55;
-    max-width: 200px;
+    max-width: 220px;
     margin: 0;
 }
 
@@ -261,7 +262,7 @@ body.dark footer.page-footer { background: #020617; }
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    gap: 6px 18px;
+    gap: 6px 20px;
     list-style: none;
     padding: 0;
     margin: 0;
@@ -269,17 +270,18 @@ body.dark footer.page-footer { background: #020617; }
     justify-content: flex-end;
 }
 .page-footer-links a {
-    font-size: 0.8rem;
+    font-size: 0.82rem;
     color: #64748b;
     text-decoration: none;
     transition: color 0.15s;
+    white-space: nowrap;
 }
 .page-footer-links a:hover { color: #f1f5f9; }
 
 .page-footer-bottom {
-    max-width: 760px;
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 0.9rem 1.5rem;
+    padding: 0.9rem 2rem;
     border-top: 1px solid #1e293b;
     display: flex;
     align-items: center;
@@ -754,15 +756,22 @@ html.dark .contact-time-note {
 }
 .btn-primary:hover { background: var(--primary-dark); color: white; text-decoration: none; transform: translateY(-1px); }
 
+/* ─── Tablet ────────────────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+    .page-footer-inner { padding: 1.75rem 1.25rem 1rem; gap: 1.25rem; }
+    .page-footer-bottom { padding: 0.85rem 1.25rem; }
+    .page-footer-links { justify-content: flex-start; gap: 6px 16px; }
+}
+
 /* ─── Small mobile ──────────────────────────────────────────────────────────── */
 @media (max-width: 480px) {
     .page-hero { padding: 1.75rem 1rem 1.5rem; }
     .page-hero h1 { font-size: 1.35rem; }
     .container { padding: 0 0.875rem; }
     .privacy-summary { grid-template-columns: 1fr; }
-    .page-footer-inner { flex-direction: column; gap: 1.25rem; }
+    .page-footer-inner { flex-direction: column; gap: 1rem; padding: 1.5rem 1rem 1rem; }
     .page-footer-links { justify-content: flex-start; }
-    .page-footer-bottom { flex-direction: column; align-items: flex-start; gap: 6px; }
+    .page-footer-bottom { flex-direction: column; align-items: flex-start; gap: 6px; padding: 0.75rem 1rem; }
     .page-footer-tagline { max-width: 100%; }
 }
 
