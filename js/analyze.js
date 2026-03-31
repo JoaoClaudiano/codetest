@@ -187,7 +187,6 @@ function updatePreview() {
 // ─── Análise principal ───────────────────────────────────────────────────────
 
 function analyzeHTML() {
-    const rawHTML = getEditorHTML();
     const preview  = document.getElementById('previewFrame');
     const resultsContainer = document.getElementById('resultsContainer');
     const resultsActions   = document.getElementById('resultsActions');
@@ -197,6 +196,48 @@ function analyzeHTML() {
     const previewHTML = buildPreviewHTML();
     preview.srcdoc = previewHTML || '<div style="padding:20px;color:#666;font-family:sans-serif">Nenhum código para visualizar</div>';
 
+    // Detectar aba ativa para decidir o que analisar
+    const activeTab = (function () {
+        const btn = document.querySelector('.tab-btn.active');
+        return btn ? (btn.dataset.tab || 'html') : 'html';
+    }());
+
+    if (activeTab === 'css') {
+        const rawCSS = getEditorCSS();
+        if (!rawCSS.trim()) {
+            resultsContainer.innerHTML = `
+                <div class="result-item warning">
+                    <div class="result-item-header"><span class="result-badge warning">⚠️ Aviso</span><h3>Editor CSS vazio</h3></div>
+                    <p>Escreva CSS na aba CSS para analisar.</p>
+                </div>`;
+            if (resultsActions) resultsActions.style.display = 'none';
+            return;
+        }
+        const analysis = analyzeCSSCode(rawCSS);
+        displayResults(analysis);
+        if (resultsActions) resultsActions.style.display = 'flex';
+        return;
+    }
+
+    if (activeTab === 'js') {
+        const rawJS = getEditorJS();
+        if (!rawJS.trim()) {
+            resultsContainer.innerHTML = `
+                <div class="result-item warning">
+                    <div class="result-item-header"><span class="result-badge warning">⚠️ Aviso</span><h3>Editor JS vazio</h3></div>
+                    <p>Escreva JavaScript na aba JS para analisar.</p>
+                </div>`;
+            if (resultsActions) resultsActions.style.display = 'none';
+            return;
+        }
+        const analysis = analyzeJSCode(rawJS);
+        displayResults(analysis);
+        if (resultsActions) resultsActions.style.display = 'flex';
+        return;
+    }
+
+    // Aba HTML (padrão)
+    const rawHTML = getEditorHTML();
     if (!rawHTML.trim()) {
         resultsContainer.innerHTML = `
             <div class="result-item warning">
@@ -221,6 +262,18 @@ function performAnalysis(html) {
     let score = 100;
     const issues = [];
     const TOTAL_CHECKS = 17;
+    const htmlLines = html.split('\n');
+
+    function findLine(pattern) {
+        for (var i = 0; i < htmlLines.length; i++) {
+            if (typeof pattern === 'string'
+                ? htmlLines[i].includes(pattern)
+                : pattern.test(htmlLines[i])) {
+                return i + 1;
+            }
+        }
+        return null;
+    }
 
     // Parse DOM real — sem regex frágeis
     const parser = new DOMParser();
@@ -229,7 +282,7 @@ function performAnalysis(html) {
     // 1. DOCTYPE
     if (!html.trimStart().toUpperCase().startsWith('<!DOCTYPE')) {
         score -= 15;
-        issues.push({ type: 'error', title: 'DOCTYPE Ausente',
+        issues.push({ type: 'error', lang: 'HTML', line: 1, title: 'DOCTYPE Ausente',
             message: 'Adicione <!DOCTYPE html> na primeira linha do documento.',
             fix: '<!DOCTYPE html>' });
     }
@@ -239,12 +292,12 @@ function performAnalysis(html) {
     const charset = charsetMeta ? charsetMeta.getAttribute('charset').toUpperCase() : null;
     if (!charset) {
         score -= 10;
-        issues.push({ type: 'error', title: 'Charset não definido',
+        issues.push({ type: 'error', lang: 'HTML', line: findLine(/charset/i), title: 'Charset não definido',
             message: 'Declare a codificação do documento para evitar problemas com caracteres especiais.',
             fix: '<meta charset="UTF-8">' });
     } else if (charset !== 'UTF-8') {
         score -= 5;
-        issues.push({ type: 'warning', title: `Charset "${charset}" não recomendado`,
+        issues.push({ type: 'warning', lang: 'HTML', line: findLine(/charset/i), title: `Charset "${charset}" não recomendado`,
             message: 'Use charset="UTF-8" para máxima compatibilidade.',
             fix: '<meta charset="UTF-8">' });
     }
@@ -252,7 +305,7 @@ function performAnalysis(html) {
     // 3. Viewport
     if (!doc.querySelector('meta[name="viewport"]')) {
         score -= 8;
-        issues.push({ type: 'warning', title: 'Viewport ausente',
+        issues.push({ type: 'warning', lang: 'HTML', line: findLine(/viewport/i), title: 'Viewport ausente',
             message: 'Essencial para páginas responsivas em dispositivos móveis.',
             fix: '<meta name="viewport" content="width=device-width, initial-scale=1.0">' });
     }
@@ -261,19 +314,19 @@ function performAnalysis(html) {
     const titleEl = doc.querySelector('title');
     if (!titleEl || !titleEl.textContent.trim()) {
         score -= 12;
-        issues.push({ type: 'error', title: 'Título ausente',
+        issues.push({ type: 'error', lang: 'HTML', line: findLine(/<title/i), title: 'Título ausente',
             message: 'A tag <title> é obrigatória e essencial para SEO.',
             fix: '<title>Título Descritivo da Página</title>' });
     } else {
         const len = titleEl.textContent.trim().length;
         if (len < 5) {
             score -= 5;
-            issues.push({ type: 'warning', title: 'Título muito curto',
+            issues.push({ type: 'warning', lang: 'HTML', line: findLine(/<title/i), title: 'Título muito curto',
                 message: `Título tem ${len} caracteres. Recomendado: entre 30 e 60.`,
                 fix: '<title>Título Descritivo da Página</title>' });
         } else if (len > 60) {
             score -= 3;
-            issues.push({ type: 'warning', title: 'Título muito longo',
+            issues.push({ type: 'warning', lang: 'HTML', line: findLine(/<title/i), title: 'Título muito longo',
                 message: `Título tem ${len} caracteres. O Google exibe até ~60 nos resultados.`,
                 fix: null });
         }
@@ -283,14 +336,14 @@ function performAnalysis(html) {
     const descMeta = doc.querySelector('meta[name="description"]');
     if (!descMeta || !descMeta.getAttribute('content')) {
         score -= 8;
-        issues.push({ type: 'warning', title: 'Meta description ausente',
+        issues.push({ type: 'warning', lang: 'HTML', line: findLine(/meta.*description/i), title: 'Meta description ausente',
             message: 'Importante para SEO: aparece nos resultados do Google abaixo do título.',
             fix: '<meta name="description" content="Descrição clara da página (até 160 caracteres)">' });
     } else {
         const len = descMeta.getAttribute('content').trim().length;
         if (len > 160) {
             score -= 2;
-            issues.push({ type: 'warning', title: 'Meta description longa',
+            issues.push({ type: 'warning', lang: 'HTML', line: findLine(/meta.*description/i), title: 'Meta description longa',
                 message: `Descrição tem ${len} caracteres. O Google exibe até ~160.`,
                 fix: null });
         }
@@ -301,7 +354,7 @@ function performAnalysis(html) {
         if (!img.hasAttribute('alt')) {
             score -= 6;
             const src = (img.getAttribute('src') || '?').substring(0, 40);
-            issues.push({ type: 'error', title: `Imagem ${i + 1} sem atributo ALT`,
+            issues.push({ type: 'error', lang: 'HTML', line: findLine(new RegExp('<img[^>]*' + src.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').substring(0, 20), 'i')), title: `Imagem ${i + 1} sem atributo ALT`,
                 message: `"${src}…" — o alt é essencial para acessibilidade e indexação.`,
                 fix: 'alt="Descrição da imagem"' });
         }
@@ -312,7 +365,7 @@ function performAnalysis(html) {
     const hasSemantic  = semanticTags.some(t => doc.querySelector(t));
     if (!hasSemantic && doc.querySelectorAll('div').length > 3) {
         score -= 5;
-        issues.push({ type: 'warning', title: 'Poucas tags semânticas',
+        issues.push({ type: 'warning', lang: 'HTML', line: null, title: 'Poucas tags semânticas',
             message: 'Use header, nav, main, article, section, footer para melhorar acessibilidade e SEO.',
             fix: '<header>, <nav>, <main>, <article>, <footer>' });
     }
@@ -323,7 +376,7 @@ function performAnalysis(html) {
         if ((href.startsWith('http://') || href.startsWith('https://')) &&
             !link.getAttribute('rel')?.includes('noopener')) {
             score -= 3;
-            issues.push({ type: 'warning', title: 'Link externo sem rel="noopener"',
+            issues.push({ type: 'warning', lang: 'HTML', line: findLine(new RegExp(href.substring(0, 30).replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i')), title: 'Link externo sem rel="noopener"',
                 message: `"${href.substring(0, 50)}…" — links externos sem noopener são um risco de segurança (tabnabbing).`,
                 fix: 'rel="noopener noreferrer"' });
         }
@@ -333,7 +386,7 @@ function performAnalysis(html) {
     const htmlEl = doc.querySelector('html');
     if (!htmlEl || !htmlEl.getAttribute('lang')) {
         score -= 5;
-        issues.push({ type: 'warning', title: 'Idioma não declarado',
+        issues.push({ type: 'warning', lang: 'HTML', line: findLine(/<html/i), title: 'Idioma não declarado',
             message: 'O atributo lang é importante para acessibilidade (leitores de tela) e SEO.',
             fix: '<html lang="pt-BR">' });
     }
@@ -349,7 +402,7 @@ function performAnalysis(html) {
         });
         if (hierarchyError) {
             score -= 5;
-            issues.push({ type: 'warning', title: 'Hierarquia de headings incorreta',
+            issues.push({ type: 'warning', lang: 'HTML', line: null, title: 'Hierarquia de headings incorreta',
                 message: 'Não pule níveis (ex: h1 → h3 sem h2). Isso prejudica acessibilidade e SEO.',
                 fix: 'Use h1 → h2 → h3 em sequência' });
         }
@@ -359,7 +412,7 @@ function performAnalysis(html) {
     const h1Count = doc.querySelectorAll('h1').length;
     if (h1Count > 1) {
         score -= 5;
-        issues.push({ type: 'warning', title: `${h1Count} tags H1 encontradas`,
+        issues.push({ type: 'warning', lang: 'HTML', line: findLine(/<h1/i), title: `${h1Count} tags H1 encontradas`,
             message: 'Cada página deve ter apenas um <h1> para melhor SEO e estrutura semântica.',
             fix: 'Mantenha apenas um <h1> por página' });
     }
@@ -374,7 +427,7 @@ function performAnalysis(html) {
     });
     if (emptyLinks > 0) {
         score -= 4;
-        issues.push({ type: 'error', title: `${emptyLinks} link(s) sem texto acessível`,
+        issues.push({ type: 'error', lang: 'HTML', line: findLine(/<a\s/i), title: `${emptyLinks} link(s) sem texto acessível`,
             message: 'Links sem texto visível ou aria-label são inacessíveis para leitores de tela.',
             fix: '<a href="..." aria-label="Descrição do destino">Texto</a>' });
     }
@@ -391,7 +444,7 @@ function performAnalysis(html) {
         });
     if (unlabeled > 0) {
         score -= 5;
-        issues.push({ type: 'error', title: `${unlabeled} campo(s) de formulário sem label`,
+        issues.push({ type: 'error', lang: 'HTML', line: findLine(/<input|<textarea|<select/i), title: `${unlabeled} campo(s) de formulário sem label`,
             message: 'Campos sem <label> ou aria-label são inacessíveis.',
             fix: '<label for="campoId">Nome do campo</label>' });
     }
@@ -400,7 +453,7 @@ function performAnalysis(html) {
     const inlineCount = doc.querySelectorAll('[style]').length;
     if (inlineCount > 3) {
         score -= 3;
-        issues.push({ type: 'warning', title: `${inlineCount} elementos com estilo inline`,
+        issues.push({ type: 'warning', lang: 'HTML', line: findLine(/style="/i), title: `${inlineCount} elementos com estilo inline`,
             message: 'Estilos inline dificultam manutenção e reutilização. Prefira classes CSS.',
             fix: 'Mova os estilos para uma regra CSS' });
     }
@@ -410,7 +463,7 @@ function performAnalysis(html) {
     const found = deprecated.filter(t => doc.querySelector(t));
     if (found.length > 0) {
         score -= 4;
-        issues.push({ type: 'warning', title: 'Tags obsoletas encontradas',
+        issues.push({ type: 'warning', lang: 'HTML', line: findLine(new RegExp('<(' + found.join('|') + ')', 'i')), title: 'Tags obsoletas encontradas',
             message: `${found.map(t => `<${t}>`).join(', ')} estão descontinuadas no HTML5.`,
             fix: 'Use CSS para estilização em vez de tags de apresentação' });
     }
@@ -418,7 +471,7 @@ function performAnalysis(html) {
     // 16. Favicon
     if (!doc.querySelector('link[rel*="icon"]')) {
         score -= 2;
-        issues.push({ type: 'warning', title: 'Favicon não definido',
+        issues.push({ type: 'warning', lang: 'HTML', line: findLine(/rel.*icon/i), title: 'Favicon não definido',
             message: 'Adicione um favicon para melhorar a identidade visual e reconhecimento da página.',
             fix: '<link rel="icon" href="/favicon.ico">' });
     }
@@ -426,24 +479,29 @@ function performAnalysis(html) {
     // 17. Open Graph básico
     if (!doc.querySelector('meta[property="og:title"]')) {
         score -= 2;
-        issues.push({ type: 'warning', title: 'Open Graph não configurado',
+        issues.push({ type: 'warning', lang: 'HTML', line: findLine(/og:title/i), title: 'Open Graph não configurado',
             message: 'Tags og: melhoram a aparência ao compartilhar links em redes sociais.',
             fix: '<meta property="og:title" content="Título da Página">' });
     }
 
     score = Math.max(0, Math.min(100, score));
-    return { score, issues, totalChecks: TOTAL_CHECKS };
+    return { score, issues, totalChecks: TOTAL_CHECKS, lang: 'HTML' };
 }
 
 // ─── Exibição de resultados ──────────────────────────────────────────────────
 
-function displayResults({ score, issues }) {
+function displayResults({ score, issues, lang }) {
     const container  = document.getElementById('resultsContainer');
     const colorClass = score >= 90 ? 'success' : score >= 70 ? 'warning' : 'error';
     const errors     = issues.filter(i => i.type === 'error').length;
     const warnings   = issues.filter(i => i.type === 'warning').length;
+    const langLabel  = lang || 'HTML';
 
     const scoreLabel = score >= 90 ? 'Excelente!' : score >= 70 ? 'Pode melhorar' : 'Precisa atenção';
+    const emptyMsg   = langLabel === 'CSS' ? 'CSS impecável!' : langLabel === 'JS' ? 'JavaScript impecável!' : 'HTML Perfeito!';
+    const emptyDesc  = langLabel === 'CSS' ? 'Seu CSS segue todas as boas práticas verificadas. Parabéns!'
+                     : langLabel === 'JS'  ? 'Seu JavaScript segue todas as boas práticas verificadas. Parabéns!'
+                     : 'Seu código segue todas as boas práticas verificadas. Parabéns!';
 
     let html = `
         <div class="result-score ${colorClass}">
@@ -453,15 +511,15 @@ function displayResults({ score, issues }) {
             </div>
             <div class="score-summary">
                 <strong>${scoreLabel}</strong>
-                <span>${errors} erro(s) · ${warnings} aviso(s)</span>
+                <span>${errors} erro(s) · ${warnings} aviso(s) <span class="result-lang-badge result-lang-${langLabel.toLowerCase()}">${langLabel}</span></span>
             </div>
         </div>`;
 
     if (issues.length === 0) {
         html += `
             <div class="result-item success">
-                <div class="result-item-header"><span class="result-badge success"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg> Sucesso</span><h3>HTML Perfeito!</h3></div>
-                <p>Seu código segue todas as boas práticas verificadas. Parabéns!</p>
+                <div class="result-item-header"><span class="result-badge success"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg> Sucesso</span><h3>${emptyMsg}</h3></div>
+                <p>${emptyDesc}</p>
             </div>`;
     } else {
         // Erros primeiro, depois avisos
@@ -476,11 +534,17 @@ function displayResults({ score, issues }) {
             const fixHtml = issue.fix
                 ? `<div class="result-fix"><code>${esc(issue.fix)}</code></div>`
                 : '';
+            const issueLang = issue.lang || langLabel;
+            const lineBadge = issue.line
+                ? `<span class="result-line-badge">linha ${issue.line}</span>`
+                : '';
+            const langBadge = `<span class="result-lang-badge result-lang-${issueLang.toLowerCase()}">${issueLang}</span>`;
             html += `
                 <div class="result-item ${issue.type}">
                     <div class="result-item-header">
                         <span class="result-badge ${issue.type}">${badge}</span>
                         <h3>${issue.title}</h3>
+                        <span class="result-meta">${langBadge}${lineBadge}</span>
                     </div>
                     <p>${issue.message}</p>
                     ${fixHtml}

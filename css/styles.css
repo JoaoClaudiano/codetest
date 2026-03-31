@@ -1022,3 +1022,58 @@ body.dark .page-dot[title]:hover::after {
 @media (max-width: 640px) {
     .page-dots { display: none; }
 }
+
+/* ─── Result meta badges (lang + line) ────────────────────────────────────── */
+.result-item-header {
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.result-meta {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-left: auto;
+}
+
+.result-lang-badge {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 2px 7px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    line-height: 1.4;
+    background: #e2e8f0;
+    color: #475569;
+}
+
+.result-lang-badge.result-lang-html { background: #fef3c7; color: #92400e; }
+.result-lang-badge.result-lang-css  { background: #dbeafe; color: #1e40af; }
+.result-lang-badge.result-lang-js   { background: #fef9c3; color: #854d0e; }
+
+html.dark .result-lang-badge,
+body.dark .result-lang-badge         { background: #334155; color: #94a3b8; }
+html.dark .result-lang-badge.result-lang-html,
+body.dark .result-lang-badge.result-lang-html { background: #451a03; color: #fcd34d; }
+html.dark .result-lang-badge.result-lang-css,
+body.dark .result-lang-badge.result-lang-css  { background: #1e3a5f; color: #93c5fd; }
+html.dark .result-lang-badge.result-lang-js,
+body.dark .result-lang-badge.result-lang-js   { background: #422006; color: #fde68a; }
+
+.result-line-badge {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 600;
+    padding: 2px 7px;
+    border-radius: 4px;
+    background: #f1f5f9;
+    color: #64748b;
+    font-variant-numeric: tabular-nums;
+    line-height: 1.4;
+}
+
+html.dark .result-line-badge,
+body.dark .result-line-badge { background: #1e293b; color: #94a3b8; }
+

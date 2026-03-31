@@ -161,18 +161,18 @@
         }
     });
 
-    // Live preview para CSS e JS (apenas atualiza o iframe, sem análise completa)
+    // CSS e JS: atualiza preview E dispara análise da linguagem ativa
     let debounceCSS = null;
     let debounceJS  = null;
 
     cmCss.on('change', () => {
         clearTimeout(debounceCSS);
-        debounceCSS = setTimeout(() => updatePreview(), 500);
+        debounceCSS = setTimeout(() => analyzeHTML(), 500);
     });
 
     cmJs.on('change', () => {
         clearTimeout(debounceJS);
-        debounceJS = setTimeout(() => updatePreview(), 500);
+        debounceJS = setTimeout(() => analyzeHTML(), 500);
     });
 
     // ─── Atalhos de teclado ───────────────────────────────────────────────────
