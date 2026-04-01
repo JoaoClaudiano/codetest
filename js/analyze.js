@@ -709,13 +709,23 @@ function pasteCode() {
         if (!text) return;
         const activeTab = document.querySelector('.tab-btn.active');
         const tab = activeTab ? activeTab.dataset.tab : 'html';
+        let cm;
         if (tab === 'css' && typeof cmCss !== 'undefined') {
             cmCss.setValue(text);
+            cm = cmCss;
         } else if (tab === 'js' && typeof cmJs !== 'undefined') {
             cmJs.setValue(text);
+            cm = cmJs;
         } else {
             setEditorHTML(text);
+            cm = typeof cmHtml !== 'undefined' ? cmHtml : null;
         }
+        if (cm) {
+            cm.setCursor(0, 0);
+            cm.scrollTo(0, 0);
+        }
+        const lines = text.split('\n').length;
+        showToast('✅ ' + lines + ' linha' + (lines !== 1 ? 's' : '') + ' coladas! Pressione Ctrl+Enter para analisar.');
     }).catch(function () {
         alert('Não foi possível acessar a área de transferência. Verifique as permissões do navegador.');
     });
