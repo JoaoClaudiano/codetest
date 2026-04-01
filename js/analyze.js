@@ -716,6 +716,8 @@ function pasteCode() {
         } else {
             setEditorHTML(text);
         }
+        const btnOpen = document.getElementById('btnOpenNewTab');
+        if (btnOpen) btnOpen.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }).catch(function () {
         alert('Não foi possível acessar a área de transferência. Verifique as permissões do navegador.');
     });
