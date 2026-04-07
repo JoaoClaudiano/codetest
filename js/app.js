@@ -201,6 +201,9 @@
 
     renderHistory();
 
+    // ─── Atualizar exibição de cache ──────────────────────────────────────────
+    if (typeof updateCacheDisplay === 'function') updateCacheDisplay();
+
     // ─── Sincronizar dark mode inicial no body ────────────────────────────────
     syncBodyDark();
 

@@ -43,12 +43,12 @@ function _getConsoleInterceptorCode() {
 function clearJsConsole() {
     var output = document.getElementById('jsConsoleOutput');
     var badge  = document.getElementById('jsConsoleBadge');
-    if (output) output.innerHTML = '<p class="js-console-empty">Sem saída. Execute JavaScript para ver os resultados.</p>';
+    if (output) output.innerHTML = '<p class="js-console-empty">Sem saída. Analise ou execute código para ver erros e mensagens.</p>';
     if (badge)  { badge.textContent = ''; badge.hidden = true; }
 }
 
-/** Adiciona uma linha ao console JS embutido. */
-function _appendConsoleMessage(level, message) {
+/** Adiciona uma linha ao console do código. lang é opcional ('HTML','CSS','JS'). */
+function _appendConsoleMessage(level, message, lang) {
     var output = document.getElementById('jsConsoleOutput');
     var badge  = document.getElementById('jsConsoleBadge');
     if (!output) return;
@@ -69,6 +69,14 @@ function _appendConsoleMessage(level, message) {
     text.textContent = message;
 
     line.appendChild(icon);
+
+    if (lang) {
+        var langBadge = document.createElement('span');
+        langBadge.className = 'js-console-lang js-console-lang-' + lang.toLowerCase();
+        langBadge.textContent = lang;
+        line.appendChild(langBadge);
+    }
+
     line.appendChild(text);
     output.appendChild(line);
     output.scrollTop = output.scrollHeight;
@@ -85,8 +93,23 @@ window.addEventListener('message', function (e) {
     if (!e.data || e.data.__codetest !== true) return;
     var frame = document.getElementById('previewFrame');
     if (frame && e.source !== frame.contentWindow) return;
-    _appendConsoleMessage(e.data.level || 'log', e.data.message || '');
+    _appendConsoleMessage(e.data.level || 'log', e.data.message || '', 'JS');
 });
+
+/**
+ * Envia erros e avisos de uma análise (HTML/CSS/JS) para o console do código.
+ * @param {Array} issues - lista de issues retornada por performAnalysis / analyzeCSSCode / analyzeJSCode
+ * @param {string} lang  - 'HTML' | 'CSS' | 'JS'
+ */
+function _pushAnalysisToConsole(issues, lang) {
+    if (!issues || !issues.length) return;
+    issues.forEach(function (issue) {
+        var level   = issue.type === 'error' ? 'error' : 'warn';
+        var lineInfo = issue.line ? ' [linha ' + issue.line + ']' : '';
+        var msg      = issue.title + lineInfo + ' — ' + issue.message;
+        _appendConsoleMessage(level, msg, lang || issue.lang || 'HTML');
+    });
+}
 
 // ─── Acesso ao editor (CodeMirror ou textarea fallback) ─────────────────────
 
@@ -215,6 +238,7 @@ function analyzeHTML() {
         }
         const analysis = analyzeCSSCode(rawCSS);
         displayResults(analysis);
+        _pushAnalysisToConsole(analysis.issues, 'CSS');
         if (resultsActions) resultsActions.style.display = 'flex';
         return;
     }
@@ -232,6 +256,7 @@ function analyzeHTML() {
         }
         const analysis = analyzeJSCode(rawJS);
         displayResults(analysis);
+        _pushAnalysisToConsole(analysis.issues, 'JS');
         if (resultsActions) resultsActions.style.display = 'flex';
         return;
     }
@@ -250,10 +275,12 @@ function analyzeHTML() {
 
     const analysis = performAnalysis(rawHTML);
     displayResults(analysis);
+    _pushAnalysisToConsole(analysis.issues, 'HTML');
     saveToHistory(rawHTML, analysis.score);
     renderHistory();
     if (resultsActions) resultsActions.style.display = 'flex';
     localStorage.setItem('savedHTML', rawHTML);
+    updateCacheDisplay();
 }
 
 // ─── Motor de análise com DOMParser ─────────────────────────────────────────
@@ -698,6 +725,7 @@ function clearEditor() {
     const ra = document.getElementById('resultsActions');
     if (ra) ra.style.display = 'none';
     localStorage.removeItem('savedHTML');
+    updateCacheDisplay();
 }
 
 function pasteCode() {
@@ -857,4 +885,148 @@ function showToast(message) {
     toast.classList.add('toast-visible');
     clearTimeout(toast._timer);
     toast._timer = setTimeout(() => toast.classList.remove('toast-visible'), 3500);
+}
+
+// ─── Cache indicator ─────────────────────────────────────────────────────────
+
+/**
+ * Calcula o tamanho aproximado do localStorage em KB e atualiza o indicador.
+ */
+function updateCacheDisplay() {
+    var sizeEl = document.getElementById('footerCacheSize');
+    if (!sizeEl) return;
+    try {
+        var total = 0;
+        for (var k in localStorage) {
+            if (Object.prototype.hasOwnProperty.call(localStorage, k)) {
+                total += (localStorage.getItem(k) || '').length + k.length;
+            }
+        }
+        var kb = (total * 2 / 1024).toFixed(1); // UTF-16: 2 bytes per char
+        sizeEl.textContent = kb + ' KB';
+    } catch (_) {
+        sizeEl.textContent = '—';
+    }
+}
+
+/** Exibe popup de confirmação para limpar o cache (localStorage). */
+function showCacheInfo() {
+    var sizeEl = document.getElementById('footerCacheSize');
+    var sizeStr = sizeEl ? sizeEl.textContent : '';
+    var msg = 'Cache atual: ' + sizeStr + '\n\nDeseja limpar o cache da página?\n(histórico de análises, código salvo e preferências serão apagados)';
+    if (confirm(msg)) {
+        localStorage.clear();
+        updateCacheDisplay();
+        showToast('🗑️ Cache limpo com sucesso.');
+        renderHistory();
+        if (typeof cmHtml !== 'undefined') cmHtml.setValue('');
+        if (typeof cmCss  !== 'undefined') cmCss.setValue('');
+        if (typeof cmJs   !== 'undefined') cmJs.setValue('');
+        var preview = document.getElementById('previewFrame');
+        if (preview) preview.srcdoc = '';
+        var rc = document.getElementById('resultsContainer');
+        if (rc) rc.innerHTML = '<div class="result-placeholder"><p>Cole seu código HTML e clique em <strong>Analisar</strong> para ver os resultados.</p></div>';
+        var ra = document.getElementById('resultsActions');
+        if (ra) ra.style.display = 'none';
+        clearJsConsole();
+    }
+}
+
+// ─── Importar arquivo ────────────────────────────────────────────────────────
+
+/** Abre o seletor de arquivo para importação. */
+function importCode() {
+    var input = document.getElementById('importFileInput');
+    if (input) { input.value = ''; input.click(); }
+}
+
+/**
+ * Processa o arquivo selecionado pelo usuário.
+ * @param {HTMLInputElement} input
+ */
+function handleImportFile(input) {
+    var file = input.files && input.files[0];
+    if (!file) return;
+
+    var reader = new FileReader();
+    reader.onload = function (e) {
+        var content = e.target.result || '';
+        var name = file.name.toLowerCase();
+        var ext = name.split('.').pop();
+
+        if (ext === 'css') {
+            if (typeof cmCss !== 'undefined') cmCss.setValue(content);
+            // Switch to CSS tab
+            var cssTab = document.querySelector('[data-tab="css"]');
+            if (cssTab) cssTab.click();
+            showToast('✅ CSS importado com sucesso.');
+            return;
+        }
+
+        if (ext === 'js') {
+            if (typeof cmJs !== 'undefined') cmJs.setValue(content);
+            // Switch to JS tab
+            var jsTab = document.querySelector('[data-tab="js"]');
+            if (jsTab) jsTab.click();
+            showToast('✅ JavaScript importado com sucesso.');
+            return;
+        }
+
+        // HTML / HTM / TXT — verificar se contém CSS/JS embutido
+        var hasStyle  = /<style[\s>]/i.test(content);
+        var hasScript = /<script[\s>]/i.test(content);
+
+        if ((hasStyle || hasScript) &&
+            confirm('O arquivo contém ' +
+                (hasStyle && hasScript ? 'CSS e JavaScript' : hasStyle ? 'CSS' : 'JavaScript') +
+                ' embutidos.\n\nDeseja separar o código em abas HTML, CSS e JS?\n\n' +
+                'OK = Separar em abas\nCancelar = Manter tudo na aba HTML')) {
+            _importSeparated(content);
+        } else {
+            setEditorHTML(content);
+            var htmlTab = document.querySelector('[data-tab="html"]');
+            if (htmlTab) htmlTab.click();
+            showToast('✅ HTML importado com sucesso.');
+        }
+    };
+    reader.onerror = function () {
+        alert('Não foi possível ler o arquivo. Tente novamente.');
+    };
+    reader.readAsText(file, 'UTF-8');
+}
+
+/**
+ * Extrai CSS e JS de um documento HTML e distribui nas abas correspondentes.
+ * @param {string} html - conteúdo HTML completo
+ */
+function _importSeparated(html) {
+    var cssBlocks  = [];
+    var jsBlocks   = [];
+    var cleanedHtml = html;
+
+    // Extrair blocos <style>…</style>
+    cleanedHtml = cleanedHtml.replace(/<style[^>]*>([\s\S]*?)<\/style>/gi, function (_, css) {
+        cssBlocks.push(css.trim());
+        return '';
+    });
+
+    // Extrair blocos <script> sem src (inline apenas)
+    cleanedHtml = cleanedHtml.replace(/<script(?![^>]*\bsrc\b)[^>]*>([\s\S]*?)<\/script>/gi, function (_, js) {
+        if (js.trim()) jsBlocks.push(js.trim());
+        return '';
+    });
+
+    // Carregar nas abas
+    setEditorHTML(cleanedHtml.trim());
+    if (typeof cmCss !== 'undefined') cmCss.setValue(cssBlocks.join('\n\n').trim());
+    if (typeof cmJs  !== 'undefined') cmJs.setValue(jsBlocks.join('\n\n').trim());
+
+    // Voltar para aba HTML
+    var htmlTab = document.querySelector('[data-tab="html"]');
+    if (htmlTab) htmlTab.click();
+
+    var parts = [];
+    if (cssBlocks.length) parts.push('CSS');
+    if (jsBlocks.length)  parts.push('JS');
+    showToast('✅ HTML importado e separado em abas: HTML' + (parts.length ? ', ' + parts.join(', ') : '') + '.');
 }
