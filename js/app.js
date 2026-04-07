@@ -261,4 +261,55 @@
             sections.forEach(function (s) { observer.observe(s.el); });
         }
     }());
+
+    // ─── Console resize ───────────────────────────────────────────────────────
+
+    (function initConsoleResize() {
+        var panel  = document.getElementById('jsConsolePanel');
+        var handle = document.getElementById('jsConsoleResize');
+        if (!panel || !handle) return;
+
+        var savedH = parseInt(localStorage.getItem('consoleHeight') || '160', 10);
+        panel.style.height = Math.max(60, savedH) + 'px';
+
+        var startY, startH;
+
+        function onMove(clientY) {
+            var delta  = startY - clientY;
+            var newH   = Math.min(Math.max(startH + delta, 60), Math.round(window.innerHeight * 0.6));
+            panel.style.height = newH + 'px';
+        }
+
+        function onEnd() {
+            handle.classList.remove('dragging');
+            localStorage.setItem('consoleHeight', panel.offsetHeight);
+            document.removeEventListener('mousemove', onMouseMove);
+            document.removeEventListener('mouseup',   onMouseUp);
+            document.removeEventListener('touchmove', onTouchMove);
+            document.removeEventListener('touchend',  onTouchEnd);
+        }
+
+        function onMouseMove(e) { onMove(e.clientY); }
+        function onMouseUp()    { onEnd(); }
+        function onTouchMove(e) { e.preventDefault(); onMove(e.touches[0].clientY); }
+        function onTouchEnd()   { onEnd(); }
+
+        handle.addEventListener('mousedown', function (e) {
+            startY = e.clientY;
+            startH = panel.offsetHeight;
+            handle.classList.add('dragging');
+            document.addEventListener('mousemove', onMouseMove);
+            document.addEventListener('mouseup',   onMouseUp);
+            e.preventDefault();
+        });
+
+        handle.addEventListener('touchstart', function (e) {
+            startY = e.touches[0].clientY;
+            startH = panel.offsetHeight;
+            handle.classList.add('dragging');
+            document.addEventListener('touchmove', onTouchMove, { passive: false });
+            document.addEventListener('touchend',  onTouchEnd);
+            e.preventDefault();
+        }, { passive: false });
+    }());
 }());
