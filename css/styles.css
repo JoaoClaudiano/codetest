@@ -22,7 +22,7 @@
     --surface: #ffffff;
     --surface-2: #f1f5f9;
     --text: #0f172a;
-    --text-muted: #64748b;
+    --text-muted: #475569;
     --border-color: #e2e8f0;
     --editor-bg: #ffffff;
     --editor-text: #1e293b;
@@ -391,7 +391,7 @@ body.dark .editor-tab .CodeMirror {
 .btn-secondary { background: var(--surface-2); color: var(--text-muted); border: 1px solid var(--border-color); }
 .btn-secondary:hover { background: var(--border-color); color: var(--text); filter: none; }
 
-.btn-danger { background: #fef2f2; color: var(--danger); border: 1px solid #fecaca; }
+.btn-danger { background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; }
 .btn-danger:hover { background: #fee2e2; filter: none; }
 
 html.dark .btn-secondary,
@@ -677,9 +677,9 @@ body.dark .result-score.error   { background: rgba(220,38,38,0.08); border-color
     align-items: center;
     gap: 4px;
 }
-.result-badge.error   { background: #fef2f2; color: #dc2626; }
-.result-badge.warning { background: #fffbeb; color: #d97706; }
-.result-badge.success { background: #f0fdf4; color: #16a34a; }
+.result-badge.error   { background: #fef2f2; color: #b91c1c; }
+.result-badge.warning { background: #fffbeb; color: #b45309; }
+.result-badge.success { background: #f0fdf4; color: #15803d; }
 
 html.dark .result-badge.error,
 body.dark .result-badge.error   { background: rgba(220,38,38,0.12); color: #f87171; }
@@ -844,7 +844,7 @@ body.dark .footer { background: #020617; }
 
 .footer-tagline {
     font-size: 0.75rem;
-    color: #475569;
+    color: #94a3b8;
     line-height: 1.55;
     max-width: 280px;
     margin: 0;
@@ -864,7 +864,7 @@ body.dark .footer { background: #020617; }
 }
 .footer-nav-links a {
     font-size: 0.82rem;
-    color: #64748b;
+    color: #94a3b8;
     text-decoration: none;
     transition: color 0.15s;
 }
@@ -880,7 +880,7 @@ body.dark .footer { background: #020617; }
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 10px;
-    color: #475569;
+    color: #94a3b8;
     font-size: 0.75rem;
 }
 
@@ -889,7 +889,7 @@ body.dark .footer { background: #020617; }
     align-items: center;
     gap: 6px;
     font-size: 0.75rem;
-    color: #475569;
+    color: #94a3b8;
     text-decoration: none;
     transition: color 0.15s;
 }
@@ -1069,7 +1069,7 @@ body.dark .result-lang-badge.result-lang-js   { background: #422006; color: #fde
     padding: 2px 7px;
     border-radius: 4px;
     background: #f1f5f9;
-    color: #64748b;
+    color: #475569;
     font-variant-numeric: tabular-nums;
     line-height: 1.4;
 }

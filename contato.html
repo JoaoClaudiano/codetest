@@ -41,7 +41,8 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"></noscript>
 
     <!-- Shared CSS -->
     <link rel="stylesheet" href="css/pages.css">
@@ -72,7 +73,7 @@
 </div>
 
 <div class="container">
-    <div class="page-content" id="main">
+    <main class="page-content" id="main">
 
         <!-- Response time note -->
         <div class="contact-time-note" role="note">
@@ -181,7 +182,7 @@
             <p>Leia nossa <a href="privacidade.html">Política de Privacidade completa</a> para entender como tratamos informações no CodeTest.</p>
         </section>
 
-    </div>
+    </main>
 </div>
 
 <footer class="page-footer">
@@ -216,7 +217,7 @@
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
 </button>
 
-<script src="js/common.js"></script>
+<script defer src="js/common.js"></script>
 <script>
     // FAQ accordion
     document.querySelectorAll('.faq-question').forEach(function(btn) {

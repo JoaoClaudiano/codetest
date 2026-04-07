@@ -39,7 +39,8 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"></noscript>
 
     <!-- CodeMirror 5 -->
     <link rel="stylesheet" href="vendor/codemirror/codemirror.css">
@@ -292,29 +293,29 @@
 </button>
 
 <!-- LZ-String: compressão para compartilhamento via URL -->
-<script src="vendor/lz-string/lz-string.min.js"></script>
+<script defer src="vendor/lz-string/lz-string.min.js"></script>
 
 <!-- CodeMirror 5: editor com syntax highlighting -->
-<script src="vendor/codemirror/codemirror.js"></script>
-<script src="vendor/codemirror/mode/xml/xml.js"></script>
-<script src="vendor/codemirror/mode/javascript/javascript.js"></script>
-<script src="vendor/codemirror/mode/css/css.js"></script>
-<script src="vendor/codemirror/mode/htmlmixed/htmlmixed.js"></script>
-<script src="vendor/codemirror/addon/edit/closetag.js"></script>
-<script src="vendor/codemirror/addon/edit/matchbrackets.js"></script>
-<script src="vendor/codemirror/addon/edit/closebrackets.js"></script>
-<script src="vendor/codemirror/addon/hint/show-hint.js"></script>
-<script src="vendor/codemirror/addon/hint/xml-hint.js"></script>
-<script src="vendor/codemirror/addon/hint/html-hint.js"></script>
-<script src="vendor/codemirror/addon/hint/javascript-hint.js"></script>
-<script src="vendor/codemirror/addon/hint/css-hint.js"></script>
+<script defer src="vendor/codemirror/codemirror.js"></script>
+<script defer src="vendor/codemirror/mode/xml/xml.js"></script>
+<script defer src="vendor/codemirror/mode/javascript/javascript.js"></script>
+<script defer src="vendor/codemirror/mode/css/css.js"></script>
+<script defer src="vendor/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+<script defer src="vendor/codemirror/addon/edit/closetag.js"></script>
+<script defer src="vendor/codemirror/addon/edit/matchbrackets.js"></script>
+<script defer src="vendor/codemirror/addon/edit/closebrackets.js"></script>
+<script defer src="vendor/codemirror/addon/hint/show-hint.js"></script>
+<script defer src="vendor/codemirror/addon/hint/xml-hint.js"></script>
+<script defer src="vendor/codemirror/addon/hint/html-hint.js"></script>
+<script defer src="vendor/codemirror/addon/hint/javascript-hint.js"></script>
+<script defer src="vendor/codemirror/addon/hint/css-hint.js"></script>
 
 <!-- App scripts -->
-<script src="js/templates.js"></script>
-<script src="js/analyze-css.js"></script>
-<script src="js/analyze-js.js"></script>
-<script src="js/analyze.js"></script>
-<script src="js/app.js"></script>
+<script defer src="js/templates.js"></script>
+<script defer src="js/analyze-css.js"></script>
+<script defer src="js/analyze-js.js"></script>
+<script defer src="js/analyze.js"></script>
+<script defer src="js/app.js"></script>
 
 </body>
 </html>
