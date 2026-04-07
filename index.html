@@ -170,7 +170,7 @@
                             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
                             Limpar
                         </button>
-                        <input type="file" id="importFileInput" accept=".html,.htm,.css,.js,.txt" style="display:none" onchange="handleImportFile(this)">
+                        <input type="file" id="importFileInput" name="importFileInput" accept=".html,.htm,.css,.js,.txt" style="display:none" aria-label="Importar arquivo" onchange="handleImportFile(this)">
                     </div>
                 </section>
 
@@ -206,6 +206,7 @@
 
                     <!-- Console do Código -->
                     <div class="js-console-panel" id="jsConsolePanel" aria-label="Console do Código">
+                        <div class="js-console-resize" id="jsConsoleResize" title="Arraste para redimensionar o console" aria-hidden="true"></div>
                         <div class="js-console-header">
                             <div class="js-console-title">
                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>

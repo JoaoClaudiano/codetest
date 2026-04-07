@@ -288,7 +288,7 @@ function analyzeHTML() {
 function performAnalysis(html) {
     let score = 100;
     const issues = [];
-    const TOTAL_CHECKS = 17;
+    const TOTAL_CHECKS = 19;
     const htmlLines = html.split('\n');
 
     function findLine(pattern) {
@@ -460,8 +460,9 @@ function performAnalysis(html) {
     }
 
     // 13. Campos de formulário sem label
+    const FORM_FIELD_SELECTOR = 'input:not([type="hidden"]):not([type="submit"]):not([type="button"]):not([type="reset"]), textarea, select';
     let unlabeled = 0;
-    doc.querySelectorAll('input:not([type="hidden"]):not([type="submit"]):not([type="button"]):not([type="reset"]), textarea, select')
+    doc.querySelectorAll(FORM_FIELD_SELECTOR)
         .forEach(field => {
             const id  = field.getAttribute('id');
             const ok  = field.hasAttribute('aria-label') ||
@@ -476,7 +477,20 @@ function performAnalysis(html) {
             fix: '<label for="campoId">Nome do campo</label>' });
     }
 
-    // 14. Estilos inline excessivos
+    // 14. Campos de formulário sem id ou name
+    let missingIdName = 0;
+    doc.querySelectorAll(FORM_FIELD_SELECTOR)
+        .forEach(field => {
+            if (!field.getAttribute('id') && !field.getAttribute('name')) missingIdName++;
+        });
+    if (missingIdName > 0) {
+        score -= 4;
+        issues.push({ type: 'error', lang: 'HTML', line: findLine(/<input|<textarea|<select/i), title: `${missingIdName} campo(s) sem id ou name`,
+            message: 'Campos de formulário devem ter os atributos id e name para acessibilidade e envio correto.',
+            fix: '<input type="text" id="campo" name="campo">' });
+    }
+
+    // 15. Estilos inline excessivos
     const inlineCount = doc.querySelectorAll('[style]').length;
     if (inlineCount > 3) {
         score -= 3;
@@ -485,7 +499,7 @@ function performAnalysis(html) {
             fix: 'Mova os estilos para uma regra CSS' });
     }
 
-    // 15. Tags obsoletas (HTML5)
+    // 16. Tags obsoletas (HTML5)
     const deprecated = ['font', 'center', 'marquee', 'blink', 'strike'];
     const found = deprecated.filter(t => doc.querySelector(t));
     if (found.length > 0) {
@@ -495,7 +509,7 @@ function performAnalysis(html) {
             fix: 'Use CSS para estilização em vez de tags de apresentação' });
     }
 
-    // 16. Favicon
+    // 17. Favicon
     if (!doc.querySelector('link[rel*="icon"]')) {
         score -= 2;
         issues.push({ type: 'warning', lang: 'HTML', line: findLine(/rel.*icon/i), title: 'Favicon não definido',
@@ -503,12 +517,28 @@ function performAnalysis(html) {
             fix: '<link rel="icon" href="/favicon.ico">' });
     }
 
-    // 17. Open Graph básico
+    // 18. Open Graph básico
     if (!doc.querySelector('meta[property="og:title"]')) {
         score -= 2;
         issues.push({ type: 'warning', lang: 'HTML', line: findLine(/og:title/i), title: 'Open Graph não configurado',
             message: 'Tags og: melhoram a aparência ao compartilhar links em redes sociais.',
             fix: '<meta property="og:title" content="Título da Página">' });
+    }
+
+    // 19. Folhas de estilo com URL relativa (não funcionam em srcdoc)
+    let relativeStylesheets = 0;
+    doc.querySelectorAll('link[rel="stylesheet"]').forEach(link => {
+        const href = (link.getAttribute('href') || '').trim();
+        if (href && !href.startsWith('http://') && !href.startsWith('https://') &&
+            !href.startsWith('//') && !href.startsWith('data:')) {
+            relativeStylesheets++;
+        }
+    });
+    if (relativeStylesheets > 0) {
+        score -= 5;
+        issues.push({ type: 'warning', lang: 'HTML', line: findLine(/link.*stylesheet/i), title: `${relativeStylesheets} folha(s) de estilo com URL relativa`,
+            message: 'URLs relativas em <link rel="stylesheet"> não funcionam na pré-visualização. Use URLs absolutas ou mova os estilos para a aba CSS.',
+            fix: '<link rel="stylesheet" href="https://exemplo.com/estilos.css">' });
     }
 
     score = Math.max(0, Math.min(100, score));
