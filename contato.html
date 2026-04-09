@@ -109,6 +109,43 @@
             </div>
         </div>
 
+        <!-- Contact form -->
+        <section id="contact-form-section">
+            <div class="section-icon-heading">
+                <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                <h2>Envie uma mensagem</h2>
+            </div>
+            <p class="cf-intro">Prefere mandar uma mensagem diretamente? Preencha o formulário abaixo. Você continuará nesta página após o envio.</p>
+            <form id="contactForm" class="contact-form" novalidate aria-label="Formulário de contato">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="cf-name">Nome <span class="required" aria-hidden="true">*</span></label>
+                        <input type="text" id="cf-name" name="name" required maxlength="100" autocomplete="name" placeholder="Seu nome" spellcheck="false">
+                    </div>
+                    <div class="form-group">
+                        <label for="cf-email">E-mail <span class="required" aria-hidden="true">*</span></label>
+                        <input type="email" id="cf-email" name="email" required maxlength="100" autocomplete="email" placeholder="seu@email.com" spellcheck="false">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="cf-subject">Assunto <span class="required" aria-hidden="true">*</span></label>
+                    <input type="text" id="cf-subject" name="subject" required maxlength="150" placeholder="Do que se trata?">
+                </div>
+                <div class="form-group">
+                    <label for="cf-message">Mensagem <span class="required" aria-hidden="true">*</span></label>
+                    <textarea id="cf-message" name="message" required maxlength="2000" rows="6" placeholder="Escreva sua mensagem aqui…"></textarea>
+                    <span class="char-count" id="cf-char-count" aria-live="polite">0 / 2000</span>
+                </div>
+                <!-- honeypot anti-spam -->
+                <input type="text" name="_honey" class="cf-honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+                <div id="cf-alert" class="cf-alert" role="alert" aria-live="assertive" hidden></div>
+                <button type="submit" class="cf-submit" id="cf-submit-btn">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                    Enviar mensagem
+                </button>
+            </form>
+        </section>
+
         <!-- FAQ section -->
         <section>
             <div class="section-icon-heading">
@@ -236,6 +273,159 @@
             }
         });
     });
+
+    // ─── Contact form ──────────────────────────────────────────────────────────
+    (function () {
+        var form      = document.getElementById('contactForm');
+        var alertBox  = document.getElementById('cf-alert');
+        var submitBtn = document.getElementById('cf-submit-btn');
+        var charCount = document.getElementById('cf-char-count');
+        var msgArea   = document.getElementById('cf-message');
+        var ENDPOINT  = 'https://formsubmit.co/ajax/fa441fa540f3b0e3989f3268b6371e3b';
+
+        /** Escapes HTML special characters to prevent XSS when inserting into DOM.
+         *  Note: all user values are set via textContent, not innerHTML,
+         *  so this is an extra layer of defence. */
+        function sanitize(str) {
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#x27;');
+        }
+
+        /** Strips leading/trailing whitespace and collapses internal runs. */
+        function normalizeWS(str) {
+            return str.trim().replace(/\s+/g, ' ');
+        }
+
+        function isValidEmail(val) {
+            // RFC-5322-inspired pattern — rejects obvious injections
+            return /^[^\s@"';<>]{1,64}@[^\s@"';<>]{1,253}\.[a-zA-Z]{2,}$/.test(val);
+        }
+
+        function showAlert(type, msg) {
+            alertBox.className = 'cf-alert cf-alert--' + type;
+            alertBox.textContent = msg;   // textContent: never executes injected HTML
+            alertBox.hidden = false;
+            alertBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function clearAlert() {
+            alertBox.hidden = true;
+            alertBox.textContent = '';
+            alertBox.className = 'cf-alert';
+        }
+
+        // Live character counter for textarea
+        if (msgArea && charCount) {
+            msgArea.addEventListener('input', function () {
+                var len = msgArea.value.length;
+                charCount.textContent = len + ' / 2000';
+                charCount.classList.toggle('char-count--near', len >= 1800);
+                charCount.classList.toggle('char-count--over', len > 2000);
+            });
+        }
+
+        if (!form) return;
+
+        var originalBtnHTML = submitBtn ? submitBtn.innerHTML : '';
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            clearAlert();
+
+            // ── Honeypot check ────────────────────────────────────────────────
+            var honey = form.querySelector('[name="_honey"]');
+            if (honey && honey.value !== '') return; // bot detected — silently drop
+
+            // ── Collect & sanitise values ─────────────────────────────────────
+            var rawName    = normalizeWS(document.getElementById('cf-name').value);
+            var rawEmail   = normalizeWS(document.getElementById('cf-email').value);
+            var rawSubject = normalizeWS(document.getElementById('cf-subject').value);
+            var rawMessage = normalizeWS(document.getElementById('cf-message').value);
+
+            // ── Client-side validation ────────────────────────────────────────
+            if (!rawName) {
+                showAlert('error', 'Por favor, informe seu nome.');
+                document.getElementById('cf-name').focus();
+                return;
+            }
+            if (rawName.length > 100) {
+                showAlert('error', 'O nome deve ter no máximo 100 caracteres.');
+                return;
+            }
+            if (!rawEmail || !isValidEmail(rawEmail)) {
+                showAlert('error', 'Por favor, informe um endereço de e-mail válido.');
+                document.getElementById('cf-email').focus();
+                return;
+            }
+            if (!rawSubject) {
+                showAlert('error', 'Por favor, informe o assunto.');
+                document.getElementById('cf-subject').focus();
+                return;
+            }
+            if (rawSubject.length > 150) {
+                showAlert('error', 'O assunto deve ter no máximo 150 caracteres.');
+                return;
+            }
+            if (!rawMessage) {
+                showAlert('error', 'Por favor, escreva sua mensagem.');
+                document.getElementById('cf-message').focus();
+                return;
+            }
+            if (rawMessage.length > 2000) {
+                showAlert('error', 'A mensagem deve ter no máximo 2 000 caracteres.');
+                return;
+            }
+
+            // ── Loading state ─────────────────────────────────────────────────
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Enviando…';
+
+            // ── AJAX submission (page never redirects) ────────────────────────
+            fetch(ENDPOINT, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    name:     sanitize(rawName),
+                    email:    sanitize(rawEmail),
+                    subject:  sanitize(rawSubject),
+                    message:  sanitize(rawMessage),
+                    _captcha: 'false'
+                })
+            })
+            .then(function (res) {
+                return res.json().then(function (data) {
+                    return { ok: res.ok, data: data };
+                });
+            })
+            .then(function (result) {
+                // eslint-disable-next-line eqeqeq
+                if (result.ok && result.data && result.data.success == 'true') {
+                    showAlert('success',
+                        '✓ Mensagem enviada com sucesso! Agradeço o contato e responderei em breve.');
+                    form.reset();
+                    if (charCount) charCount.textContent = '0 / 2000';
+                } else {
+                    showAlert('error',
+                        'Não foi possível enviar a mensagem. Tente novamente ou use o e-mail diretamente.');
+                }
+            })
+            .catch(function () {
+                showAlert('error',
+                    'Erro de conexão. Verifique sua internet e tente novamente, ou envie por e-mail.');
+            })
+            .finally(function () {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnHTML;
+            });
+        });
+    }());
 
     // Copy email to clipboard
     var copyBtn = document.getElementById('copyEmailBtn');
